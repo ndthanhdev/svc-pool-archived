@@ -1,0 +1,19 @@
+{
+  "name": "plugin-pool",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf ./dist && tsc --build tsconfig.json",
+    "test": "jest",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "jest": "^24.8.0",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {}
+}
