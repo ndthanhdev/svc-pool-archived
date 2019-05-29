@@ -1,0 +1,58 @@
+{
+	"name": "@svc-pool/loader",
+	"version": "1.0.0",
+	"description": "> TODO: description",
+	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
+	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
+	"license": "MIT",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"directories": {
+		"lib": "lib",
+		"test": "__tests__"
+	},
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ndthanhdev/plugin-pool.git"
+	},
+	"scripts": {
+		"clean": "rimraf ./dist",
+		"_build": "rollup -c",
+		"build": "run-s clean _build",
+		"test": "jest --coverage",
+		"prepublishOnly": "yarn run build"
+	},
+	"bugs": {
+		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
+	},
+	"steal": {},
+	"peerDependencies": {
+		"@svc-pool/core": "~1.0.0"
+	},
+	"devDependencies": {
+		"@types/execa": "^2.0.0",
+		"@types/jest": "^24.0.18",
+		"@types/jsdom": "^12.2.4",
+		"@types/node": "^12.6.8",
+		"cross-env": "^5.2.0",
+		"gh-pages": "^2.1.1",
+		"jest": "^24.9.0",
+		"npm-run-all": "^4.1.5",
+		"ramda": "^0.26.1",
+		"requirejs": "^2.3.6",
+		"rollup": "^1.25.2",
+		"rollup-plugin-commonjs": "^10.1.0",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-typescript2": "^0.24.3",
+		"ts-jest": "^24.1.0",
+		"ts-loader": "^6.0.4",
+		"ts-node": "^8.3.0",
+		"typescript": "^3.6.4"
+	},
+	"dependencies": {
+		"ramda": "^0.26.1"
+	}
+}

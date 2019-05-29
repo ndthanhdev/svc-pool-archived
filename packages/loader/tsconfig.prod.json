@@ -1,0 +1,10 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["./src/**/*"],
+	"compilerOptions": {
+		"module": "esnext",
+		// https://github.com/facebook/jest/issues/8218#issuecomment-486275996
+		"moduleResolution": "node",
+		"outDir": "../dist"
+	}
+}

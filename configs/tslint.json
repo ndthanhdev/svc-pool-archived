@@ -1,0 +1,24 @@
+{
+	"defaultSeverity": "error",
+	"extends": ["tslint-config-airbnb", "tslint-config-prettier"],
+	"jsRules": {},
+	"rules": {
+		"variable-name": {
+			"options": ["allow-leading-underscore"]
+		},
+		"function-name": [
+			true,
+			{
+				"function-regex": "^[_a-z][\\w\\d]+$"
+			}
+		],
+		"import-name": [
+			true,
+			{
+				"ramda": "R",
+				"react": "React"
+			}
+		]
+	},
+	"rulesDirectory": []
+}

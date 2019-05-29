@@ -1,0 +1,45 @@
+const path = require('path')
+const ghPages = require('gh-pages')
+
+const rootPackage = require(`../package.json`)
+
+function publish(base, cb) {
+	const package = require(`${base}/package.json`)
+
+	const branch = `latest/${package.name}`
+	const tag = `${package.name}/${rootPackage.version}`
+
+	console.log(`publishing ${package.name}`)
+
+	function handlePublishCb(err) {
+		if (err) {
+			console.error(err)
+		} else {
+			console.log(`published ${package.name}`)
+			cb()
+		}
+	}
+
+	return ghPages.publish(
+		base,
+		{
+			branch,
+			// tag,
+		},
+		handlePublishCb,
+	)
+}
+
+function publishAll(packageDirs) {
+	if (packageDirs.length) {
+		publish(packageDirs[0], () => publishAll(packageDirs.slice(1)))
+	}
+}
+
+const dirs = [
+	'packages/registry',
+	'packages/core',
+	'packages/loader',
+	'packages/react',
+].map(s => path.resolve(s))
+publishAll(dirs)
