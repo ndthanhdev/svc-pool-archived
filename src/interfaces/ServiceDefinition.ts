@@ -1,18 +1,29 @@
-import { Point } from "./Point";
-import { IServiceFactory } from "./ServiceFactory";
+import { Point } from '../Point'
+import { IServiceFactory } from './ServiceFactory'
+
+export interface IFullDependencyDefinition {
+  point: Point
+  optional: boolean
+}
+
+export type IDependencyDefinition = IFullDependencyDefinition | Point
 
 export interface IDependenciesMap {
-  [key: string]: Point
+  [key: string]: IDependencyDefinition
+}
+
+export interface IFullDependenciesMap {
+  [key: string]: IFullDependencyDefinition
 }
 
 export interface IServiceDefinition {
   point: Point
-  deps?: IDependenciesMap,
+  deps?: IDependenciesMap
   factory: IServiceFactory
 }
 
 export interface IFullServiceDefinition {
   point: Point
-  deps: IDependenciesMap,
+  deps: IFullDependenciesMap
   factory: IServiceFactory
 }

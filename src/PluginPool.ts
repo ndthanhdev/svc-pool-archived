@@ -1,78 +1,121 @@
-import { IPlugin } from "./interfaces/Plugin";
-import { Point } from "./interfaces/Point";
-import { IServiceDefinition, IFullServiceDefinition } from "./interfaces/ServiceDefinition";
-import { CircularDependency } from "./exceptions/Circular";
-import { NotRegistered } from "./exceptions/NotRegistered";
-import { Unresolved } from "./exceptions/Unresolved";
+import { IPlugin } from './interfaces/Plugin'
+import { Point } from './Point'
+import {
+  IServiceDefinition,
+  IFullServiceDefinition,
+  IFullDependenciesMap,
+  IFullDependencyDefinition,
+} from './interfaces/ServiceDefinition'
+import { CircularDependency } from './exceptions/Circular'
+import { NotRegistered } from './exceptions/NotRegistered'
+import { Unresolved } from './exceptions/Unresolved'
+import { NotMany } from './exceptions/NotMany'
 
-function createOptionalDefinition(point: Point): IFullServiceDefinition {
-  return {
+function convertToFullDefinition({
+  deps = {},
+  point,
+  factory,
+}: IServiceDefinition): IFullServiceDefinition {
+  const re: IFullServiceDefinition = {
     point,
+    factory,
     deps: {},
-    factory: () => undefined
   }
-}
 
-function convertToFullDefinition(def: IServiceDefinition): IFullServiceDefinition {
-  let re: IFullServiceDefinition = {
-    deps: {},
-    ...def
-  }
+  re.deps = Object.keys(deps).reduce(
+    (acc, k) => {
+      const depDef = deps[k]
+      if (depDef instanceof Point) {
+        acc[k] = {
+          point: depDef,
+          optional: false,
+        }
+      } else {
+        acc[k] = depDef
+      }
+      return acc
+    },
+    {} as IFullDependenciesMap,
+  )
 
   return re
 }
 
 export default class PluginPool {
-  private registered: Map<Point, IFullServiceDefinition[]> = new Map<Point, IFullServiceDefinition[]>()
+  private registered: Map<Point, IFullServiceDefinition[]> = new Map<
+    Point,
+    IFullServiceDefinition[]
+  >()
   private points: Point[] = []
-  private _getServices: ((point: Point) => any[] | undefined) | null = null
+  private theGetServices: ((point: Point) => any[] | undefined) | null = null
 
   importPlugin(plugin: IPlugin) {
     plugin.forEach(definition => this.register(definition))
   }
 
   register(definition: IServiceDefinition) {
-    const _definition = convertToFullDefinition(definition)
+    const theDefinition = convertToFullDefinition(definition)
     if (this.registered.has(definition.point)) {
-      const instock = this.registered.get(definition.point)
-      this.registered.set(definition.point, [...<[]>instock, _definition])
+      if (theDefinition.point.many) {
+        const inStock = <IFullServiceDefinition[]>(
+          this.registered.get(definition.point)
+        )
+        this.registered.set(definition.point, [...inStock, theDefinition])
+      } else {
+        throw new NotMany(definition.point)
+      }
     } else {
-      this.registered.set(definition.point, [_definition])
+      this.registered.set(definition.point, [theDefinition])
     }
 
     this.points.push(definition.point)
   }
 
   async resolve() {
-    interface IResolvePointParams {
-      point: Point
-      root?: boolean
-      optional?: boolean
-    }
-
     const resolved = new Map<Point, any[]>() // point -> service/services
     const resolving = new Set()
 
+    const saveToResolved = (point: Point, oneOrManyInstances: any) => {
+      if (point.many) {
+        const inStock = resolved.get(point) || []
+        resolved.set(point, [...inStock, oneOrManyInstances])
+      } else {
+        resolved.set(point, oneOrManyInstances)
+      }
+    }
+
     // recursive resolve point
     const resolvePoint = async (point: Point, root = false) => {
+      const resolveDef = async (def: IFullDependencyDefinition) => {
+        const definitions = this.registered.get(def.point)
+
+        if (!definitions) {
+          if (def.optional) {
+            return undefined
+          }
+          throw new NotRegistered(point)
+
+        } else {
+          return await resolvePoint(def.point)
+        }
+      }
 
       const resolveService = async (definition: IFullServiceDefinition) => {
-        const deps = (definition && definition.deps) || {};
-        const resolvedDeps: any = {};
+        const deps = definition.deps
+        const resolvedDeps: any = {}
 
         for (const key in deps) {
-          const registeredPoint = deps[key];
-          resolvedDeps[key] = await resolvePoint(registeredPoint);
+          const registeredPoint = deps[key]
+          resolvedDeps[key] = await resolveDef(registeredPoint)
         }
 
-        let instance =
-          definition && definition.factory ? await definition.factory(resolvedDeps) : undefined;
+        const instance = await definition.factory(resolvedDeps)
 
-        return instance;
+        return instance
       }
 
       const resolveServices = async (definitions: IFullServiceDefinition[]) => {
-        let instances = []
+        const instances = []
 
         for (const def of definitions) {
           instances.push(await resolveService(def))
@@ -91,38 +134,33 @@ export default class PluginPool {
 
       resolving.add(point)
 
-      let definitions = this.registered.get(point)
+      const definitions = this.registered.get(point) as IFullServiceDefinition[]
 
-      if (!definitions) {
-        throw new NotRegistered(point);
-      }
-
-      let instances = await resolveServices(definitions)
+      const instanceOrInstances = await resolveServices(definitions)
 
       resolving.delete(point)
-      resolved.set(point, instances)
+      saveToResolved(point, instanceOrInstances)
 
-      return instances
+      return instanceOrInstances
     }
 
-    // resolve points serialy
+    // resolve points serially
     for (const point of this.points) {
       await resolvePoint(point, true)
     }
 
-    this._getServices = (point: Point) => resolved.get(point)
+    this.theGetServices = (point: Point) => resolved.get(point)
   }
 
   getServices(point: Point) {
-    if (!this._getServices) {
-      throw new Unresolved();
+    if (!this.theGetServices) {
+      throw new Unresolved()
     }
-    return this._getServices(point)
+    return this.theGetServices(point)
   }
 
   getService(point: Point) {
     const mayBeServices = this.getServices(point)
     return mayBeServices && mayBeServices[0]
   }
-
 }

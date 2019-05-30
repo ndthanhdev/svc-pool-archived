@@ -1,3 +1,3 @@
-import { IServiceDefinition } from "./ServiceDefinition";
+import { IServiceDefinition } from './ServiceDefinition'
 
 export type IPlugin = IServiceDefinition[]
