@@ -1,0 +1,27 @@
+{
+  "name": "plugin-pool",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "Thanh Nguyen <ndthanhdev@outlook.com>",
+  "homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ndthanhdev/plugin-pool.git"
+  },
+  "scripts": {
+  },
+  "bugs": {
+    "url": "https://github.com/ndthanhdev/plugin-pool/issues"
+  },
+  "devDependencies": {
+  }
+}
