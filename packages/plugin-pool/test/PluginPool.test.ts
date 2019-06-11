@@ -207,7 +207,7 @@ describe('optional', () => {
         },
         {
           point: optionalPoint,
-          factory: () => 'optional ',
+          factory: () => 'optional',
         },
       ]),
     )
