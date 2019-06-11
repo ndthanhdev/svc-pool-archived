@@ -94,7 +94,6 @@ export default class PluginPool {
             return undefined
           }
           throw new NotRegistered(point)
-
         } else {
           return await resolvePoint(def.point)
         }

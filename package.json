@@ -1,35 +1,22 @@
 {
-  "name": "plugin-pool",
+  "name": "root",
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf ./dist && tsc --build ./src/tsconfig.json",
-    "test": "jest",
-    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
-    "prettify": "prettier \"**/*.{json,ts}\"",
-    "prettify:fix": "prettier --write \"**/*.{json,ts}\"",
-    "lint": "npm run lint:src && npm run lint:test",
-    "lint:fix": "npm run lint:src:fix && npm run lint:test:fix",
-    "lint:src": "tslint -p ./src/tsconfig.json -c tslint.json",
-    "lint:src:fix": "tslint -p ./src/tsconfig.json -c tslint.json --fix",
-    "lint:test": "tslint -p ./test/tsconfig.json -c tslint.json",
-    "lint:test:fix": "tslint -p ./test/tsconfig.json -c tslint.json --fix"
+    "build": "lerna exec -- npm run build",
+    "test": "lerna exec -- npm run test",
+    "prettify": "prettier --config ./prettier.config.js \"**/*.{json,js,ts}\"",
+    "prettify:fix": "prettier --config ./prettier.config.js --write \"**/*.{json,js,ts}\"",
+    "lint": "lerna exec -- npm run lint",
+    "lint:fix": "lerna exec -- npm run lint:fix"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.13",
     "husky": "^2.3.0",
-    "jest": "^24.8.0",
+    "lerna": "^3.15.0",
     "lint-staged": "^8.1.7",
-    "prettier": "^1.17.1",
-    "rimraf": "^2.6.3",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
-    "tslint-config-airbnb": "^5.11.1",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.4.5"
+    "prettier": "^1.18.2"
   },
-  "dependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -38,11 +25,10 @@
   "lint-staged": {
     "**/*.{ts}": [
       "npm run lint:fix",
-      "prettier --write",
       "git add"
     ],
     "**/*.{js,json,md}": [
-      "prettier --write",
+      "prettier --config ./prettier.config.js --write",
       "git add"
     ]
   }

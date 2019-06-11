@@ -177,7 +177,7 @@ describe('optional', () => {
             },
           },
           factory: ({ optionalParam }) =>
-            `${(optionalParam || 'default')} test point instance`,
+            `${optionalParam || 'default'} test point instance`,
         },
       ]),
     )
@@ -203,7 +203,7 @@ describe('optional', () => {
             },
           },
           factory: ({ optionalParam }) =>
-            `${(optionalParam || 'default')} test point instance'`,
+            `${optionalParam || 'default'} test point instance'`,
         },
         {
           point: optionalPoint,

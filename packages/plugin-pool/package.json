@@ -1,0 +1,47 @@
+{
+  "name": "plugin-pool",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "Thanh Nguyen <ndthanhdev@outlook.com>",
+  "homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
+  "license": "ISC",
+  "main": "lib/plugin-pool.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ndthanhdev/plugin-pool.git"
+  },
+  "scripts": {
+    "build": "rimraf ./dist && tsc --build ./src/tsconfig.json",
+    "test": "jest --config ./jest.config.js",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
+    "prettify": "prettier \"**/*.{json,ts}\"",
+    "prettify:fix": "prettier --write \"**/*.{json,ts}\"",
+    "lint": "npm run lint:src && npm run lint:test",
+    "lint:fix": "npm run lint:src:fix && npm run lint:test:fix",
+    "lint:src": "tslint -p ./src/tsconfig.json -c tslint.json",
+    "lint:src:fix": "tslint -p ./src/tsconfig.json -c tslint.json --fix",
+    "lint:test": "tslint -p ./test/tsconfig.json -c tslint.json",
+    "lint:test:fix": "tslint -p ./test/tsconfig.json -c tslint.json --fix"
+  },
+  "bugs": {
+    "url": "https://github.com/ndthanhdev/plugin-pool/issues"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "jest": "^24.8.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.17.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.1"
+  }
+}
