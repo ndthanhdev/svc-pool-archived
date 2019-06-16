@@ -79,7 +79,7 @@ describe('deps test', () => {
     const pool = createPluginPool()
     pool.importPlugin(createPlugin([circularDef]))
 
-    await expect(pool.resolve()).rejects.toThrowError(CircularDependency)
+    await expect(pool.resolve()).rejects.toBeInstanceOf(CircularDependency)
   })
 
   test('not registered', async () => {
@@ -96,7 +96,7 @@ describe('deps test', () => {
 
     pool.importPlugin(createPlugin([notRegisteredDef]))
 
-    await expect(pool.resolve()).rejects.toThrowError(NotRegistered)
+    await expect(pool.resolve()).rejects.toBeInstanceOf(NotRegistered)
   })
 })
 
@@ -177,7 +177,7 @@ describe('optional', () => {
             },
           },
           factory: ({ optionalParam }) =>
-            `${(optionalParam || 'default')} test point instance`,
+            `${optionalParam || 'default'} test point instance`,
         },
       ]),
     )
@@ -203,11 +203,11 @@ describe('optional', () => {
             },
           },
           factory: ({ optionalParam }) =>
-            `${(optionalParam || 'default')} test point instance'`,
+            `${optionalParam || 'default'} test point instance`,
         },
         {
           point: optionalPoint,
-          factory: () => 'optional ',
+          factory: () => 'optional',
         },
       ]),
     )

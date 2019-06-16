@@ -94,7 +94,6 @@ export default class PluginPool {
             return undefined
           }
           throw new NotRegistered(point)
-
         } else {
           return await resolvePoint(def.point)
         }
@@ -123,6 +122,7 @@ export default class PluginPool {
         return instances
       }
 
+      // if there is alreadry a service for this point maybe this is a many point
       if (resolved.has(point) && !root) {
         return resolved.get(point)
       }
