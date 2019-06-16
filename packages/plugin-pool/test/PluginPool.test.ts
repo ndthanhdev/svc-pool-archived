@@ -79,10 +79,10 @@ describe('deps test', () => {
     const pool = createPluginPool()
     pool.importPlugin(createPlugin([circularDef]))
 
-    await expect(pool.resolve()).rejects.toThrowError(CircularDependency)
+    await expect(pool.resolve()).rejects.toBeInstanceOf(CircularDependency)
   })
 
-  test.skip('not registered', async () => {
+  test('not registered', async () => {
     const dependOnNotRegistered = createPoint('notRegistered')
 
     const notRegisteredDef: IServiceDefinition = {
@@ -96,7 +96,7 @@ describe('deps test', () => {
 
     pool.importPlugin(createPlugin([notRegisteredDef]))
 
-    await expect(pool.resolve()).rejects.toThrowError(NotRegistered)
+    await expect(pool.resolve()).rejects.toBeInstanceOf(NotRegistered)
   })
 })
 
@@ -132,7 +132,7 @@ describe('many', () => {
     ])
   })
 
-  test.skip('not many', () => {
+  test('not many', () => {
     const pool = createPluginPool()
 
     const notMany = createPoint('notMany')
@@ -218,7 +218,7 @@ describe('optional', () => {
   })
 })
 
-test.skip('Unresolved', () => {
+test('Unresolved', () => {
   expect(() => {
     const testPoint = createPoint('testPoint')
 
