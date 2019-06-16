@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "rimraf ./dist && tsc --build ./src/tsconfig.json",
-    "test": "jest --config ./jest.config.js",
+    "test": "jest --coverage",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
     "prettify": "prettier \"**/*.{json,ts}\"",
     "prettify:fix": "prettier --write \"**/*.{json,ts}\"",
