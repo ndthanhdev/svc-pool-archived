@@ -6,10 +6,10 @@
   "scripts": {
     "build": "lerna exec -- npm run build",
     "test": "lerna exec -- npm run test",
-    "prettify": "prettier --config ./prettier.config.js \"**/*.{json,js,ts}\"",
-    "prettify:fix": "prettier --config ./prettier.config.js --write \"**/*.{json,js,ts}\"",
     "lint": "lerna exec -- npm run lint",
-    "lint:fix": "lerna exec -- npm run lint:fix"
+    "lint:fix": "lerna exec -- npm run lint:fix",
+    "prettify": "prettier --config ./prettier.config.js \"**/*.{json,js,ts}\"",
+    "prettify:fix": "prettier --config ./prettier.config.js --write \"**/*.{json,js,ts}\""
   },
   "devDependencies": {
     "husky": "^2.3.0",
