@@ -12,4 +12,4 @@ export const createPlugin = (definitions: IServiceDefinition[]): IPlugin => [
 export const createPoint = (name: string, many?: boolean): Point =>
   new Point(name, many)
 
-export { PluginPool }
+export { PluginPool, Point }

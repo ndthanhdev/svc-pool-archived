@@ -125,7 +125,7 @@ describe('many', () => {
 
     await pool.resolve()
 
-    expect(pool.getService(many)).toEqual([
+    expect(pool.getServices(many)).toEqual([
       'instance 1',
       'instance 2',
       'instance 3',
