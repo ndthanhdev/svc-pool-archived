@@ -1,7 +1,7 @@
-import { Point } from 'plugin-pool'
+import { PointNames } from 'plugin-pool'
 import usePluginPool from './usePluginPool'
 
-export const useServices = (point: Point | string) => {
+export const useServices = (point: PointNames) => {
   const context = usePluginPool()
   return context && context.getServices(point)
 }

@@ -3,52 +3,17 @@ import { Point } from './Point'
 import {
   IServiceDefinition,
   IFullServiceDefinition,
-  IFullDependenciesMap,
   IFullDependencyDefinition,
 } from './interfaces/ServiceDefinition'
 import { CircularDependency } from './exceptions/Circular'
 import { NotRegistered } from './exceptions/NotRegistered'
 import { Unresolved } from './exceptions/Unresolved'
-import { NotMany } from './exceptions/NotMany'
-
-function convertToFullDefinition({
-  deps = {},
-  point,
-  factory,
-}: IServiceDefinition): IFullServiceDefinition {
-  const re: IFullServiceDefinition = {
-    point,
-    factory,
-    deps: {},
-  }
-
-  re.deps = Object.keys(deps).reduce(
-    (acc, k) => {
-      const depDef = deps[k]
-      if (depDef instanceof Point) {
-        acc[k] = {
-          point: depDef,
-          optional: false,
-        }
-      } else {
-        acc[k] = depDef
-      }
-      return acc
-    },
-    {} as IFullDependenciesMap,
-  )
-
-  return re
-}
+import { ServiceResolutionTypes, PointNames } from './registry'
+import { convertToFullDefinition } from './utils'
 
 export default class PluginPool {
-  private registered: Map<Point, IFullServiceDefinition[]> = new Map<
-    Point,
-    IFullServiceDefinition[]
-  >()
-  private theGetServices:
-    | ((point: Point | string) => any[] | undefined)
-    | null = null
+  private registered = new Map<Point, IFullServiceDefinition[]>()
+  private theGetServices: ((point: Point) => any[] | undefined) | null = null
 
   importPlugin(plugin: IPlugin) {
     plugin.forEach(definition => this.register(definition))
@@ -56,22 +21,15 @@ export default class PluginPool {
 
   register(definition: IServiceDefinition) {
     const theDefinition = convertToFullDefinition(definition)
-    if (this.registered.has(definition.point)) {
-      if (theDefinition.point.many) {
-        const inStock = <IFullServiceDefinition[]>(
-          this.registered.get(definition.point)
-        )
-        this.registered.set(definition.point, [...inStock, theDefinition])
-      } else {
-        throw new NotMany(definition.point)
-      }
-    } else {
-      this.registered.set(definition.point, [theDefinition])
-    }
+    const inStock = <IFullServiceDefinition[]>(
+      (this.registered.get(definition.point) || [])
+    )
+    this.registered.set(definition.point, [...inStock, theDefinition])
   }
 
   async resolve() {
-    const resolved = new Map<Point | string, any[]>() // point -> services
+    // @ts-ignore
+    const resolved: any = {}
     const resolving = new Set()
 
     // recursive resolve point
@@ -80,10 +38,8 @@ export default class PluginPool {
         const definitions = this.registered.get(def.point)
 
         if (!definitions) {
-          if (def.optional) {
-            return undefined
-          }
-          throw new NotRegistered(point)
+          if (def.optional) return undefined
+          else throw new NotRegistered(point)
         } else {
           return await resolvePoint(def.point)
         }
@@ -114,8 +70,10 @@ export default class PluginPool {
       }
 
       // if there is already a service for this point maybe this is a many point
-      if (resolved.has(point) && !root) {
-        return resolved.get(point)
+      // @ts-ignore
+      if (resolved[point] && !root) {
+        // @ts-ignore
+        return resolved[point]
       }
 
       // if currently resolving the same type, we have a circular dependency
@@ -138,21 +96,26 @@ export default class PluginPool {
     const points = Array.from(this.registered.keys())
     for (const point of points) {
       const instances = (await resolvePoint(point, true)) as any[]
-      resolved.set(point, instances)
+      // @ts-ignore
+      resolved[point] = instances
     }
 
-    this.theGetServices = (point: Point | string) => resolved.get(point)
+    // @ts-ignore
+    this.theGetServices = (point: Point) =>
+      // @ts-ignore
+      <ServiceResolutionTypes>resolved[point]
   }
 
-  getServices(point: Point | string) {
+  getServices(point: PointNames) {
     if (!this.theGetServices) {
       throw new Unresolved()
     }
+
     return this.theGetServices(point)
   }
 
-  getService(point: Point | string) {
-    const mayBeServices = this.getServices(point)
-    return mayBeServices && mayBeServices[0]
-  }
+  // getService(point: PointNames) {
+  //   const mayBeServices = this.getServices(point)
+  //   return mayBeServices && mayBeServices[0]
+  // }
 }

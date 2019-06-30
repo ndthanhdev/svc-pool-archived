@@ -1,8 +1,14 @@
 import React from 'react'
-import { createPluginPool, createPoint, createPlugin } from 'plugin-pool'
+import { createPluginPool, createPlugin } from 'plugin-pool'
 import { mount } from 'enzyme'
-import { usePluginPool, Provider, useService, useServices } from '../src'
+import { usePluginPool, Provider, useServices } from '../src'
 import { HookWrapper } from './utils'
+
+declare module 'plugin-pool' {
+  export interface ServiceResolutionTypes {
+    'test-point': any[]
+  }
+}
 
 test('usePluginPool', () => {
   let actual = null
@@ -20,38 +26,13 @@ test('usePluginPool', () => {
   expect(actual).toBe(pool)
 })
 
-test('useService', async () => {
-  const pool = createPluginPool()
-  const singlePoint = createPoint('singlePoint')
-  const pluginOfSinglePoint = createPlugin([
-    { point: singlePoint, factory: () => 'serviceOfSinglePoint' },
-  ])
-
-  pool.importPlugin(pluginOfSinglePoint)
-
-  await pool.resolve()
-
-  let actual
-  const runner = () => {
-    actual = useService(singlePoint)
-  }
-
-  mount(
-    <Provider value={pool}>
-      <HookWrapper callback={runner} />
-    </Provider>,
-  )
-
-  expect(actual).toStrictEqual('serviceOfSinglePoint')
-})
-
 test('useServices', async () => {
   const pool = createPluginPool()
-  const manyPoint = createPoint('manyPoint', true)
+  const testPoint = 'test-point'
 
   const pluginOfManyPoint = createPlugin([
-    { point: manyPoint, factory: () => 'serviceOfMany' },
-    { point: manyPoint, factory: () => 'serviceOfMany-other' },
+    { point: testPoint, factory: () => 'service1' },
+    { point: testPoint, factory: () => 'service2' },
   ])
 
   pool.importPlugin(pluginOfManyPoint)
@@ -60,7 +41,7 @@ test('useServices', async () => {
 
   let actual
   const runner = () => {
-    actual = useServices(manyPoint)
+    actual = useServices('test-point')
   }
 
   mount(
@@ -70,7 +51,7 @@ test('useServices', async () => {
   )
   console.log(actual)
 
-  expect(actual).toStrictEqual(['serviceOfMany', 'serviceOfMany-other'])
+  expect(actual).toStrictEqual(['service1', 'service2'])
 
   expect(true).toBe(true)
 })
