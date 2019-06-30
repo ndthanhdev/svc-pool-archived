@@ -1,7 +1,7 @@
-import { createPlugin, createPoint } from '../src/index'
+import { createPlugin } from '../src/index'
 
 test('create plugin without error', () => {
-  const point = createPoint('point')
+  const point = 'point'
   const plugin = createPlugin([
     {
       point,
