@@ -5,7 +5,7 @@
   "author": "Thanh Nguyen <ndthanhdev@outlook.com>",
   "homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
   "license": "MIT",
-  "main": "lib/plugin-pool-react.js",
+  "main": "lib/index.js",
   "files": [
     "lib"
   ],

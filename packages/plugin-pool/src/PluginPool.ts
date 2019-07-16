@@ -15,6 +15,10 @@ export default class PluginPool {
   private registered = new Map<Point, IFullServiceDefinition[]>()
   private theGetServices: ((point: Point) => any[] | undefined) | null = null
 
+  importPlugins(plugins: IPlugin[]) {
+    plugins.forEach(plugin => this.importPlugin(plugin))
+  }
+
   importPlugin(plugin: IPlugin) {
     plugin.forEach(definition => this.register(definition))
   }

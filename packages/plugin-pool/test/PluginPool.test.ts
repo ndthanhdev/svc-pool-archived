@@ -209,3 +209,26 @@ test('Unresolved', () => {
     pool.getServices('test-root')
   }).toThrowError(Unresolved)
 })
+
+test('importPlugins', async () => {
+  const pool = createPluginPool()
+  const rootPoint = 'test-root'
+
+  pool.importPlugins([
+    createPlugin([
+      {
+        point: rootPoint,
+        factory: () => 'svc-1',
+      },
+    ]),
+    createPlugin([
+      {
+        point: rootPoint,
+        factory: () => 'svc-2',
+      },
+    ]),
+  ])
+
+  await pool.resolve()
+  expect(pool.getServices(rootPoint)).toEqual(['svc-1', 'svc-2'])
+})
