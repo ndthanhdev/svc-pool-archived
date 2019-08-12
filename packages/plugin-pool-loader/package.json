@@ -22,6 +22,7 @@
   },
   "scripts": {
     "build": "rimraf ./dist && tsc --build ./tsconfig.prod.json",
+    "start-static-test-resources": "hs ",
     "test": "node -r ts-node/register ./scripts/test.ts"
   },
   "bugs": {
@@ -37,6 +38,8 @@
     "@types/node": "^12.6.8",
     "execa": "^2.0.3",
     "http-server": "^0.11.1",
+    "serve": "^11.1.0",
+    "tree-kill": "^1.2.1",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   }
