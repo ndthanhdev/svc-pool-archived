@@ -30,5 +30,8 @@
 		"tslint-config-prettier": "^1.18.0",
 		"tslint-react": "^4.0.0",
 		"typescript": "^3.5.1"
+	},
+	"peerDependencies": {
+		"@plugin-pool/registry": "^0.0.1"
 	}
 }
