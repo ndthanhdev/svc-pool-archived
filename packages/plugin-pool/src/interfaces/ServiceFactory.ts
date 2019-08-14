@@ -1,3 +1,3 @@
 export interface IServiceFactory {
-  (deps: any): Promise<any> | any
+	(deps: any): Promise<any> | any
 }

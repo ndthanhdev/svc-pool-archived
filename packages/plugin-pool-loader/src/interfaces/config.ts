@@ -1,4 +1,4 @@
 export interface Config {
-  // path to plugin
-  pluginPaths: string[]
+	// path to plugin
+	pluginPaths: string[]
 }
