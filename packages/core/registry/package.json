@@ -1,5 +1,5 @@
 {
-	"name": "@plugin-pool/registry",
+	"name": "@plugin-pool/core/registry",
 	"version": "0.0.1",
 	"main": "dist/index.js",
 	"license": "MIT"
