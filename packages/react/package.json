@@ -1,5 +1,5 @@
 {
-	"name": "plugin-pool-react",
+	"name": "@plugin-pool/react",
 	"version": "0.0.1",
 	"description": "",
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
@@ -14,7 +14,9 @@
 		"url": "git+https://github.com/ndthanhdev/plugin-pool.git"
 	},
 	"scripts": {
-		"build": "rimraf ./dist && tsc --build ./tsconfig.prod.json",
+		"build": "run-s clean transpile",
+		"transpile": "tsc --build ./tsconfig.prod.json",
+		"clean": "rimraf ./dist",
 		"test": "jest --coverage",
 		"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
 		"lint": "tslint -p ./tsconfig.json -c tslint.json",
@@ -24,6 +26,7 @@
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
 	},
 	"devDependencies": {
+		"@plugin-pool/core": "^0.0.1",
 		"@types/enzyme": "^3.9.3",
 		"@types/enzyme-adapter-react-16": "^1.0.5",
 		"@types/jest": "^24.0.15",
@@ -32,7 +35,7 @@
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-react-16": "^1.14.0",
 		"jest": "^24.8.0",
-		"plugin-pool": "^0.0.1",
+		"npm-run-all": "^4.1.5",
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
 		"rimraf": "^2.6.3",

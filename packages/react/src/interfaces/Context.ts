@@ -1,4 +1,4 @@
-import { PluginPool } from 'plugin-pool'
+import { PluginPool } from '@plugin-pool/core'
 
 export type PluginPoolContextType = PluginPool | undefined
 

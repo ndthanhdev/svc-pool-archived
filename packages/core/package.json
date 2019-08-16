@@ -1,17 +1,20 @@
 {
-	"name": "plugin-pool",
+	"name": "@plugin-pool/core",
 	"version": "0.0.1",
 	"description": "> TODO: description",
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
 	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
 	"license": "ISC",
 	"main": "dist/index.js",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ndthanhdev/plugin-pool.git"
-	},
+	"repository": "git+https://github.com/ndthanhdev/plugin-pool.git",
 	"scripts": {
-		"build": "rimraf ./dist && tsc --build ./tsconfig.prod.json",
+		"build": "run-s build-registry build-core",
+		"build-core": "run-s clean-core transpile-core",
+		"build-registry": "run-s clean-registry transpile-registry ",
+		"transpile-core": "tsc --build ./tsconfig.prod.json",
+		"transpile-registry": "tsc --build ./registry/tsconfig.json",
+		"clean-core": "rimraf ./dist",
+		"clean-registry": "rimraf ./registry/dist",
 		"test": "jest --coverage",
 		"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
 		"lint": "tslint -p ./tsconfig.json -c tslint.json",
@@ -22,7 +25,9 @@
 	},
 	"devDependencies": {
 		"@types/jest": "^24.0.13",
+		"copyfiles": "^2.1.1",
 		"jest": "^24.8.0",
+		"npm-run-all": "^4.1.5",
 		"rimraf": "^2.6.3",
 		"ts-jest": "^24.0.2",
 		"tslint": "^5.17.0",
@@ -30,8 +35,5 @@
 		"tslint-config-prettier": "^1.18.0",
 		"tslint-react": "^4.0.0",
 		"typescript": "^3.5.1"
-	},
-	"peerDependencies": {
-		"@plugin-pool/registry": "^0.0.1"
 	}
 }

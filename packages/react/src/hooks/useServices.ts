@@ -1,4 +1,4 @@
-import { PointNames } from 'plugin-pool'
+import { PointNames } from '@plugin-pool/core/registry'
 import usePluginPool from './usePluginPool'
 
 export const useServices = (point: PointNames) => {

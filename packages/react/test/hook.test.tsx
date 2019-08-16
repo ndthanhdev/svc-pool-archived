@@ -1,10 +1,10 @@
 import React from 'react'
-import { createPluginPool, createPlugin } from 'plugin-pool'
+import { createPluginPool, createPlugin } from '@plugin-pool/core'
 import { mount } from 'enzyme'
 import { usePluginPool, Provider, useServices } from '../src'
 import { HookWrapper } from './utils'
 
-declare module 'plugin-pool' {
+declare module '@plugin-pool/core/registry' {
   export interface ServiceResolutionTypes {
     'test-point': any[]
   }

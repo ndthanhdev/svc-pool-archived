@@ -4,7 +4,7 @@ import { Unresolved } from '../src/exceptions/Unresolved'
 import { CircularDependency } from '../src/exceptions/Circular'
 import { NotRegistered } from '../src/exceptions/NotRegistered'
 
-declare module '../src/registry' {
+declare module '../registry' {
 	export interface ServiceResolutionTypes {
 		'test-root': any[]
 		'test-sub1': any[]

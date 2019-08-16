@@ -8,7 +8,7 @@ import {
 import { CircularDependency } from './exceptions/Circular'
 import { NotRegistered } from './exceptions/NotRegistered'
 import { Unresolved } from './exceptions/Unresolved'
-import { ServiceResolutionTypes, PointNames } from './registry'
+import { ServiceResolutionTypes, PointNames } from '../registry'
 import { convertToFullDefinition } from './utils'
 
 export default class PluginPool {
