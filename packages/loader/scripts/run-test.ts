@@ -16,4 +16,6 @@ import kill from 'tree-kill'
 	}
 
 	process.on('SIGINT', cleanUp)
+
+	await execa('jest', process.argv, { shell: true })
 })()

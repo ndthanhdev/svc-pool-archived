@@ -1,1 +1,3 @@
-export { default as load } from './load'
+import load from './load'
+
+export default load

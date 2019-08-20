@@ -1,21 +1,15 @@
 // @ts-ignore
-import _requirejs from 'requirejs'
+// import _requirejs from 'requirejs'
 import { PluginPool } from '@plugin-pool/core'
 import { Config } from './interfaces/config'
-import { IPlugin } from '@plugin-pool/core/dist/interfaces/Plugin';
+import { IPlugin } from '@plugin-pool/core/dist/interfaces/Plugin'
 
-const requirejs = _requirejs as Require
+// @ts-ignore
+import _loader from 'steal'
 
-function _loadModule(path: string) {
-	return new Promise<any>((resolve, reject) => {
-		const handleSuccess = ([m]: Array<any>) => resolve(m)
-		const handleError = (e: Error) => reject(e)
+const _loadModule = (path: string) => _loader.import(path)
 
-		requirejs([path], handleSuccess, handleError)
-	})
-}
-
-async function load(config: Config) {
+const load = async (config: Config) => {
 	const ps = config.pluginPaths.map(p => _loadModule(p))
 	const plugins = await Promise.all(ps)
 	// TODO: verify plugins content

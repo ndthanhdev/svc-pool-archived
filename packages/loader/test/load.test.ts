@@ -1,4 +1,5 @@
-import { load } from '../src'
+import load from '../src'
+import "@plugin-pool/core/registry";
 
 const TEST_SERVER = 'http://localhost:5000/'
 
