@@ -21,7 +21,7 @@
 		"url": "git+https://github.com/ndthanhdev/plugin-pool.git"
 	},
 	"scripts": {
-		"build": "rimraf ./dist && tsc --build ./tsconfig.prod.json",
+		"build": "rimraf ./dist && webpack",
 		"start-static-test-resources": "hs ",
 		"test": "node -r ts-node/register ./scripts/test.ts"
 	},
@@ -31,19 +31,24 @@
 	"steal": {},
 	"dependencies": {
 		"@plugin-pool/core": "^0.0.1",
-		"steal": "^2.2.2"
+		"requirejs": "^2.3.6"
 	},
 	"devDependencies": {
 		"@types/execa": "^2.0.0",
 		"@types/jest": "^24.0.17",
 		"@types/node": "^12.6.8",
+		"awesome-typescript-loader": "^5.2.1",
 		"execa": "^2.0.3",
 		"http-server": "^0.11.1",
 		"jest": "^24.8.0",
+		"parcel-bundler": "^1.12.3",
 		"serve": "^11.1.0",
 		"tree-kill": "^1.2.1",
 		"ts-jest": "^24.0.2",
+		"ts-loader": "^6.0.4",
 		"ts-node": "^8.3.0",
-		"typescript": "^3.5.3"
+		"typescript": "^3.5.3",
+		"webpack": "^4.39.2",
+		"webpack-cli": "^3.3.7"
 	}
 }

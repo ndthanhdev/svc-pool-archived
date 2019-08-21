@@ -1,3 +1,3 @@
-import load from './load'
+import loader from './loader'
 
-export default load
+(window as any).pluginPoolLoader = loader

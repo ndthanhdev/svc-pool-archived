@@ -1,13 +1,10 @@
-// @ts-ignore
-// import _requirejs from 'requirejs'
-import { PluginPool } from '@plugin-pool/core'
+import { PluginPool, IPlugin } from '../node_modules/@plugin-pool/core/src/index'
 import { Config } from './interfaces/config'
-import { IPlugin } from '@plugin-pool/core/dist/interfaces/Plugin'
 
-// @ts-ignore
-import _loader from 'steal'
+const _requirejs = (window as any).requirejs
 
-const _loadModule = (path: string) => _loader.import(path)
+const _loadModule = (path: string) =>
+	new Promise(resolve => _requirejs([path], resolve))
 
 const load = async (config: Config) => {
 	const ps = config.pluginPaths.map(p => _loadModule(p))
@@ -18,4 +15,6 @@ const load = async (config: Config) => {
 	return pool
 }
 
-export default load
+export default {
+	load,
+}
