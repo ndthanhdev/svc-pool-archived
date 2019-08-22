@@ -1,10 +1,14 @@
-import { PluginPool, IPlugin } from '../node_modules/@plugin-pool/core/src/index'
+import {
+	PluginPool,
+	IPlugin,
+} from '../node_modules/@plugin-pool/core/src/index'
 import { Config } from './interfaces/config'
 
-const _requirejs = (window as any).requirejs
+const _window = window as any
+const _loadAMD = _window.requirejs || _window.require
 
 const _loadModule = (path: string) =>
-	new Promise(resolve => _requirejs([path], resolve))
+	new Promise(resolve => _loadAMD([path], resolve))
 
 const load = async (config: Config) => {
 	const ps = config.pluginPaths.map(p => _loadModule(p))

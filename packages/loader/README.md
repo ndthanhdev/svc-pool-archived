@@ -4,8 +4,6 @@
 
 ## Usage
 
-```
-const pluginPoolLoader = require('plugin-pool-loader');
-
-// TODO: DEMONSTRATE API
+```html
+<script src="require.js" data-main="plugin-pool-loader-main.js"></script>
 ```

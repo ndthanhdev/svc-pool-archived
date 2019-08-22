@@ -3,31 +3,54 @@
 // after https://github.com/webpack/webpack/issues/3460 will be resolved.
 const { CheckerPlugin } = require('awesome-typescript-loader')
 const path = require('path')
+const R = require('ramda')
+const merge = require('webpack-merge')
 
-module.exports = {
-	mode: 'development',
-	entry: './src/index.ts',
-	output: {
-		filename: 'index.js',
-		path: path.resolve(__dirname, 'dist'),
-	},
-	// Currently we need to add '.ts' to the resolve.extensions array.
-	resolve: {
-		extensions: ['.ts', '.tsx', '.js', '.jsx'],
-	},
-	// Source maps support ('inline-source-map' also works)
-	devtool: 'source-map',
-	// Add the loader for .ts files.
-	module: {
-		rules: [
-			{
-				test: /\.tsx?$/,
-				loader: 'awesome-typescript-loader',
-				options: {
-					configFileName: 'tsconfig.prod.json',
-				},
-			},
-		],
-	},
-	plugins: [new CheckerPlugin()],
+function getEnvName() {
+	return process.env.NODE_ENV || 'development'
 }
+
+function createConstantConfigs() {
+	return {
+		entry: {
+			'plugin-pool-loader': './src/index.ts',
+			main: './src/main.ts',
+		},
+		output: {
+			filename: '[name].js',
+			path: path.resolve(__dirname, 'dist'),
+		},
+		// Currently we need to add '.ts' to the resolve.extensions array.
+		resolve: {
+			extensions: ['.ts', '.tsx', '.js', '.jsx'],
+		},
+		devtool: 'source-map',
+		module: {
+			rules: [
+				{
+					test: /\.tsx?$/,
+					loader: 'awesome-typescript-loader',
+					options: {
+						configFileName: 'tsconfig.prod.json',
+					},
+				},
+			],
+		},
+		plugins: [new CheckerPlugin()],
+	}
+}
+
+function createMode(envName, config) {
+	return merge(config, {
+		mode: envName,
+	})
+}
+
+const createModeFromEnv = R.partial(createMode, [getEnvName()])
+
+const createWebpackConfig = R.pipe(
+	createConstantConfigs,
+	createModeFromEnv,
+)
+
+module.exports = createWebpackConfig()
