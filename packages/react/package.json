@@ -1,0 +1,49 @@
+{
+	"name": "@plugin-pool/react",
+	"version": "0.0.1",
+	"description": "",
+	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
+	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
+	"license": "MIT",
+	"main": "lib/index.js",
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ndthanhdev/plugin-pool.git"
+	},
+	"scripts": {
+		"build": "run-s clean transpile",
+		"transpile": "tsc --build ./tsconfig.prod.json",
+		"clean": "rimraf ./dist",
+		"test": "jest --coverage",
+		"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
+		"lint": "tslint -p ./tsconfig.json -c tslint.json",
+		"lint:fix": "tslint -p ./tsconfig.json -c tslint.json --fix"
+	},
+	"bugs": {
+		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
+	},
+	"devDependencies": {
+		"@plugin-pool/core": "^0.0.1",
+		"@types/enzyme": "^3.9.3",
+		"@types/enzyme-adapter-react-16": "^1.0.5",
+		"@types/jest": "^24.0.15",
+		"@types/react": "^16.8.20",
+		"@types/react-dom": "^16.8.4",
+		"enzyme": "^3.10.0",
+		"enzyme-adapter-react-16": "^1.14.0",
+		"jest": "^24.8.0",
+		"npm-run-all": "^4.1.5",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"rimraf": "^2.6.3",
+		"ts-jest": "^24.0.2",
+		"tslint": "^5.17.0",
+		"tslint-config-airbnb": "^5.11.1",
+		"tslint-config-prettier": "^1.18.0",
+		"tslint-react": "^4.0.0",
+		"typescript": "^3.5.2"
+	}
+}

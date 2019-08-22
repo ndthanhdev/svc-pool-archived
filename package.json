@@ -1,35 +1,36 @@
 {
-  "name": "root",
-  "version": "1.0.0",
-  "main": "dist/index.js",
-  "license": "MIT",
-  "scripts": {
-    "build": "lerna exec -- npm run build",
-    "test": "lerna exec -- npm run test",
-    "lint": "lerna exec -- npm run lint",
-    "lint:fix": "lerna exec -- npm run lint:fix",
-    "prettify": "prettier --config ./prettier.config.js \"**/*.{json,js,ts}\"",
-    "prettify:fix": "prettier --config ./prettier.config.js --write \"**/*.{json,js,ts}\""
-  },
-  "devDependencies": {
-    "husky": "^2.3.0",
-    "lerna": "^3.15.0",
-    "lint-staged": "^8.1.7",
-    "prettier": "^1.18.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.{ts}": [
-      "npm run lint:fix",
-      "git add"
-    ],
-    "**/*.{js,json,md}": [
-      "prettier --config ./prettier.config.js --write",
-      "git add"
-    ]
-  }
+	"name": "root",
+	"version": "1.0.0",
+	"main": "dist/index.js",
+	"license": "MIT",
+	"scripts": {
+		"bootstrap": "lerna clean && lerna bootstrap",
+		"build": "lerna exec -- npm run build",
+		"test": "lerna exec -- npm run test",
+		"lint": "lerna exec -- npm run lint",
+		"lint:fix": "lerna exec -- npm run lint:fix",
+		"prettify": "prettier --config ./.prettierrc.yml \"**/*.{json,js,ts}\"",
+		"prettify:fix": "prettier --config ./.prettierrc.yml --write \"**/*.{json,js,ts}\""
+	},
+	"devDependencies": {
+		"husky": "^2.3.0",
+		"lerna": "^3.15.0",
+		"lint-staged": "^8.1.7",
+		"prettier": "^1.18.2"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"**/*.{ts}": [
+			"npm run lint:fix",
+			"git add"
+		],
+		"**/*.{js,json,md}": [
+			"prettier --config ./.prettierrc.yml --write",
+			"git add"
+		]
+	}
 }
