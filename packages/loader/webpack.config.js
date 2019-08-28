@@ -40,13 +40,13 @@ function createConstantConfigs() {
 	}
 }
 
-function createMode(envName, config) {
+const createMode = R.curry((envName, config) => {
 	return merge(config, {
 		mode: envName,
 	})
-}
+})
 
-const createModeFromEnv = R.partial(createMode, [getEnvName()])
+const createModeFromEnv = createMode(getEnvName())
 
 const createWebpackConfig = R.pipe(
 	createConstantConfigs,
