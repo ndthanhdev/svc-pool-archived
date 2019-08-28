@@ -20,7 +20,8 @@
 		"test": "jest --coverage",
 		"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
 		"lint": "tslint -p ./tsconfig.json -c tslint.json",
-		"lint:fix": "tslint -p ./tsconfig.json -c tslint.json --fix"
+		"lint:fix": "tslint -p ./tsconfig.json -c tslint.json --fix",
+		"prepublish": "npm run build"
 	},
 	"bugs": {
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"

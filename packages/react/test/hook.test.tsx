@@ -1,57 +1,73 @@
 import React from 'react'
-import { createPluginPool, createPlugin } from '@plugin-pool/core'
+import {
+	createDefinitionPool,
+	createPlugin,
+	PluginPool,
+} from '@plugin-pool/core'
 import { mount } from 'enzyme'
-import { usePluginPool, Provider, useServices } from '../src'
+import {
+	usePluginPool,
+	Provider,
+	useServices,
+	PluginPoolContextType,
+} from '../src'
 import { HookWrapper } from './utils'
 
 declare module '@plugin-pool/core/registry' {
-  export interface ServiceResolutionTypes {
-    'test-point': any[]
-  }
+	export interface ServiceResolutionTypes {
+		'test-point': any[]
+	}
 }
 
-test('usePluginPool', () => {
-  let actual = null
-  const runner = () => {
-    actual = usePluginPool()
-  }
+test('usePluginPool', done => {
+	let actual: PluginPoolContextType
+	const runner = () => {
+		actual = usePluginPool()
+	}
 
-  const pool = createPluginPool()
-  mount(
-    <Provider value={pool}>
-      <HookWrapper callback={runner} />
-    </Provider>,
-  )
-
-  expect(actual).toBe(pool)
+	let pool: PluginPool | null = null
+	createDefinitionPool()
+		.resolve()
+		.then(r => {
+			pool = r
+			mount(
+				<Provider value={pool}>
+					<HookWrapper callback={runner} />
+				</Provider>,
+			)
+		})
+		.then(() => {
+			expect(actual).toBe(pool)
+		})
+		.then(done)
 })
 
 test('useServices', async () => {
-  const pool = createPluginPool()
-  const testPoint = 'test-point'
+	const definitions = createDefinitionPool()
+	const testPoint = 'test-point'
 
-  const pluginOfManyPoint = createPlugin([
-    { point: testPoint, factory: () => 'service1' },
-    { point: testPoint, factory: () => 'service2' },
-  ])
+	const pluginOfManyPoint = createPlugin([
+		{ point: testPoint, factory: () => 'service1' },
+		{ point: testPoint, factory: () => 'service2' },
+	])
 
-  pool.importPlugin(pluginOfManyPoint)
+	definitions.importPlugin(pluginOfManyPoint)
 
-  await pool.resolve()
+	const pool = await definitions.resolve()
 
-  let actual
-  const runner = () => {
-    actual = useServices('test-point')
-  }
+	let actual
+	const runner = () => {
+		actual = useServices('test-point')
+	}
 
-  mount(
-    <Provider value={pool}>
-      <HookWrapper callback={runner} />
-    </Provider>,
-  )
-  console.log(actual)
+	mount(
+		<Provider value={pool}>
+			<HookWrapper callback={runner} />
+		</Provider>,
+	)
+	console.log(actual)
 
-  expect(actual).toStrictEqual(['service1', 'service2'])
+	expect(actual).toStrictEqual(['service1', 'service2'])
 
-  expect(true).toBe(true)
+	expect(true).toBe(true)
 })

@@ -1,8 +1,7 @@
-import { createPlugin, createPluginPool } from '../src/index'
-import { IServiceDefinition } from '../src/interfaces/ServiceDefinition'
-import { Unresolved } from '../src/exceptions/Unresolved'
 import { CircularDependency } from '../src/exceptions/Circular'
 import { NotRegistered } from '../src/exceptions/NotRegistered'
+import { createPlugin, createDefinitionPool } from '../src'
+import { IServiceDefinition } from '../src/interfaces/ServiceDefinition'
 
 declare module '../registry' {
 	export interface ServiceResolutionTypes {
@@ -25,11 +24,11 @@ describe('deps', () => {
 	}
 
 	test('deps free', async () => {
-		const pool = createPluginPool()
+		const definitions = createDefinitionPool()
 
-		pool.importPlugin(createPlugin([rootDef]))
+		definitions.importPlugin(createPlugin([rootDef]))
 
-		await pool.resolve()
+		const pool = await definitions.resolve()
 
 		const instance = pool.getServices('test-root')
 
@@ -37,7 +36,7 @@ describe('deps', () => {
 	})
 
 	test('with deps', async () => {
-		const pool = createPluginPool()
+		const definitions = createDefinitionPool()
 
 		const sub1 = 'test-sub1'
 		const sub2 = 'test-sub2'
@@ -68,9 +67,9 @@ describe('deps', () => {
 			factory: ({ sub1, sub2 }) => sub1[0] + sub2[0],
 		}
 
-		pool.importPlugin(createPlugin([rootDef, sub1Def, sub2Def, sub3Def]))
+		definitions.importPlugin(createPlugin([rootDef, sub1Def, sub2Def, sub3Def]))
 
-		await pool.resolve()
+		const pool = await definitions.resolve()
 
 		expect(pool.getServices('test-sub1')).toEqual(['RootSub'])
 		expect(pool.getServices('test-sub2')).toEqual(['RootSubSub'])
@@ -86,7 +85,7 @@ describe('deps', () => {
 			factory: () => 'never',
 		}
 
-		const pool = createPluginPool()
+		const pool = createDefinitionPool()
 		pool.importPlugin(createPlugin([circularDef]))
 
 		await expect(pool.resolve()).rejects.toBeInstanceOf(CircularDependency)
@@ -100,7 +99,7 @@ describe('deps', () => {
 			},
 			factory: () => 'never',
 		}
-		const pool = createPluginPool()
+		const pool = createDefinitionPool()
 
 		pool.importPlugin(createPlugin([notRegisteredDef]))
 
@@ -110,11 +109,11 @@ describe('deps', () => {
 
 describe('many points', () => {
 	test('many points test', async () => {
-		const pool = createPluginPool()
+		const definitions = createDefinitionPool()
 
 		const many = 'test-many'
 
-		pool.importPlugin(
+		definitions.importPlugin(
 			createPlugin([
 				{
 					point: many,
@@ -131,7 +130,7 @@ describe('many points', () => {
 			]),
 		)
 
-		await pool.resolve()
+		const pool = await definitions.resolve()
 
 		expect(pool.getServices('test-many')).toEqual([
 			'instance 1',
@@ -143,11 +142,11 @@ describe('many points', () => {
 
 describe('optional', () => {
 	test('without provider', async () => {
-		const pool = createPluginPool()
+		const definitions = createDefinitionPool()
 		const testPoint = 'test-root'
 		const optionalPoint = 'optional'
 
-		pool.importPlugin(
+		definitions.importPlugin(
 			createPlugin([
 				{
 					point: testPoint,
@@ -163,7 +162,7 @@ describe('optional', () => {
 			]),
 		)
 
-		await pool.resolve()
+		const pool = await definitions.resolve()
 
 		expect(pool.getServices('test-root')).toEqual([
 			'default test point instance',
@@ -171,11 +170,11 @@ describe('optional', () => {
 	})
 
 	test('with provider', async () => {
-		const pool = createPluginPool()
+		const definitions = createDefinitionPool()
 		const testPoint = 'test-root'
 		const optionalPoint = 'optional'
 
-		pool.importPlugin(
+		definitions.importPlugin(
 			createPlugin([
 				{
 					point: testPoint,
@@ -195,7 +194,7 @@ describe('optional', () => {
 			]),
 		)
 
-		await pool.resolve()
+		const pool = await definitions.resolve()
 
 		expect(pool.getServices('test-root')).toEqual([
 			'optional test point instance',
@@ -203,18 +202,11 @@ describe('optional', () => {
 	})
 })
 
-test('Unresolved', () => {
-	expect(() => {
-		const pool = createPluginPool()
-		pool.getServices('test-root')
-	}).toThrowError(Unresolved)
-})
-
 test('importPlugins', async () => {
-	const pool = createPluginPool()
+	const definitions = createDefinitionPool()
 	const rootPoint = 'test-root'
 
-	pool.importPlugins([
+	definitions.importPlugins([
 		createPlugin([
 			{
 				point: rootPoint,
@@ -229,6 +221,34 @@ test('importPlugins', async () => {
 		]),
 	])
 
-	await pool.resolve()
+	const pool = await definitions.resolve()
 	expect(pool.getServices(rootPoint)).toEqual(['svc-1', 'svc-2'])
+})
+
+test('chaining', done => {
+	const definitions = createDefinitionPool()
+	const rootPoint = 'test-root'
+
+	const plugin1 = createPlugin([
+		{
+			point: rootPoint,
+			factory: () => 'svc-1',
+		},
+	])
+
+	const plugin2 = createPlugin([
+		{
+			point: rootPoint,
+			factory: () => 'svc-2',
+		},
+	])
+
+	definitions
+		.importPlugin(plugin1)
+		.importPlugin(plugin2)
+		.resolve()
+		.then(pool => {
+			expect(pool.getServices(rootPoint)).toEqual(['svc-1', 'svc-2'])
+		})
+		.then(done)
 })

@@ -1,4 +1,4 @@
-import { createPlugin } from '../src/index'
+import { createPlugin } from '../src'
 
 test('create plugin without error', () => {
 	const point = 'point'
