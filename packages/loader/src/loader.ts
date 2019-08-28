@@ -1,7 +1,4 @@
-import {
-	PluginPool,
-	IPlugin,
-} from '../node_modules/@plugin-pool/core/src/index'
+import { createDefinitionPool, IPluginDefinition } from '@plugin-pool/core'
 import { Config } from './interfaces/config'
 
 const _window = window as any
@@ -14,9 +11,7 @@ const load = async (config: Config) => {
 	const ps = config.pluginPaths.map(p => _loadModule(p))
 	const plugins = await Promise.all(ps)
 	// TODO: verify plugins content
-	const pool = new PluginPool()
-	pool.importPlugins(plugins as IPlugin[])
-	return pool
+	return createDefinitionPool().importPlugins(plugins as IPluginDefinition[])
 }
 
 export default {

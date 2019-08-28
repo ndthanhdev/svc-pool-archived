@@ -18,7 +18,8 @@
 		"test": "jest --coverage",
 		"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
 		"lint": "tslint -p ./tsconfig.json -c tslint.json",
-		"lint:fix": "tslint -p ./tsconfig.json -c tslint.json --fix"
+		"lint:fix": "tslint -p ./tsconfig.json -c tslint.json --fix",
+		"prepublish": "npm run build"
 	},
 	"bugs": {
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
@@ -35,5 +36,9 @@
 		"tslint-config-prettier": "^1.18.0",
 		"tslint-react": "^4.0.0",
 		"typescript": "^3.5.1"
+	},
+	"dependencies": {
+		"@types/ramda": "^0.26.20",
+		"ramda": "^0.26.1"
 	}
 }
