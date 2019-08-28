@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import{ useContext } from 'react'
 import Context from '../components/Context'
 
 export const usePluginPool = () => {

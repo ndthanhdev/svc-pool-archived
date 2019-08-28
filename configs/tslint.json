@@ -2,6 +2,17 @@
 	"defaultSeverity": "error",
 	"extends": ["tslint-config-airbnb", "tslint-config-prettier"],
 	"jsRules": {},
-	"rules": {},
+	"rules": {
+		"variable-name": {
+			"options": ["allow-leading-underscore"]
+		},
+		"import-name": [
+			true,
+			{
+				"ramda": "R",
+				"react": "React"
+			}
+		]
+	},
 	"rulesDirectory": []
 }

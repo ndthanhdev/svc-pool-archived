@@ -1,3 +1,1 @@
-export interface IServiceFactory {
-	(deps: any): Promise<any> | any
-}
+export type IServiceFactory = (deps: any) => Promise<any> | any
