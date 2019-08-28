@@ -1,7 +1,7 @@
-// import load from '../src'
-import "@plugin-pool/core/registry";
+import loader from '../src'
+import '@plugin-pool/core/registry'
 
-const TEST_SERVER = 'http://localhost:5000/'
+const BASE = './test/assets'
 
 declare module '@plugin-pool/core/registry' {
 	export interface ServiceResolutionTypes {
@@ -9,14 +9,16 @@ declare module '@plugin-pool/core/registry' {
 	}
 }
 
-// test('load', done => {
-// 	load({
-// 		pluginPaths: [`${TEST_SERVER}/p1.js`],
-// 	})
-// 		.then(pluginPool => Promise.all([pluginPool.resolve(), pluginPool]))
-// 		.then(([_, pluginPool]) => {
-// 			console.log(pluginPool.getServices('a-point-for-test'))
-// 			expect(true).toBe(true)
-// 		})
-// 		.then(done)
-// })
+test('load', done => {
+	loader
+		.load({
+			pluginPaths: [`${BASE}/p1.js`],
+		})
+		.then(definitionPool => definitionPool.resolve())
+		.then(pluginPool => {
+			expect(pluginPool.getServices('a-point-for-test')).toStrictEqual([
+				'a-service-for-test',
+			])
+		})
+		.then(done)
+})

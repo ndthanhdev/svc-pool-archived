@@ -1,4 +1,4 @@
-import { Point } from '../Point'
+import { Point } from '../interfaces/Point'
 import BaseError from './BaseError'
 
 export class NotRegistered extends BaseError {
