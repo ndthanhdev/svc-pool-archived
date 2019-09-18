@@ -1,9 +1,9 @@
 import {
 	IDependencyDefinition,
-	IFullDependencyDefinition,
-	IServiceDefinition,
-	IFullServiceDefinition,
 	IFullDependenciesMap,
+	IFullDependencyDefinition,
+	IFullServiceDefinition,
+	IServiceDefinition,
 } from './interfaces/ServiceDefinition'
 
 export function isFullDefinition(

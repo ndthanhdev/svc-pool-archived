@@ -1,13 +1,12 @@
-import PluginPool from './PluginPool'
+import { IPluginDefinition } from './interfaces'
 import { IServiceDefinition } from './interfaces/ServiceDefinition'
-import { IPlugin } from './interfaces'
-import { Point } from './Point'
+import { Point } from './interfaces/Point'
 
-export const createPluginPool = () => new PluginPool()
+export { createDefinitionPool, PluginPool } from './createDefinitionPool'
 
-export const createPlugin = (definitions: IServiceDefinition[]): IPlugin => [
+export const createPlugin = (definitions: IServiceDefinition[]): IPluginDefinition => [
 	...definitions,
 ]
 
-export { PluginPool, Point }
+export { Point }
 export * from './interfaces'

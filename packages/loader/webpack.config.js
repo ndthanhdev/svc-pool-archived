@@ -14,7 +14,6 @@ function createConstantConfigs() {
 	return {
 		entry: {
 			'plugin-pool-loader': './src/index.ts',
-			main: './src/main.ts',
 		},
 		output: {
 			filename: '[name].js',
@@ -40,13 +39,13 @@ function createConstantConfigs() {
 	}
 }
 
-function createMode(envName, config) {
+const createMode = R.curry((envName, config) => {
 	return merge(config, {
 		mode: envName,
 	})
-}
+})
 
-const createModeFromEnv = R.partial(createMode, [getEnvName()])
+const createModeFromEnv = createMode(getEnvName())
 
 const createWebpackConfig = R.pipe(
 	createConstantConfigs,
