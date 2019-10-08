@@ -1,6 +1,6 @@
 {
 	"name": "@plugin-pool/react",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "",
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
 	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
@@ -27,7 +27,7 @@
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
 	},
 	"devDependencies": {
-		"@plugin-pool/core": "^0.0.1",
+		"@plugin-pool/core": "^0.0.2",
 		"@types/enzyme": "^3.9.3",
 		"@types/enzyme-adapter-react-16": "^1.0.5",
 		"@types/jest": "^24.0.15",
