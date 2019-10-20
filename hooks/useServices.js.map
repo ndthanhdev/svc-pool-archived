@@ -1,0 +1,1 @@
+{"version":3,"file":"useServices.js","sourceRoot":"","sources":["../../src/hooks/useServices.ts"],"names":[],"mappings":";;;;;AACA,kEAA2C;AAE9B,QAAA,WAAW,GAAG,UAAC,KAAiB;IAC5C,IAAM,OAAO,GAAG,uBAAa,EAAE,CAAA;IAC/B,OAAO,OAAO,IAAI,OAAO,CAAC,WAAW,CAAC,KAAK,CAAC,CAAA;AAC7C,CAAC,CAAA;AAED,kBAAe,mBAAW,CAAA"}
