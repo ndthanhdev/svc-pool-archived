@@ -1,0 +1,97 @@
+Arguments: 
+  C:\Program Files (x86)\Nodist\v-x64\12.7.0\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install --mutex network:42424 --non-interactive --no-lockfile
+
+PATH: 
+  C:\Users\ndtha\sources\plugin-pool\packages\loader\node_modules\.bin;C:\Users\ndtha\sources\plugin-pool\packages\node_modules\.bin;C:\Users\ndtha\sources\plugin-pool\node_modules\.bin;C:\Users\ndtha\sources\node_modules\.bin;C:\Users\ndtha\node_modules\.bin;C:\Users\node_modules\.bin;C:\node_modules\.bin;C:\Program Files (x86)\Nodist\v-x64\12.7.0;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files (x86)\Nodist\bin;C:\Go\bin;C:\Program Files (x86)\Yarn\bin\;C:\Users\ndtha\AppData\Local\Microsoft\WindowsApps;C:\Users\ndtha\AppData\Local\Yarn\Data\global\node_modules\.bin;C:\Users\ndtha\go\bin;C:\Users\ndtha\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.19.1
+
+Node version: 
+  12.7.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPIPE: broken pipe, write
+      at Socket._write (internal/net.js:58:25)
+      at doWrite (_stream_writable.js:417:12)
+      at writeOrBuffer (_stream_writable.js:401:5)
+      at Socket.Writable.write (_stream_writable.js:301:11)
+      at ConsoleReporter.warn (C:\Program Files (x86)\Yarn\lib\cli.js:92568:17)
+      at NpmResolver.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:50319:23)
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:304:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:315:13
+      at processTicksAndRejections (internal/process/task_queues.js:85:5)
+
+npm manifest: 
+  {
+  	"name": "@plugin-pool/loader",
+  	"version": "0.0.2",
+  	"description": "> TODO: description",
+  	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
+  	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
+  	"license": "MIT",
+  	"main": "dist/index.js",
+  	"directories": {
+  		"lib": "lib",
+  		"test": "__tests__"
+  	},
+  	"files": [
+  		"lib"
+  	],
+  	"repository": {
+  		"type": "git",
+  		"url": "git+https://github.com/ndthanhdev/plugin-pool.git"
+  	},
+  	"scripts": {
+  		"clean": "rimraf ./dist",
+  		"build:prod": "cross-env NODE_ENV=production && run-s clean && webpack",
+  		"build": "run-s build:prod",
+  		"test": "jest --coverage",
+  		"prepublish": "npm run build",
+  		"lint": "tslint -p ./tsconfig.json -c tslint.json",
+  		"lint:fix": "tslint -p ./tsconfig.json -c tslint.json --fix"
+  	},
+  	"bugs": {
+  		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
+  	},
+  	"steal": {},
+  	"dependencies": {
+  		"@plugin-pool/core": "^0.0.2",
+  		"gh-pages": "^2.1.1"
+  	},
+  	"peerDependencies": {
+  		"@plugin-pool/core": "*"
+  	},
+  	"devDependencies": {
+  		"@types/execa": "^2.0.0",
+  		"@types/jest": "^24.0.18",
+  		"@types/jsdom": "^12.2.4",
+  		"@types/node": "^12.6.8",
+  		"awesome-typescript-loader": "^5.2.1",
+  		"cross-env": "^5.2.0",
+  		"jest": "^24.9.0",
+  		"npm-run-all": "^4.1.5",
+  		"ramda": "^0.26.1",
+  		"requirejs": "^2.3.6",
+  		"ts-jest": "^24.1.0",
+  		"ts-loader": "^6.0.4",
+  		"ts-node": "^8.3.0",
+  		"tslint": "^5.17.0",
+  		"tslint-config-airbnb": "^5.11.1",
+  		"tslint-config-prettier": "^1.18.0",
+  		"typescript": "^3.5.3",
+  		"webpack": "^4.39.2",
+  		"webpack-cli": "^3.3.7",
+  		"webpack-merge": "^4.2.1"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
