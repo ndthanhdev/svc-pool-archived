@@ -11,7 +11,11 @@ const tag = `${package.name}/${rootPackage.version}`
 
 console.log(`publishing ${tag}`)
 
-ghPages.publish(base, {
-	branch,
-	tag,
-})
+ghPages.publish(
+	base,
+	{
+		branch,
+		tag,
+	},
+	console.error,
+)
