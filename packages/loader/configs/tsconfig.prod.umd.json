@@ -1,11 +1,11 @@
 {
-	"extends": "../../configs/tsconfig.base.json",
-	"include": ["src/**/*"],
+	"extends": "../../../configs/tsconfig.base.json",
+	"include": ["../src/**/*"],
 	"compilerOptions": {
 		"lib": ["esnext", "dom"],
-		"module": "amd",
+		"module": "umd",
 		// https://github.com/facebook/jest/issues/8218#issuecomment-486275996
 		"moduleResolution": "node",
-		"outDir": "./dist"
+		"outDir": "../dist"
 	}
 }

@@ -1,5 +1,5 @@
-import loader, { Config } from './loader'
+import createLoader, { Config, Loader } from './create-loader'
 
-export default loader
+export default createLoader
 
-export { Config }
+export { Config, Loader }

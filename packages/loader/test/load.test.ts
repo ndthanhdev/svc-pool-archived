@@ -1,4 +1,4 @@
-import loader from '../src/loader'
+import createLoader from '../src/create-loader'
 import '@plugin-pool/core/registry'
 
 const BASE = './test/assets'
@@ -10,7 +10,7 @@ declare module '@plugin-pool/core/registry' {
 }
 
 test('load', done => {
-	loader
+	createLoader()
 		.load({
 			pluginPaths: [`${BASE}/p1.js`],
 		})

@@ -30,7 +30,7 @@ function createConstantConfigs() {
 					test: /\.tsx?$/,
 					loader: 'awesome-typescript-loader',
 					options: {
-						configFileName: 'tsconfig.prod.json',
+						configFileName: 'tsconfig.prod.amd.json',
 					},
 				},
 			],

@@ -19,8 +19,9 @@
 	},
 	"scripts": {
 		"clean": "rimraf ./dist",
-		"build:prod": "cross-env NODE_ENV=production && run-s clean && webpack",
-		"build": "run-s build:prod",
+		"build:prod:amd": "cross-env NODE_ENV=production && webpack",
+		"build:prod:umd": "tsc --build ./configs/tsconfig.prod.umd.json",
+		"build": "run-s clean build:prod:*",
 		"test": "jest --coverage",
 		"prepublish": "npm run build",
 		"lint": "tslint -p ./tsconfig.json -c tslint.json",
