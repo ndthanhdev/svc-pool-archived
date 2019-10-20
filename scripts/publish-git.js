@@ -1,12 +1,13 @@
 const ghPages = require('gh-pages')
 
 const base = process.cwd()
+const root = `${base}/../../`
 
-const packagePath = `${base}/package.json`
-const package = require(packagePath)
+const package = require(`${base}/package.json`)
+const rootPackage = require(`${root}/package.json`)
 
-const branch = `build/${package.name}`
-const tag = `${package.name}/${package.version}`
+const branch = `latest/${package.name}`
+const tag = `${package.name}/${rootPackage.version}`
 
 console.log(`publishing ${tag}`)
 

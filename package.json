@@ -1,6 +1,6 @@
 {
 	"name": "root",
-	"version": "1.0.0",
+	"version": "0.0.3",
 	"main": "dist/index.js",
 	"license": "MIT",
 	"private": true,
@@ -8,7 +8,8 @@
 		"packages/*"
 	],
 	"scripts": {
-		"bootstrap": "lerna bootstrap",
+		"build": "yarn workspaces run build",
+		"publish:git": "yarn workspaces run node ../../scripts/publish-git.js",
 		"prettify": "prettier --config ./.prettierrc.yml \"**/*.{json,js,ts}\"",
 		"prettify:fix": "prettier --config ./.prettierrc.yml --write \"**/*.{json,js,ts}\"",
 		"lint": "lerna exec -- npm run lint",

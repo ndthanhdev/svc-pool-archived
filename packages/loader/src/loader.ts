@@ -1,5 +1,9 @@
 import { createDefinitionPool, IPluginDefinition } from '@plugin-pool/core'
-import { Config } from './interfaces/config'
+
+export interface Config {
+	// path to plugin
+	pluginPaths: string[]
+}
 
 const _window = window as any
 const _loadAMD = _window.requirejs || _window.require
