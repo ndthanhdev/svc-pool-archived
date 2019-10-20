@@ -1,0 +1,59 @@
+{
+	"name": "@plugin-pool/loader",
+	"version": "0.0.2",
+	"description": "> TODO: description",
+	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
+	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
+	"license": "MIT",
+	"main": "dist/index.js",
+	"directories": {
+		"lib": "lib",
+		"test": "__tests__"
+	},
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ndthanhdev/plugin-pool.git"
+	},
+	"scripts": {
+		"clean": "rimraf ./dist",
+		"build:prod": "cross-env NODE_ENV=production && run-s clean && webpack",
+		"build": "run-s build:prod",
+		"test": "jest --coverage",
+		"prepublish": "npm run build",
+		"lint": "tslint -p ./tsconfig.json -c tslint.json",
+		"lint:fix": "tslint -p ./tsconfig.json -c tslint.json --fix"
+	},
+	"bugs": {
+		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
+	},
+	"steal": {},
+	"peerDependencies": {
+		"@plugin-pool/core": "~0.0.0"
+	},
+	"devDependencies": {
+		"@types/execa": "^2.0.0",
+		"@types/jest": "^24.0.18",
+		"@types/jsdom": "^12.2.4",
+		"@types/node": "^12.6.8",
+		"awesome-typescript-loader": "^5.2.1",
+		"cross-env": "^5.2.0",
+		"gh-pages": "^2.1.1",
+		"jest": "^24.9.0",
+		"npm-run-all": "^4.1.5",
+		"ramda": "^0.26.1",
+		"requirejs": "^2.3.6",
+		"ts-jest": "^24.1.0",
+		"ts-loader": "^6.0.4",
+		"ts-node": "^8.3.0",
+		"tslint": "^5.17.0",
+		"tslint-config-airbnb": "^5.11.1",
+		"tslint-config-prettier": "^1.18.0",
+		"typescript": "^3.5.3",
+		"webpack": "^4.39.2",
+		"webpack-cli": "^3.3.7",
+		"webpack-merge": "^4.2.1"
+	}
+}
