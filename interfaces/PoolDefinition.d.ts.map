@@ -1,0 +1,1 @@
+{"version":3,"file":"PoolDefinition.d.ts","sourceRoot":"","sources":["../../src/interfaces/PoolDefinition.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,SAAS,CAAC;AAChC,OAAO,EAAE,sBAAsB,EAAE,MAAM,qBAAqB,CAAC;AAE7D,oBAAY,cAAc,GAAG,GAAG,CAAC,KAAK,EAAE,sBAAsB,EAAE,CAAC,CAAA"}
