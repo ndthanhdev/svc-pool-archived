@@ -1,6 +1,0 @@
-{
-	"npmClient": "yarn",
-	"npmClientArgs": ["--no-lockfile"],
-	"packages": ["packages/*"],
-	"version": "0.0.2"
-}
