@@ -1,0 +1,1 @@
+{"version":3,"file":"Circular.d.ts","sourceRoot":"","sources":["../../src/exceptions/Circular.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,qBAAqB,CAAA;AAC3C,OAAO,SAAS,MAAM,aAAa,CAAA;AAEnC,qBAAa,kBAAmB,SAAQ,SAAS;gBACpC,KAAK,EAAE,KAAK;CAGxB"}
