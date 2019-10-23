@@ -8,13 +8,10 @@
 	"main": "dist/index.js",
 	"repository": "git+https://github.com/ndthanhdev/plugin-pool.git",
 	"scripts": {
-		"build": "run-s build-registry build-core",
-		"build-core": "run-s clean-core transpile-core",
-		"build-registry": "run-s clean-registry transpile-registry ",
-		"transpile-core": "tsc --build ./tsconfig.prod.json",
-		"transpile-registry": "tsc --build ./registry/tsconfig.json",
-		"clean-core": "rimraf ./dist",
-		"clean-registry": "rimraf ./registry/dist",
+		"build": "run-s clean:* _build",
+		"_build": "rollup -c",
+		"clean:core": "rimraf ./dist",
+		"clean:registry": "rimraf ./registry/dist",
 		"test": "jest --coverage",
 		"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
 		"lint": "tslint -p ./tsconfig.json -c tslint.json",
@@ -31,6 +28,9 @@
 		"jest": "^24.8.0",
 		"npm-run-all": "^4.1.5",
 		"rimraf": "^2.6.3",
+		"rollup-plugin-commonjs": "^10.1.0",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-typescript2": "^0.24.3",
 		"ts-jest": "^24.0.2",
 		"tslint": "^5.17.0",
 		"tslint-config-airbnb": "^5.11.1",
@@ -39,7 +39,8 @@
 		"typescript": "^3.5.1"
 	},
 	"dependencies": {
-		"@types/ramda": "^0.26.20",
-		"ramda": "^0.26.1"
+		"@plugin-pool/core-registry": "~0.0.0",
+		"@types/ramda": "~0.26.20",
+		"ramda": "~0.26.1"
 	}
 }
