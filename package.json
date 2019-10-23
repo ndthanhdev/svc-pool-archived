@@ -5,7 +5,6 @@
 	"license": "MIT",
 	"private": true,
 	"workspaces": [
-		"packages/core/registry",
 		"packages/*"
 	],
 	"scripts": {

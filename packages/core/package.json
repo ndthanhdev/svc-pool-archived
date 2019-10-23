@@ -39,7 +39,6 @@
 		"typescript": "^3.5.1"
 	},
 	"dependencies": {
-		"@plugin-pool/core-registry": "~0.0.0",
 		"@types/ramda": "~0.26.20",
 		"ramda": "~0.26.1"
 	}
