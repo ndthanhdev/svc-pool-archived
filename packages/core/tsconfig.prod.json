@@ -3,7 +3,7 @@
 	"include": ["src/**/*"],
 	"compilerOptions": {
 		"outDir": "./dist",
-		"module": "umd",
+		"module": "es2015",
 		// https://github.com/facebook/jest/issues/8218#issuecomment-486275996
 		"moduleResolution": "node"
 	}

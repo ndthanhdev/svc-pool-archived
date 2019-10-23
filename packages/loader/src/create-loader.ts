@@ -1,4 +1,10 @@
-import { createDefinitionPool, IPluginDefinition, DefinitionPool } from '@plugin-pool/core'
+import {
+	createDefinitionPool,
+	IPluginDefinition,
+	DefinitionPool,
+} from '@plugin-pool/core'
+// @ts-ignore
+import requirejs from 'requirejs'
 
 export interface Config {
 	// path to plugin
@@ -10,8 +16,7 @@ export type Loader = {
 }
 
 function createLoader(): Loader {
-	const _window = window as any
-	const _loadAMD = _window.requirejs || _window.require
+	const _loadAMD = requirejs
 
 	const _loadModule = (path: string) =>
 		new Promise(resolve => _loadAMD([path], resolve))

@@ -1,4 +1,4 @@
-import R from 'ramda'
+import * as R from 'ramda'
 import { PointNames, ServiceResolutionTypes } from '../registry'
 import { CircularDependency } from './exceptions/Circular'
 import { NotRegistered } from './exceptions/NotRegistered'

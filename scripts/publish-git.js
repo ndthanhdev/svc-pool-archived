@@ -15,7 +15,7 @@ ghPages.publish(
 	base,
 	{
 		branch,
-		tag,
+		// tag,
 	},
 	console.error,
 )
