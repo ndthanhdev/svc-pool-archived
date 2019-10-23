@@ -5,11 +5,12 @@
 	"license": "MIT",
 	"private": true,
 	"workspaces": [
+		"packages/core/registry",
 		"packages/*"
 	],
 	"scripts": {
 		"build": "yarn workspaces run build",
-		"publish:_git": "yarn workspaces run node ../../scripts/publish-git.js",
+		"publish:_git": "node ./scripts/publish-git.js",
 		"publish:git": "run-s build publish:_git",
 		"prettify": "prettier --config ./.prettierrc.yml \"**/*.{json,js,ts}\"",
 		"prettify:fix": "prettier --config ./.prettierrc.yml --write \"**/*.{json,js,ts}\"",
@@ -19,6 +20,7 @@
 		"lint:fix": "lerna exec -- npm run lint:fix"
 	},
 	"devDependencies": {
+		"gh-pages": "^2.1.1",
 		"husky": "^2.3.0",
 		"lint-staged": "^8.1.7",
 		"npm-run-all": "^4.1.5",
