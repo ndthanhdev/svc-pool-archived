@@ -8,12 +8,8 @@ export default {
 		dir: './dist',
 		name: '@plugin-pool/loader',
 		format: 'umd',
-		globals: {
-			'@plugin-pool/core': '@plugin-pool/core',
-			requirejs: 'requirejs',
-		},
 	},
-	external: ['@plugin-pool/core', 'requirejs'],
+	external: ['@plugin-pool/core'],
 	plugins: [
 		resolve(),
 		commonjs({

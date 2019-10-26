@@ -3,8 +3,6 @@ import {
 	IPluginDefinition,
 	DefinitionPool,
 } from '@plugin-pool/core'
-// @ts-ignore
-import requirejs from 'requirejs'
 
 export interface Config {
 	// path to plugin
@@ -15,8 +13,13 @@ export type Loader = {
 	load(config: Config): Promise<DefinitionPool>
 }
 
-function createLoader(): Loader {
-	const _loadAMD = requirejs
+type AMDRequire = {
+	(deps: string[], cb: (deps: any[]) => any): void
+}
+
+function createLoader(require?: AMDRequire): Loader {
+	const _window = window as any
+	const _loadAMD = require || _window.requirejs || _window.require
 
 	const _loadModule = (path: string) =>
 		new Promise(resolve => _loadAMD([path], resolve))

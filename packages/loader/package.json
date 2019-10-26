@@ -31,9 +31,7 @@
 	},
 	"steal": {},
 	"peerDependencies": {
-		"@plugin-pool/core": "~0.0.0",
-		"@types/requirejs": "^2.1.31",
-		"requirejs": "^2.3.6"
+		"@plugin-pool/core": "~0.0.0"
 	},
 	"devDependencies": {
 		"@types/execa": "^2.0.0",
