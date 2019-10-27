@@ -13,7 +13,7 @@ export type Loader = {
 	load(config: Config): Promise<DefinitionPool>
 }
 
-type AMDRequire = {
+export type AMDRequire = {
 	(deps: string[], cb: (deps: any[]) => any): void
 }
 
