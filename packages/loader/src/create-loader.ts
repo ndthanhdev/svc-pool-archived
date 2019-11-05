@@ -58,7 +58,7 @@ function _createESImport() {
 }
 
 export function createESImport(): DynamicImport {
-	if (isES()) throw 'Not in ES environment'
+	if (!isES()) throw 'Not in ES environment'
 
 	return _createESImport()
 }
