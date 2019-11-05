@@ -65,10 +65,10 @@ export function createESImport(): DynamicImport {
 
 function createDynamicImport() {
 	if (isES()) {
-		return createESImport()
+		return _createESImport()
 	}
 	if (isAMD()) {
-		return createAMDImport()
+		return _createAMDImport()
 	}
 	throw 'Not in ES or AMD environment'
 }
