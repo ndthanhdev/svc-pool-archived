@@ -6,6 +6,12 @@
 		"variable-name": {
 			"options": ["allow-leading-underscore"]
 		},
+		"function-name": [
+			true,
+			{
+				"function-regex": "^[_a-z][\\w\\d]+$"
+			}
+		],
 		"import-name": [
 			true,
 			{

@@ -13,19 +13,71 @@ export type Loader = {
 	load(config: Config): Promise<DefinitionPool>
 }
 
-export type AMDRequire = {
-	(deps: string[], cb: (deps: any[]) => any, err: (error: Error) => any): void
+export type DynamicImport = {
+	(path: string): Promise<any>
 }
 
-function createLoader(require?: AMDRequire): Loader {
+function isAMD() {
 	const _window = window as any
-	const _loadAMD = require || _window.requirejs || _window.require
+	const _require = _window.requirejs || _window.require
 
-	const _loadModule = (path: string) =>
-		new Promise((resolve, reject) => _loadAMD([path], resolve, reject))
+	return (
+		typeof _require === 'function' &&
+		typeof _window.define === 'function' &&
+		!!_window.define.amd
+	)
+}
+
+function isES() {
+	return 'noModule' in HTMLScriptElement.prototype
+}
+
+function _createAMDImport() {
+	const _window = window as any
+	const _require = _window.requirejs || _window.require
+
+	const _import = (path: string) =>
+		new Promise((resolve, reject) => _require([path], resolve, reject))
+
+	return _import
+}
+
+export function createAMDImport(): DynamicImport {
+	if (!isAMD()) throw 'Not in AMD environment'
+
+	return _createAMDImport()
+}
+
+function _createESImport() {
+	const _window = window as any
+	const esImport = _window.import
+
+	const _import = (path: string) => esImport(path)
+
+	return _import
+}
+
+export function createESImport(): DynamicImport {
+	if (isES()) throw 'Not in ES environment'
+
+	return _createESImport()
+}
+
+function createDynamicImport() {
+	if (isES()) {
+		return createESImport()
+	}
+	if (isAMD()) {
+		return createAMDImport()
+	}
+	throw 'Not in ES or AMD environment'
+}
+
+function createLoader(dynamicImport?: DynamicImport): Loader {
+	const _dynamicImport = dynamicImport || createDynamicImport()
 
 	const load = async (config: Config) => {
-		const ps = config.pluginPaths.map(p => _loadModule(p))
+		const ps = config.pluginPaths.map(_dynamicImport)
 		const plugins = await Promise.all(ps)
 		// TODO: verify plugins content
 		return createDefinitionPool().importPlugins(plugins as IPluginDefinition[])
