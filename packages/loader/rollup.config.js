@@ -4,11 +4,18 @@ import commonjs from 'rollup-plugin-commonjs'
 
 export default {
 	input: './src/index.ts',
-	output: {
-		dir: './dist',
-		name: '@plugin-pool/loader',
-		format: 'umd',
-	},
+	output: [
+		{
+			file: './dist/index.js',
+			name: '@plugin-pool/loader',
+			format: 'umd',
+		},
+		{
+			file: './dist/index.mjs',
+			name: '@plugin-pool/loader',
+			format: 'esm',
+		},
+	],
 	external: ['@plugin-pool/core'],
 	plugins: [
 		resolve(),

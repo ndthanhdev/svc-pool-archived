@@ -22,11 +22,18 @@ export default [
 	//  core
 	{
 		input: './src/index.ts',
-		output: {
-			dir: './dist',
-			name: '@plugin-pool/core',
-			format: 'umd',
-		},
+		output: [
+			{
+				file: './dist/index.js',
+				name: '@plugin-pool/core',
+				format: 'umd',
+			},
+			{
+				file: './dist/index.mjs',
+				name: '@plugin-pool/core',
+				format: 'esm',
+			},
+		],
 		plugins: [
 			resolve(),
 			commonjs(),

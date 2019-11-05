@@ -2,8 +2,7 @@
 	"extends": "../../configs/tsconfig.base.json",
 	"include": ["./src/**/*"],
 	"compilerOptions": {
-		"lib": ["esnext", "dom"],
-		"module": "ES2015",
+		"module": "esnext",
 		// https://github.com/facebook/jest/issues/8218#issuecomment-486275996
 		"moduleResolution": "node",
 		"outDir": "../dist"

@@ -49,10 +49,7 @@ export function createAMDImport(): DynamicImport {
 }
 
 function _createESImport() {
-	const _window = window as any
-	const esImport = _window.import
-
-	const _import = (path: string) => esImport(path)
+	const _import = (path: string) => import(path)
 
 	return _import
 }

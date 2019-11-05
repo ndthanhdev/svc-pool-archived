@@ -6,6 +6,7 @@
 	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
 	"license": "ISC",
 	"main": "dist/index.js",
+	"module": "dist/index.mjs",
 	"repository": "git+https://github.com/ndthanhdev/plugin-pool.git",
 	"scripts": {
 		"build": "run-s clean:* _build",

@@ -6,6 +6,7 @@
 	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
 	"license": "MIT",
 	"main": "dist/index.js",
+	"module": "dist/index.mjs",
 	"files": [
 		"lib"
 	],
