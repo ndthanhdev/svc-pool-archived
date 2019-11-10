@@ -8,27 +8,31 @@ import { ValuesType } from 'utility-types'
 //   }
 // }
 
-export default interface Schema {
+export interface Schema {
 	// example
 	a: string[]
 	b: number[]
 }
 
+export default Schema;
+
 export type PointNames = keyof Schema
 
-type ValueTypeOfSvc<T extends PointNames> = ValuesType<
+export type ValueTypeOfSvc<T extends PointNames> = ValuesType<
 	ValuesType<Pick<Schema, T>>
 >
 
 // Define service
-type Deps = ArrayLike<PointNames>
+type FullDef = Record<PointNames, boolean>
+
+type Deps = ArrayLike<PointNames> | FullDef
 
 type Dep = Partial<Schema>
 
 type FullServiceDefinition<T extends PointNames> = {
 	name: T
 	desc: string
-	deps: Deps
+	deps: FullDef
 	factory: (dep?: Dep) => Promise<ValueTypeOfSvc<T>> | ValueTypeOfSvc<T>
 }
 

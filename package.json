@@ -14,7 +14,7 @@
 		"prettify": "prettier --config ./.prettierrc.yml \"**/*.{json,js,ts}\"",
 		"prettify:fix": "prettier --config ./.prettierrc.yml --write \"**/*.{json,js,ts}\"",
 		"lint": "lerna exec -- npm run lint",
-		"// required scripts: build, test, lint, lint:fix, publish:git": "",
+		"// required scripts: build, test": "",
 		"test": "lerna exec -- npm run test",
 		"lint:fix": "lerna exec -- npm run lint:fix"
 	},
@@ -23,7 +23,12 @@
 		"husky": "^2.3.0",
 		"lint-staged": "^8.1.7",
 		"npm-run-all": "^4.1.5",
-		"prettier": "^1.18.2"
+		"prettier": "^1.18.2",
+		"tslint": "^5.20.1",
+		"tslint-config-airbnb": "^5.11.2",
+		"tslint-config-prettier": "^1.18.0",
+		"tslint-react": "^4.1.0",
+		"typescript": "^3.7.2"
 	},
 	"husky": {
 		"hooks": {

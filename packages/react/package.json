@@ -20,8 +20,6 @@
 		"clean": "rimraf ./dist",
 		"test": "jest --coverage",
 		"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
-		"lint": "tslint -p ./tsconfig.json -c tslint.json",
-		"lint:fix": "tslint -p ./tsconfig.json -c tslint.json --fix",
 		"prepublish": "npm run build"
 	},
 	"bugs": {
@@ -49,10 +47,6 @@
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-typescript2": "^0.24.3",
 		"ts-jest": "^24.0.2",
-		"tslint": "^5.17.0",
-		"tslint-config-airbnb": "^5.11.1",
-		"tslint-config-prettier": "^1.18.0",
-		"tslint-react": "^4.0.0",
 		"typescript": "^3.5.2"
 	}
 }

@@ -1,0 +1,26 @@
+{
+	"defaultSeverity": "error",
+	"extends": ["tslint-react", "tslint-config-airbnb", "tslint-config-prettier"],
+	"jsRules": {},
+	"rules": {
+		"variable-name": {
+			"options": ["allow-leading-underscore", "allow-pascal-case"]
+		},
+		"function-name": [
+			true,
+			{
+				"function-regex": "^[_a-z][\\w\\d]+$"
+			}
+		],
+		"import-name": [
+			true,
+			{
+				"ramda": "R",
+				"react": "React"
+			}
+		]
+	},
+	"linterOptions": {
+		"exclude": ["**/node_modules/**", "**/dist/**"]
+	}
+}

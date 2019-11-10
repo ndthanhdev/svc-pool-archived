@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { PointNames, ServiceResolutionTypes } from '../registry'
+import Schema, { PointNames, CreateSvcDefFn, GetSvcsFn } from '@plugin-pool/registry'
 import { CircularDependency } from './exceptions/Circular'
 import { NotRegistered } from './exceptions/NotRegistered'
 import { convertToFullDefinition } from './utils'
@@ -41,8 +41,8 @@ const curriedImportPlugins = R.curry(
 		importPlugins(definitions, plugins),
 )
 
-const getServices = (resolved: ServiceResolutionTypes, point: PointNames) =>
-	(resolved as ServiceResolutionTypes)[point]
+const getServices = (resolved: Schema, point: PointNames) =>
+	(resolved as Schema)[point]
 const curriedGetServices = R.curry(getServices)
 
 const resolve = (definition: PoolDefinition) => async (): Promise<
@@ -128,7 +128,7 @@ const resolve = (definition: PoolDefinition) => async (): Promise<
 }
 
 export type PluginPool = {
-	getServices: (arg1: PointNames) => ReturnType<typeof getServices>
+	getServices: GetSvcsFn
 }
 
 export type DefinitionPool = {

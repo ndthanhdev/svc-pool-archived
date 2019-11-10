@@ -23,9 +23,7 @@
 		"_build": "rollup -c",
 		"build": "run-s clean _build",
 		"test": "jest --coverage",
-		"prepublish": "npm run build",
-		"lint": "tslint -p ./tsconfig.json -c tslint.json",
-		"lint:fix": "tslint -p ./tsconfig.json -c tslint.json --fix"
+		"prepublish": "npm run build"
 	},
 	"bugs": {
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
@@ -51,9 +49,6 @@
 		"ts-jest": "^24.1.0",
 		"ts-loader": "^6.0.4",
 		"ts-node": "^8.3.0",
-		"tslint": "^5.17.0",
-		"tslint-config-airbnb": "^5.11.1",
-		"tslint-config-prettier": "^1.18.0",
 		"typescript": "^3.6.4"
 	}
 }

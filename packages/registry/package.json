@@ -8,7 +8,8 @@
 		"build:clean": "rimraf ./dist",
 		"build:_": "rollup -c",
 		"build": "run-s build:clean build:_",
-		"test": " "
+		"test": " ",
+		"prepublish": "npm run build"
 	},
 	"dependencies": {
 		"utility-types": "^3.10.0"

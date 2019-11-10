@@ -11,16 +11,21 @@ function publish(base, cb) {
 
 	console.log(`publishing ${tag}`)
 
+	function handlePublishCb(err) {
+		if (err) {
+			console.error(err)
+		} else {
+			console.log('published')
+		}
+	}
+
 	return ghPages.publish(
 		base,
 		{
 			branch,
 			// tag,
 		},
-		err => {
-			console.error(err)
-			cb()
-		},
+		handlePublishCb,
 	)
 }
 
