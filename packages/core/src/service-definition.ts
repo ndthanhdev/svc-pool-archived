@@ -13,25 +13,25 @@ type FullDepsDef = Partial<Record<PointNames, boolean>>
 
 type FactoryArg1 = Partial<Schema>
 
-type FullServiceDefinition<T extends PointNames> = {
+export type FullSvcDef<T extends PointNames> = {
 	name: T
 	desc: string
 	deps: FullDepsDef
-	factory: (dep?: FactoryArg1) => Promise<ValueTypeOfSvc<T>> | ValueTypeOfSvc<T>
+	factory: (deps?: FactoryArg1) => Promise<ValueTypeOfSvc<T>> | ValueTypeOfSvc<T>
 }
 
 type Deps = PointNames[] | FullDepsDef
 
 type CreateSvcDefArg1<T extends PointNames> = Overwrite<
-	FullServiceDefinition<T>,
+	FullSvcDef<T>,
 	{
 		desc?: string
 		deps?: Deps
 	}
 >
 
-export interface CreateSvcDefFn {
-	<T extends PointNames>(arg: CreateSvcDefArg1<T>): FullServiceDefinition<T>
+interface CreateSvcDefFn {
+	<T extends PointNames>(arg: CreateSvcDefArg1<T>): FullSvcDef<T>
 }
 
 // createServiceDefinition

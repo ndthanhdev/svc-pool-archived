@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import Schema, { PointNames, CreateSvcDefFn, GetSvcsFn } from '@plugin-pool/registry'
+import { default as Schema } from '@plugin-pool/registry'
 import { CircularDependency } from './exceptions/Circular'
 import { NotRegistered } from './exceptions/NotRegistered'
 import { convertToFullDefinition } from './utils'
@@ -11,10 +11,11 @@ import {
 	IPluginDefinition,
 	Point,
 } from './interfaces'
+import { PointNames } from './service-definition'
 
 const register = R.curry(
 	(
-		definitions: Map<Point, IFullServiceDefinition[]>,
+		definitions: Map<PointNames, IFullServiceDefinition[]>,
 		definition: IServiceDefinition,
 	) => {
 		const fullDefinition = convertToFullDefinition(definition)
