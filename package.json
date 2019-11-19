@@ -13,7 +13,7 @@
 		"publish:git": "run-s build publish:_git",
 		"prettify": "prettier --config ./.prettierrc.yml \"**/*.{json,js,ts}\"",
 		"prettify:fix": "prettier --config ./.prettierrc.yml --write \"**/*.{json,js,ts}\"",
-		"lint": "lerna exec -- npm run lint",
+		"lint": "npm run lint",
 		"// required scripts: build, test": "",
 		"test": "lerna exec -- npm run test",
 		"lint:fix": "lerna exec -- npm run lint:fix"
