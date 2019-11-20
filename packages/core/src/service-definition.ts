@@ -1,4 +1,4 @@
-import { default as Schema } from '@plugin-svc/registry'
+import { default as Schema } from '@svc-pool/registry'
 import { ValuesType, Overwrite } from 'utility-types'
 import R from 'ramda'
 

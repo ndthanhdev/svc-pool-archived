@@ -14,7 +14,7 @@
 		"clean:core": "rimraf ./dist",
 		"clean:registry": "rimraf ./registry/dist",
 		"test": "jest --coverage",
-		"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
+		"test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest --runInBand",
 		"prepublish": "npm run build"
 	},
 	"bugs": {

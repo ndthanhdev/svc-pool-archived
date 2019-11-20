@@ -4,7 +4,7 @@ import {
 	IFullDependencyDefinition,
 	IFullServiceDefinition,
 	IServiceDefinition,
-} from './interfaces/ServiceDefinition'
+} from '@src/interfaces/ServiceDefinition'
 
 export function isFullDefinition(
 	definition: IDependencyDefinition | IFullDependencyDefinition,

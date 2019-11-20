@@ -1,4 +1,4 @@
-import { FullSvcDef } from './service-definition'
-import { PointNames } from '@plugin-svc/registry'
+import { FullSvcDef } from '@src/service-definition'
+import { PointNames } from '@svc-pool/registry'
 
 export type Plugin = FullSvcDef<PointNames>[]

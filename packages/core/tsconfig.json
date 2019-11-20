@@ -2,7 +2,6 @@
 	"extends": "../../configs/tsconfig.base.json",
 	"include": ["src/**/*", "test/**/*"],
 	"compilerOptions": {
-		"typeRoots": ["./src/types/"],
 		"baseUrl": "./",
 		"paths": {
 			"@src*": ["./src*"],

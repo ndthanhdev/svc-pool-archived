@@ -4,8 +4,8 @@ import {
 	PointNames,
 	ValueTypeOfSvc,
 } from '@svc-pool/registry'
-import { FullSvcDef } from './service-definition'
-import { Plugin } from './plugin'
+import { FullSvcDef } from '@src/service-definition'
+import { Plugin } from '@src/plugin'
 
 type DefPool = FullSvcDef<PointNames>[]
 
@@ -22,14 +22,9 @@ export function registerSvcDef<T extends PointNames>(
 	return next
 }
 
-export function importPlugin(defPool: DefPool, plugin: Plugin) {
+export function registerSvcDefs(defPool: DefPool, svcs: FullSvcDef<PointNames>[]) {
 	const init = { ...defPool }
-	return plugin.reduce((acc, cur) => registerSvcDef(acc, cur), init)
-}
-
-export function importPlugins(defPool: DefPool, plugins: Plugin[]) {
-	const init = { ...defPool }
-	return plugins.reduce((acc, cur) => importPlugin(acc, cur), init)
+	return svcs.reduce((acc, cur) => registerSvcDef(acc, cur), init)
 }
 
 type Table = Partial<Record<PointNames, FullSvcDef<PointNames>[]>>
