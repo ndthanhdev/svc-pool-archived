@@ -22,8 +22,11 @@ export function registerSvcDef<T extends PointNames>(
 	return next
 }
 
-export function registerSvcDefs(defPool: DefPool, svcs: FullSvcDef<PointNames>[]) {
-	const init = { ...defPool }
+export function registerSvcDefs(
+	defPool: DefPool,
+	svcs: FullSvcDef<PointNames>[],
+) {
+	const init = [...defPool]
 	return svcs.reduce((acc, cur) => registerSvcDef(acc, cur), init)
 }
 
