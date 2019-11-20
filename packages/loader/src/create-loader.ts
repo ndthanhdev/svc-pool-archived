@@ -2,7 +2,7 @@ import {
 	createDefinitionPool,
 	IPluginDefinition,
 	DefinitionPool,
-} from '@plugin-pool/core'
+} from '@svc-pool/core'
 
 export interface Config {
 	// path to plugin

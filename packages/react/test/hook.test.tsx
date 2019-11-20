@@ -3,7 +3,7 @@ import {
 	createDefinitionPool,
 	createPlugin,
 	PluginPool,
-} from '@plugin-pool/core'
+} from '@svc-pool/core'
 import { mount } from 'enzyme'
 import {
 	usePluginPool,
@@ -13,7 +13,7 @@ import {
 } from '../src'
 import { HookWrapper } from './utils'
 
-declare module '@plugin-pool/core/registry' {
+declare module '@svc-pool/core/registry' {
 	export interface ServiceResolutionTypes {
 		'test-point': any[]
 	}

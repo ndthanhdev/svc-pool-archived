@@ -1,5 +1,5 @@
 {
-	"name": "@plugin-pool/core",
+	"name": "@svc-pool/core",
 	"version": "0.0.5",
 	"description": "> TODO: description",
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
@@ -35,7 +35,7 @@
 		"typescript": "^3.5.1"
 	},
 	"dependencies": {
-		"@plugin-pool/registry": "~0.0.0",
+		"@svc-pool/registry": "~0.0.0",
 		"@types/ramda": "~0.26.20",
 		"ramda": "~0.26.1",
 		"utility-types": "^3.10.0"

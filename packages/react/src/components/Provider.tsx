@@ -1,6 +1,6 @@
 import React from 'react'
 import Context from './Context'
-import { PluginPool } from '@plugin-pool/core'
+import { PluginPool } from '@svc-pool/core'
 
 interface IPluginPoolContextProvider {
   value: PluginPool

@@ -1,9 +1,9 @@
 import createLoader from '../src/create-loader'
-import '@plugin-pool/core/registry'
+import '@svc-pool/core/registry'
 
 const BASE = './test/assets'
 
-declare module '@plugin-pool/core/registry' {
+declare module '@svc-pool/core/registry' {
 	export interface ServiceResolutionTypes {
 		'a-point-for-test': string[]
 	}

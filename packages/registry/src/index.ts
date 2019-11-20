@@ -2,7 +2,7 @@ import { ValuesType } from 'utility-types'
 
 // Leverage typescript declaration merging to enrich typescript type system
 // usage:
-// declare module '@plugin-pool/registry' {
+// declare module '@svc-pool/registry' {
 //   export default interface {
 //     <point-name>: <resolve-type>[]
 //   }

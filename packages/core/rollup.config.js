@@ -8,7 +8,7 @@ export default [
 		input: './registry/index.ts',
 		output: {
 			dir: './registry/dist',
-			name: '@plugin-pool/core-registry',
+			name: '@svc-pool/core-registry',
 			format: 'umd',
 		},
 		plugins: [
@@ -25,12 +25,12 @@ export default [
 		output: [
 			{
 				file: './dist/index.js',
-				name: '@plugin-pool/core',
+				name: '@svc-pool/core',
 				format: 'umd',
 			},
 			{
 				file: './dist/index.mjs',
-				name: '@plugin-pool/core',
+				name: '@svc-pool/core',
 				format: 'esm',
 			},
 		],

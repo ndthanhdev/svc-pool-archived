@@ -1,4 +1,4 @@
-import { createPlugin } from '../src'
+import { createSvcDef } from '@src/service-definition'
 
 test('create plugin without error', () => {
 	const point = 'point'

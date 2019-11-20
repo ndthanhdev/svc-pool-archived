@@ -3,7 +3,7 @@ import {
 	default as Schema,
 	PointNames,
 	ValueTypeOfSvc,
-} from '@plugin-pool/registry'
+} from '@svc-pool/registry'
 import { FullSvcDef } from './service-definition'
 import { Plugin } from './plugin'
 
@@ -57,17 +57,21 @@ function extractPoints(t: Table) {
 	return Object.keys(t)
 }
 
-export type GetSvcsFn = {
+type GetSvcsFn = {
 	<T extends PointNames>(name: T): ValueTypeOfSvc<T>
 }
 
-function createSvcPool(resolved: Partial<Schema>) {
+export type ServicePool = {
+	getServices: GetSvcsFn
+}
+
+function createSvcPool(resolved: Partial<Schema>): ServicePool {
 	// @ts-ignore
 	const r: Schema = { ...resolved }
 
 	// @ts-ignore
-	const getServices: GetSvcsFn = (name) => {
-		const svcs= r[name]
+	const getServices: GetSvcsFn = name => {
+		const svcs = r[name]
 		if (svcs) {
 			return [...svcs]
 		}

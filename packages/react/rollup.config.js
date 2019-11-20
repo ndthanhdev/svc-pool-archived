@@ -7,21 +7,21 @@ export default {
 	output: [
 		{
 			dir: './dist/index.js',
-			name: '@plugin-pool/react',
+			name: '@svc-pool/react',
 			format: 'umd',
 		},
 		{
 			dir: './dist/index.mjs',
-			name: '@plugin-pool/react',
+			name: '@svc-pool/react',
 			format: 'esm',
 		},
 	],
-	external: ['@plugin-pool/core', 'react'],
+	external: ['@svc-pool/core', 'react'],
 	plugins: [
 		resolve(),
 		commonjs({
 			namedExports: {
-				'@plugin-pool/core': ['createDefinitionPool', 'Config'],
+				'@svc-pool/core': ['createDefinitionPool', 'Config'],
 			},
 		}),
 		typescript({

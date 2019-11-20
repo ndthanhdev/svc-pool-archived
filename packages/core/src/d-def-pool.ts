@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { default as Schema } from '@plugin-pool/registry'
+import { default as Schema } from '@svc-pool/registry'
 import { CircularDependency } from './exceptions/Circular'
 import { NotRegistered } from './exceptions/NotRegistered'
 import { convertToFullDefinition } from './utils'

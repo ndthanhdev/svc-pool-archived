@@ -1,5 +1,5 @@
 {
-	"name": "@plugin-pool/loader",
+	"name": "@plugin-svc/loader",
 	"version": "0.0.5",
 	"description": "> TODO: description",
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
@@ -30,7 +30,7 @@
 	},
 	"steal": {},
 	"peerDependencies": {
-		"@plugin-pool/core": "~0.0.0"
+		"@plugin-svc/core": "~0.0.0"
 	},
 	"devDependencies": {
 		"@types/execa": "^2.0.0",
