@@ -1,7 +1,7 @@
-export class BaseError {
+export class BaseException {
 	constructor(message?: string) {
 		Error.call(this, message)
 	}
 }
 
-export default BaseError
+export default BaseException

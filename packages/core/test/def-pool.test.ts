@@ -6,6 +6,8 @@ import {
 	resolveDefPool,
 	createSvcDef,
 	ServicePool,
+	CircularDependency,
+	NotRegistered,
 } from '@src/index'
 import { PointNames, ValueTypeOfSvc } from '@svc-pool/registry'
 
@@ -37,7 +39,7 @@ describe('deps', () => {
 	const root = 'test-root'
 
 	const rootDef = createSvcDef({
-		name: 'testRoot',
+		point: 'testRoot',
 		factory: () => 'testRoot',
 	})
 
@@ -59,7 +61,7 @@ describe('deps', () => {
 
 	test('with deps', done => {
 		const sub1Def = createSvcDef({
-			name: 'testSub1',
+			point: 'testSub1',
 			deps: {
 				testRoot: true,
 			},
@@ -67,7 +69,7 @@ describe('deps', () => {
 		})
 
 		const sub2Def = createSvcDef({
-			name: 'testSub2',
+			point: 'testSub2',
 			deps: {
 				testSub1: true,
 			},
@@ -75,7 +77,7 @@ describe('deps', () => {
 		})
 
 		const sub3Def = createSvcDef({
-			name: 'testSub3',
+			point: 'testSub3',
 			deps: {
 				testSub1: true,
 				testSub2: true,
@@ -119,35 +121,51 @@ describe('deps', () => {
 		)()
 	})
 
-	// test('circular deps', async () => {
-	// 	const circularDef: IServiceDefinition = {
-	// 		point: root,
-	// 		deps: {
-	// 			root: 'test-root',
-	// 		},
-	// 		factory: () => 'never',
-	// 	}
+	test('circular deps', done => {
+		const cirDef = createSvcDef({
+			point: 'testRoot',
+			deps: {
+				testRoot: true,
+			},
+			factory: () => 'never',
+		})
 
-	// 	const pool = createDefinitionPool()
-	// 	pool.importPlugin(createPlugin([circularDef]))
+		const assertCircularException = R.pipe<Error, any, any>(
+			err => expect(err).toBeInstanceOf(CircularDependency),
+			done,
+		)
 
-	// 	await expect(pool.resolve()).rejects.toBeInstanceOf(CircularDependency)
-	// })
+		R.pipe(
+			createDefPool,
+			defPool => registerSvcDefs(defPool, [cirDef]),
+			resolveDefPool,
+			R.then(() => done.fail()),
+			R.otherwise(assertCircularException),
+		)()
+	})
 
-	// test('not registered', async () => {
-	// 	const notRegisteredDef: IServiceDefinition = {
-	// 		point: root,
-	// 		deps: {
-	// 			notRegisteredPoint: 'test-not-registered-point',
-	// 		},
-	// 		factory: () => 'never',
-	// 	}
-	// 	const pool = createDefinitionPool()
+	test('not registered', done => {
+		const notRegisteredDef = createSvcDef({
+			point: 'testRoot',
+			deps: {
+				testSub1: true,
+			},
+			factory: () => 'never',
+		})
 
-	// 	pool.importPlugin(createPlugin([notRegisteredDef]))
+		const assertNotRegisteredException = R.pipe<Error, any, any>(
+			err => expect(err).toBeInstanceOf(NotRegistered),
+			done,
+		)
 
-	// 	await expect(pool.resolve()).rejects.toBeInstanceOf(NotRegistered)
-	// })
+		R.pipe(
+			createDefPool,
+			defPool => registerSvcDef(defPool, notRegisteredDef),
+			resolveDefPool,
+			R.then(() => done.fail()),
+			R.otherwise(assertNotRegisteredException),
+		)()
+	})
 })
 
 // describe('many points', () => {

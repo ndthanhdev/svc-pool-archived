@@ -12,13 +12,7 @@
 				"function-regex": "^[_a-z][\\w\\d]+$"
 			}
 		],
-		"import-name": [
-			true,
-			{
-				"ramda": "R",
-				"react": "React"
-			}
-		]
+		"import-name": false
 	},
 	"linterOptions": {
 		"exclude": ["**/node_modules/**", "**/dist/**"]

@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { default as Schema } from '@svc-pool/registry'
-import { CircularDependency } from './exceptions/Circular'
-import { NotRegistered } from './exceptions/NotRegistered'
+import { CircularDependency } from './exceptions/circular'
+import { NotRegistered } from './exceptions/not-registered'
 import { convertToFullDefinition } from './utils'
 import {
 	PoolDefinition,

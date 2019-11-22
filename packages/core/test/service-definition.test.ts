@@ -8,7 +8,7 @@ declare module '@svc-pool/registry' {
 
 test('create plugin without error', () => {
 	const svcDef = createSvcDef({
-		name: 'createSvcDef-svc',
+		point: 'createSvcDef-svc',
 		factory: () => 'createSvcDef-svc',
 	})
 

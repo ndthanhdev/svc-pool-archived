@@ -14,7 +14,7 @@ type FullDepsDef = Partial<Record<PointNames, boolean>>
 type FactoryArg1 = Partial<Schema>
 
 export type FullSvcDef<T extends PointNames> = {
-	name: T
+	point: T
 	desc: string
 	deps: FullDepsDef
 	factory: (deps?: FactoryArg1) => Promise<ValueTypeOfSvc<T>> | ValueTypeOfSvc<T>

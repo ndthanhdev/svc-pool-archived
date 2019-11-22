@@ -1,11 +1,10 @@
-import { default as R } from 'ramda'
 import {
 	default as Schema,
 	PointNames,
 	ValueTypeOfSvc,
 } from '@svc-pool/registry'
 import { FullSvcDef } from '@src/service-definition'
-import { Plugin } from '@src/plugin'
+import { NotRegistered, CircularDependency } from './exceptions'
 
 type DefPool = FullSvcDef<PointNames>[]
 
@@ -38,11 +37,11 @@ function createTable(defPool: DefPool): Table {
 	function appendOrCreate(t: Table, def: FullSvcDef<PointNames>) {
 		const next = { ...t }
 
-		const exist = next[def.name]
+		const exist = next[def.point]
 		if (exist) {
-			next[def.name] = [...exist, { ...def }]
+			next[def.point] = [...exist, { ...def }]
 		} else {
-			next[def.name] = [{ ...def }]
+			next[def.point] = [{ ...def }]
 		}
 
 		return next
@@ -90,7 +89,7 @@ export async function resolveDefPool(defPool: DefPool) {
 
 		if (!def) {
 			if (isRequired) {
-				throw new Error(`Point requested was not registered yet: ${dep}`)
+				throw new NotRegistered(dep)
 			}
 
 			return undefined
@@ -127,7 +126,7 @@ export async function resolveDefPool(defPool: DefPool) {
 
 		// if currently resolving the same type, we have a circular dependency
 		if (resolving.has(point)) {
-			throw new Error(`Cannot resolve circular dependencies: ${point}`)
+			throw new CircularDependency(point)
 		}
 
 		resolving.add(point)
