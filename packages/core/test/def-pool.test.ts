@@ -35,281 +35,218 @@ const hasFirstInstanceEqual = <T extends PointNames>(
 		instances => instances[0] === value,
 	)
 
-describe('deps', () => {
-	const root = 'test-root'
-
+test('deps free', done => {
 	const rootDef = createSvcDef({
 		point: 'testRoot',
 		factory: () => 'testRoot',
 	})
 
-	test('deps free', done => {
-		const hasRootInstance = R.pipe<ServicePool, string[], any, any>(
-			svcPool => svcPool.getServices('testRoot'),
-			instances => expect(instances).toEqual(['testRoot']),
-			done,
-		)
+	const hasRootInstance = R.pipe<ServicePool, string[], any, any>(
+		svcPool => svcPool.getServices('testRoot'),
+		instances => expect(instances).toEqual(['testRoot']),
+		done,
+	)
 
-		R.pipe(
-			createDefPool,
-			pool => registerSvcDef(pool, rootDef),
-			resolveDefPool,
-			R.then(svcPool => hasRootInstance(svcPool)),
-			R.otherwise(err => done.fail(err)),
-		)()
-	})
-
-	test('with deps', done => {
-		const sub1Def = createSvcDef({
-			point: 'testSub1',
-			deps: {
-				testRoot: true,
-			},
-			factory: deps => `${deps && deps.testRoot && deps.testRoot[0]}-testSub1`,
-		})
-
-		const sub2Def = createSvcDef({
-			point: 'testSub2',
-			deps: {
-				testSub1: true,
-			},
-			factory: deps => `${deps && deps.testSub1 && deps.testSub1[0]}-testSub2`,
-		})
-
-		const sub3Def = createSvcDef({
-			point: 'testSub3',
-			deps: {
-				testSub1: true,
-				testSub2: true,
-			},
-			factory: deps =>
-				`${deps && deps.testSub1 && deps.testSub1[0]}-${deps &&
-					deps.testSub2 &&
-					deps.testSub2[0]}`,
-		})
-
-		const assert = R.pipe<ServicePool, void, any>(
-			svcPool => {
-				expect(
-					hasFirstInstanceEqual('testSub1', 'testRoot-testSub1')(svcPool),
-				).toBeTruthy()
-
-				expect(
-					hasFirstInstanceEqual('testSub2', 'testRoot-testSub1-testSub2')(
-						svcPool,
-					),
-				).toBeTruthy()
-
-				expect(
-					hasFirstInstanceEqual(
-						'testSub3',
-						'testRoot-testSub1-testRoot-testSub1-testSub2',
-					)(svcPool),
-				).toBeTruthy()
-
-				return false
-			},
-			done,
-		)
-
-		R.pipe(
-			createDefPool,
-			defPool => registerSvcDefs(defPool, [rootDef, sub1Def, sub2Def, sub3Def]),
-			resolveDefPool,
-			R.then(assert),
-			R.otherwise(err => done.fail(err)),
-		)()
-	})
-
-	test('circular deps', done => {
-		const cirDef = createSvcDef({
-			point: 'testRoot',
-			deps: {
-				testRoot: true,
-			},
-			factory: () => 'never',
-		})
-
-		const assertCircularException = R.pipe<Error, any, any>(
-			err => expect(err).toBeInstanceOf(CircularDependency),
-			done,
-		)
-
-		R.pipe(
-			createDefPool,
-			defPool => registerSvcDefs(defPool, [cirDef]),
-			resolveDefPool,
-			R.then(() => done.fail()),
-			R.otherwise(assertCircularException),
-		)()
-	})
-
-	test('not registered', done => {
-		const notRegisteredDef = createSvcDef({
-			point: 'testRoot',
-			deps: {
-				testSub1: true,
-			},
-			factory: () => 'never',
-		})
-
-		const assertNotRegisteredException = R.pipe<Error, any, any>(
-			err => expect(err).toBeInstanceOf(NotRegistered),
-			done,
-		)
-
-		R.pipe(
-			createDefPool,
-			defPool => registerSvcDef(defPool, notRegisteredDef),
-			resolveDefPool,
-			R.then(() => done.fail()),
-			R.otherwise(assertNotRegisteredException),
-		)()
-	})
+	R.pipe(
+		createDefPool,
+		pool => registerSvcDef(pool, rootDef),
+		resolveDefPool,
+		R.then(svcPool => hasRootInstance(svcPool)),
+		R.otherwise(err => done.fail(err)),
+	)()
 })
 
-// describe('many points', () => {
-// 	test('many points test', async () => {
-// 		const definitions = createDefinitionPool()
+test('resolve with deps', done => {
+	const rootDef = createSvcDef({
+		point: 'testRoot',
+		factory: () => 'testRoot',
+	})
 
-// 		const many = 'test-many'
+	const sub1Def = createSvcDef({
+		point: 'testSub1',
+		deps: {
+			testRoot: true,
+		},
+		factory: deps => `${deps && deps.testRoot && deps.testRoot[0]}-testSub1`,
+	})
 
-// 		definitions.importPlugin(
-// 			createPlugin([
-// 				{
-// 					point: many,
-// 					factory: () => 'instance 1',
-// 				},
-// 				{
-// 					point: many,
-// 					factory: () => 'instance 2',
-// 				},
-// 				{
-// 					point: many,
-// 					factory: () => 'instance 3',
-// 				},
-// 			]),
-// 		)
+	const sub2Def = createSvcDef({
+		point: 'testSub2',
+		deps: {
+			testSub1: true,
+		},
+		factory: deps => `${deps && deps.testSub1 && deps.testSub1[0]}-testSub2`,
+	})
 
-// 		const pool = await definitions.resolve()
+	const sub3Def = createSvcDef({
+		point: 'testSub3',
+		deps: {
+			testSub1: true,
+			testSub2: true,
+		},
+		factory: deps =>
+			`${deps && deps.testSub1 && deps.testSub1[0]}-${deps &&
+				deps.testSub2 &&
+				deps.testSub2[0]}`,
+	})
 
-// 		expect(pool.getServices('test-many')).toEqual([
-// 			'instance 1',
-// 			'instance 2',
-// 			'instance 3',
-// 		])
-// 	})
-// })
+	const assert = R.pipe<ServicePool, void, any>(
+		svcPool => {
+			expect(
+				hasFirstInstanceEqual('testSub1', 'testRoot-testSub1')(svcPool),
+			).toBeTruthy()
 
-// describe('optional', () => {
-// 	test('without provider', async () => {
-// 		const definitions = createDefinitionPool()
-// 		const testPoint = 'test-root'
-// 		const optionalPoint = 'optional'
+			expect(
+				hasFirstInstanceEqual('testSub2', 'testRoot-testSub1-testSub2')(
+					svcPool,
+				),
+			).toBeTruthy()
 
-// 		definitions.importPlugin(
-// 			createPlugin([
-// 				{
-// 					point: testPoint,
-// 					deps: {
-// 						optionalParam: {
-// 							point: optionalPoint,
-// 							optional: true,
-// 						},
-// 					},
-// 					factory: ({ optionalParam }) =>
-// 						`${optionalParam || 'default'} test point instance`,
-// 				},
-// 			]),
-// 		)
+			expect(
+				hasFirstInstanceEqual(
+					'testSub3',
+					'testRoot-testSub1-testRoot-testSub1-testSub2',
+				)(svcPool),
+			).toBeTruthy()
 
-// 		const pool = await definitions.resolve()
+			return false
+		},
+		done,
+	)
 
-// 		expect(pool.getServices('test-root')).toEqual([
-// 			'default test point instance',
-// 		])
-// 	})
+	R.pipe(
+		createDefPool,
+		defPool => registerSvcDefs(defPool, [rootDef, sub1Def, sub2Def, sub3Def]),
+		resolveDefPool,
+		R.then(assert),
+		R.otherwise(err => done.fail(err)),
+	)()
+})
 
-// 	test('with provider', async () => {
-// 		const definitions = createDefinitionPool()
-// 		const testPoint = 'test-root'
-// 		const optionalPoint = 'optional'
+test('resolve with circular deps', done => {
+	const cirDef = createSvcDef({
+		point: 'testRoot',
+		deps: {
+			testRoot: true,
+		},
+		factory: () => 'never',
+	})
 
-// 		definitions.importPlugin(
-// 			createPlugin([
-// 				{
-// 					point: testPoint,
-// 					deps: {
-// 						optionalParam: {
-// 							point: optionalPoint,
-// 							optional: true,
-// 						},
-// 					},
-// 					factory: ({ optionalParam }) =>
-// 						`${optionalParam || 'default'} test point instance`,
-// 				},
-// 				{
-// 					point: optionalPoint,
-// 					factory: () => 'optional',
-// 				},
-// 			]),
-// 		)
+	const assertCircularException = R.pipe<Error, any, any>(
+		err => expect(err).toBeInstanceOf(CircularDependency),
+		done,
+	)
 
-// 		const pool = await definitions.resolve()
+	R.pipe(
+		createDefPool,
+		defPool => registerSvcDefs(defPool, [cirDef]),
+		resolveDefPool,
+		R.then(() => done.fail()),
+		R.otherwise(assertCircularException),
+	)()
+})
 
-// 		expect(pool.getServices('test-root')).toEqual([
-// 			'optional test point instance',
-// 		])
-// 	})
-// })
+test('resolve with not registered svc def', done => {
+	const notRegisteredDef = createSvcDef({
+		point: 'testRoot',
+		deps: {
+			testSub1: true,
+		},
+		factory: () => 'never',
+	})
 
-// test('importPlugins', async () => {
-// 	const definitions = createDefinitionPool()
-// 	const rootPoint = 'test-root'
+	const assertNotRegisteredException = R.pipe<Error, any, any>(
+		err => expect(err).toBeInstanceOf(NotRegistered),
+		done,
+	)
 
-// 	definitions.importPlugins([
-// 		createPlugin([
-// 			{
-// 				point: rootPoint,
-// 				factory: () => 'svc-1',
-// 			},
-// 		]),
-// 		createPlugin([
-// 			{
-// 				point: rootPoint,
-// 				factory: () => 'svc-2',
-// 			},
-// 		]),
-// 	])
+	R.pipe(
+		createDefPool,
+		defPool => registerSvcDef(defPool, notRegisteredDef),
+		resolveDefPool,
+		R.then(() => done.fail()),
+		R.otherwise(assertNotRegisteredException),
+	)()
+})
 
-// 	const pool = await definitions.resolve()
-// 	expect(pool.getServices(rootPoint)).toEqual(['svc-1', 'svc-2'])
-// })
+test('resolve with many points', done => {
+	const def1 = createSvcDef({
+		point: 'testRoot',
+		factory: () => 'testRoot1',
+	})
 
-// test('chaining', done => {
-// 	const definitions = createDefinitionPool()
-// 	const rootPoint = 'test-root'
+	const def2 = createSvcDef({
+		point: 'testRoot',
+		factory: () => 'testRoot2',
+	})
 
-// 	const plugin1 = createPlugin([
-// 		{
-// 			point: rootPoint,
-// 			factory: () => 'svc-1',
-// 		},
-// 	])
+	const def3 = createSvcDef({
+		point: 'testRoot',
+		factory: () => 'testRoot3',
+	})
 
-// 	const plugin2 = createPlugin([
-// 		{
-// 			point: rootPoint,
-// 			factory: () => 'svc-2',
-// 		},
-// 	])
+	const assertResult = R.pipe<ServicePool, string[], any, any>(
+		pool => pool.getServices('testRoot'),
+		instances =>
+			expect(instances).toEqual(['testRoot1', 'testRoot2', 'testRoot3']),
+		done,
+	)
 
-// 	definitions
-// 		.importPlugin(plugin1)
-// 		.importPlugin(plugin2)
-// 		.resolve()
-// 		.then(pool => {
-// 			expect(pool.getServices(rootPoint)).toEqual(['svc-1', 'svc-2'])
-// 		})
-// 		.then(done)
-// })
+	R.pipe(
+		createDefPool,
+		defPool => registerSvcDefs(defPool, [def1, def2, def3]),
+		resolveDefPool,
+		R.then(assertResult),
+	)()
+})
+
+test('resolve optional def without provider', done => {
+	const optionalSvcDef = createSvcDef({
+		point: 'testRoot',
+		deps: { testSub1: false },
+		factory: deps => (deps && deps.testSub1) || `optional`,
+	})
+
+	const assertSvcInstance = R.pipe<ServicePool, string[], any, any>(
+		pool => pool.getServices('testRoot'),
+		instances => expect(instances).toEqual(['optional']),
+		done,
+	)
+
+	R.pipe(
+		createDefPool,
+		defPool => registerSvcDef(defPool, optionalSvcDef),
+		resolveDefPool,
+		R.then(assertSvcInstance),
+		R.otherwise(done.fail),
+	)()
+})
+
+test('resolve optional def with provider', done => {
+	const optionalSvcDef = createSvcDef({
+		point: 'testSub1',
+		factory: () => 'testSub1',
+	})
+
+	const consumerSvcDef = createSvcDef({
+		point: 'testRoot',
+		deps: {
+			testSub1: false,
+		},
+		factory: deps => deps && deps.testSub1 && `testRoot-${deps.testSub1[0]}`,
+	})
+
+	const assertSvcInstance = R.pipe<ServicePool, string[], any, any>(
+		pool => pool.getServices('testRoot'),
+		instances => expect(instances).toEqual(['testRoot-testSub1']),
+		done,
+	)
+
+	R.pipe(
+		createDefPool,
+		defPool => registerSvcDefs(defPool, [consumerSvcDef, optionalSvcDef]),
+		resolveDefPool,
+		R.then(assertSvcInstance),
+		R.otherwise(done.fail),
+	)()
+})
