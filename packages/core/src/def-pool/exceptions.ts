@@ -1,4 +1,4 @@
-import BaseException from "@src/base-exception";
+import BaseException from "../base-exception";
 import { PointNames } from "@svc-pool/registry";
 
 export class CircularDependency extends BaseException {

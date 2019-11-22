@@ -1,4 +1,4 @@
-import R from 'ramda'
+import { pipe, then, otherwise } from 'ramda'
 import {
 	createDefPool,
 	registerSvcDef,
@@ -8,7 +8,7 @@ import {
 	ServicePool,
 	CircularDependency,
 	NotRegistered,
-} from '@src/index'
+} from '../src/index'
 import { PointNames, ValueTypeOfSvc } from '@svc-pool/registry'
 
 describe('create test', () => {
@@ -30,7 +30,7 @@ const hasFirstInstanceEqual = <T extends PointNames>(
 	name: PointNames,
 	value: ValueTypeOfSvc<T>,
 ) =>
-	R.pipe<ServicePool, T[], boolean>(
+	pipe<ServicePool, T[], boolean>(
 		svcPool => svcPool.getServices(name),
 		instances => instances[0] === value,
 	)
@@ -41,18 +41,18 @@ test('deps free', done => {
 		factory: () => 'testRoot',
 	})
 
-	const hasRootInstance = R.pipe<ServicePool, string[], any, any>(
+	const hasRootInstance = pipe<ServicePool, string[], any, any>(
 		svcPool => svcPool.getServices('testRoot'),
 		instances => expect(instances).toEqual(['testRoot']),
 		done,
 	)
 
-	R.pipe(
+	pipe(
 		createDefPool,
 		pool => registerSvcDef(pool, rootDef),
 		resolveDefPool,
-		R.then(svcPool => hasRootInstance(svcPool)),
-		R.otherwise(err => done.fail(err)),
+		then(svcPool => hasRootInstance(svcPool)),
+		otherwise(err => done.fail(err)),
 	)()
 })
 
@@ -90,7 +90,7 @@ test('resolve with deps', done => {
 				deps.testSub2[0]}`,
 	})
 
-	const assert = R.pipe<ServicePool, void, any>(
+	const assert = pipe<ServicePool, void, any>(
 		svcPool => {
 			expect(
 				hasFirstInstanceEqual('testSub1', 'testRoot-testSub1')(svcPool),
@@ -114,12 +114,12 @@ test('resolve with deps', done => {
 		done,
 	)
 
-	R.pipe(
+	pipe(
 		createDefPool,
 		defPool => registerSvcDefs(defPool, [rootDef, sub1Def, sub2Def, sub3Def]),
 		resolveDefPool,
-		R.then(assert),
-		R.otherwise(err => done.fail(err)),
+		then(assert),
+		otherwise(err => done.fail(err)),
 	)()
 })
 
@@ -132,17 +132,17 @@ test('resolve with circular deps', done => {
 		factory: () => 'never',
 	})
 
-	const assertCircularException = R.pipe<Error, any, any>(
+	const assertCircularException = pipe<Error, any, any>(
 		err => expect(err).toBeInstanceOf(CircularDependency),
 		done,
 	)
 
-	R.pipe(
+	pipe(
 		createDefPool,
 		defPool => registerSvcDefs(defPool, [cirDef]),
 		resolveDefPool,
-		R.then(() => done.fail()),
-		R.otherwise(assertCircularException),
+		then(() => done.fail()),
+		otherwise(assertCircularException),
 	)()
 })
 
@@ -155,17 +155,17 @@ test('resolve with not registered svc def', done => {
 		factory: () => 'never',
 	})
 
-	const assertNotRegisteredException = R.pipe<Error, any, any>(
+	const assertNotRegisteredException = pipe<Error, any, any>(
 		err => expect(err).toBeInstanceOf(NotRegistered),
 		done,
 	)
 
-	R.pipe(
+	pipe(
 		createDefPool,
 		defPool => registerSvcDef(defPool, notRegisteredDef),
 		resolveDefPool,
-		R.then(() => done.fail()),
-		R.otherwise(assertNotRegisteredException),
+		then(() => done.fail()),
+		otherwise(assertNotRegisteredException),
 	)()
 })
 
@@ -185,18 +185,18 @@ test('resolve with many points', done => {
 		factory: () => 'testRoot3',
 	})
 
-	const assertResult = R.pipe<ServicePool, string[], any, any>(
+	const assertResult = pipe<ServicePool, string[], any, any>(
 		pool => pool.getServices('testRoot'),
 		instances =>
 			expect(instances).toEqual(['testRoot1', 'testRoot2', 'testRoot3']),
 		done,
 	)
 
-	R.pipe(
+	pipe(
 		createDefPool,
 		defPool => registerSvcDefs(defPool, [def1, def2, def3]),
 		resolveDefPool,
-		R.then(assertResult),
+		then(assertResult),
 	)()
 })
 
@@ -207,18 +207,18 @@ test('resolve optional def without provider', done => {
 		factory: deps => (deps && deps.testSub1) || `optional`,
 	})
 
-	const assertSvcInstance = R.pipe<ServicePool, string[], any, any>(
+	const assertSvcInstance = pipe<ServicePool, string[], any, any>(
 		pool => pool.getServices('testRoot'),
 		instances => expect(instances).toEqual(['optional']),
 		done,
 	)
 
-	R.pipe(
+	pipe(
 		createDefPool,
 		defPool => registerSvcDef(defPool, optionalSvcDef),
 		resolveDefPool,
-		R.then(assertSvcInstance),
-		R.otherwise(done.fail),
+		then(assertSvcInstance),
+		otherwise(done.fail),
 	)()
 })
 
@@ -236,17 +236,17 @@ test('resolve optional def with provider', done => {
 		factory: deps => deps && deps.testSub1 && `testRoot-${deps.testSub1[0]}`,
 	})
 
-	const assertSvcInstance = R.pipe<ServicePool, string[], any, any>(
+	const assertSvcInstance = pipe<ServicePool, string[], any, any>(
 		pool => pool.getServices('testRoot'),
 		instances => expect(instances).toEqual(['testRoot-testSub1']),
 		done,
 	)
 
-	R.pipe(
+	pipe(
 		createDefPool,
 		defPool => registerSvcDefs(defPool, [consumerSvcDef, optionalSvcDef]),
 		resolveDefPool,
-		R.then(assertSvcInstance),
-		R.otherwise(done.fail),
+		then(assertSvcInstance),
+		otherwise(done.fail),
 	)()
 })

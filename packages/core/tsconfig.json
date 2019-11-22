@@ -1,11 +1,14 @@
 {
-	"extends": "../../configs/tsconfig.base.json",
 	"include": ["src/**/*", "test/**/*"],
 	"compilerOptions": {
-		"baseUrl": "./",
-		"paths": {
-			"@src*": ["./src*"],
-			"@test*": ["./test*"]
-		}
+		"target": "es5",
+		"module": "commonjs",
+		"lib": ["esnext"],
+		"declaration": true,
+		"declarationMap": true,
+		"sourceMap": true,
+		"strict": true,
+		"esModuleInterop": true,
+		"outDir": "dist"
 	}
 }

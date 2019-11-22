@@ -9,13 +9,12 @@
 	"module": "dist/index.mjs",
 	"repository": "git+https://github.com/ndthanhdev/plugin-pool.git",
 	"scripts": {
-		"build": "run-s clean:* _build",
-		"_build": "rollup -c",
-		"clean:core": "rimraf ./dist",
-		"clean:registry": "rimraf ./registry/dist",
+		"build": "run-s build:clean build:_",
+		"build:_": "rollup -c",
+		"build:clean": "rimraf ./dist",
 		"test": "jest --coverage",
 		"test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest --runInBand",
-		"prepublish": "npm run build"
+		"prepublishOnly": "yarn run build"
 	},
 	"bugs": {
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"

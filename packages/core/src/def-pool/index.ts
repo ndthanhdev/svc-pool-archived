@@ -1,2 +1,2 @@
-export * from '@src/def-pool/exceptions'
-export * from '@src/def-pool/def-pool'
+export * from './exceptions'
+export * from './def-pool'

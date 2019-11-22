@@ -1,6 +1,6 @@
 import { default as Schema } from '@svc-pool/registry'
 import { ValuesType, Overwrite } from 'utility-types'
-import R from 'ramda'
+import { reduce } from 'ramda'
 
 export type PointNames = keyof Schema
 
@@ -17,7 +17,9 @@ export type FullSvcDef<T extends PointNames> = {
 	point: T
 	desc: string
 	deps: FullDepsDef
-	factory: (deps?: FactoryArg1) => Promise<ValueTypeOfSvc<T>> | ValueTypeOfSvc<T>
+	factory: (
+		deps?: FactoryArg1,
+	) => Promise<ValueTypeOfSvc<T>> | ValueTypeOfSvc<T>
 }
 
 type Deps = PointNames[] | FullDepsDef
@@ -43,7 +45,7 @@ export const createSvcDef: CreateSvcDefFn = ({
 	let theDeps: FullDepsDef = {}
 
 	if (Array.isArray(deps)) {
-		R.reduce(
+		reduce(
 			(prev, cur) => {
 				prev[cur] = true
 				return prev

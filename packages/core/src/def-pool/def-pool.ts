@@ -3,7 +3,7 @@ import {
 	PointNames,
 	ValueTypeOfSvc,
 } from '@svc-pool/registry'
-import { FullSvcDef } from '@src/service-definition'
+import { FullSvcDef } from '../service-definition'
 import { NotRegistered, CircularDependency } from './exceptions'
 
 type DefPool = FullSvcDef<PointNames>[]

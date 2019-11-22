@@ -9,7 +9,7 @@
 		"build:_": "rollup -c",
 		"build": "run-s build:clean build:_",
 		"test": " ",
-		"prepublish": "npm run build"
+		"prepublishOnly": "yarn run build"
 	},
 	"dependencies": {
 		"utility-types": "^3.10.0"

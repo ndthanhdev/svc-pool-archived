@@ -1,24 +1,34 @@
 import createLoader from '../src/create-loader'
-import '@svc-pool/core/registry'
+import { createDefPool, registerSvcDefs, resolveDefPool } from '@svc-pool/core'
+import { flatten } from 'ramda'
 
-const BASE = './test/assets'
+jest.mock('../src/env-utils', () => {
+	return {
+		isAMD: () => true,
+		isES: () => false,
+	}
+})
 
-declare module '@svc-pool/core/registry' {
-	export interface ServiceResolutionTypes {
+declare module '@svc-pool/registry' {
+	export default interface Schema {
 		'a-point-for-test': string[]
 	}
 }
 
 test('load', done => {
-	createLoader()
-		.load({
-			pluginPaths: [`${BASE}/p1.js`],
+	const ps = createLoader().loadSvcDefs(['./test/assets/p1'])
+
+	Promise.all(ps)
+		.then(svcDefs => {
+			console.log(svcDefs)
+
+			return resolveDefPool(registerSvcDefs(createDefPool(), flatten(svcDefs)))
 		})
-		.then(definitionPool => definitionPool.resolve())
-		.then(pluginPool => {
-			expect(pluginPool.getServices('a-point-for-test')).toStrictEqual([
+		.then(svcPool => {
+			expect(svcPool.getServices('a-point-for-test')).toStrictEqual([
 				'a-service-for-test',
 			])
 		})
 		.then(done)
+		.catch(done.fail)
 })

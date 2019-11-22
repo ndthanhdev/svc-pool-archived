@@ -1,4 +1,4 @@
-import { createSvcDef } from '@src/service-definition'
+import { createSvcDef } from '../src/service-definition'
 
 declare module '@svc-pool/registry' {
 	export default interface Schema {

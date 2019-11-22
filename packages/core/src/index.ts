@@ -1,2 +1,2 @@
-export * from '@src/def-pool'
-export * from '@src/service-definition'
+export * from './def-pool/index'
+export * from './service-definition'
