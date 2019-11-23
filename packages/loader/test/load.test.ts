@@ -19,11 +19,9 @@ test('load', done => {
 	const ps = createLoader().loadSvcDefs(['./test/assets/p1'])
 
 	Promise.all(ps)
-		.then(svcDefs => {
-			console.log(svcDefs)
-
-			return resolveDefPool(registerSvcDefs(createDefPool(), flatten(svcDefs)))
-		})
+		.then(svcDefs =>
+			resolveDefPool(registerSvcDefs(createDefPool(), flatten(svcDefs))),
+		)
 		.then(svcPool => {
 			expect(svcPool.getServices('a-point-for-test')).toStrictEqual([
 				'a-service-for-test',
