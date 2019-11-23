@@ -1,6 +1,6 @@
 {
 	"name": "@svc-pool/core",
-	"version": "0.0.5",
+	"version": "1.0.0",
 	"description": "> TODO: description",
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
 	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
@@ -34,7 +34,7 @@
 		"typescript": "^3.5.1"
 	},
 	"dependencies": {
-		"@svc-pool/registry": "~0.0.0",
+		"@svc-pool/registry": "~1.0.0",
 		"@types/ramda": "~0.26.20",
 		"ramda": "~0.26.1",
 		"utility-types": "^3.10.0"
