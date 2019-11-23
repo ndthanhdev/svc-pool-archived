@@ -1,17 +1,18 @@
 import React from 'react'
-import Context from './Context'
-import { PluginPool } from '@svc-pool/core'
+import { SvcPoolContext, SvcPoolContextType } from './Context'
+import { ServicePool } from '@svc-pool/core'
 
 interface IPluginPoolContextProvider {
-  value: PluginPool
+	value: ServicePool
+	context?: React.Context<SvcPoolContextType>
 }
 
 export const PluginPoolContextProvider: React.FC<
-  IPluginPoolContextProvider
-> = ({ value, children }) => (
-  <Context.Provider value={value}>
-    {children}
-  </Context.Provider>
-)
+	IPluginPoolContextProvider
+> = ({ value, context, children }) => {
+	const Context = context || SvcPoolContext
+
+	return <Context.Provider value={value}>{children}</Context.Provider>
+}
 
 export default PluginPoolContextProvider

@@ -1,73 +1,100 @@
 import React from 'react'
 import {
-	createDefinitionPool,
-	createPlugin,
-	PluginPool,
+	createDefPool,
+	resolveDefPool,
+	ServicePool,
+	createSvcDef,
+	registerSvcDefs,
 } from '@svc-pool/core'
+import { pipe, then, otherwise } from 'ramda'
 import { mount } from 'enzyme'
 import {
-	usePluginPool,
-	Provider,
+	useSvcPool,
 	useServices,
-	PluginPoolContextType,
+	SvcPoolContext,
 } from '../src'
 import { HookWrapper } from './utils'
 
-declare module '@svc-pool/core/registry' {
-	export interface ServiceResolutionTypes {
+declare module '@svc-pool/registry' {
+	export default interface Schema {
 		'test-point': any[]
 	}
 }
 
 test('usePluginPool', done => {
-	let actual: PluginPoolContextType
-	const runner = () => {
-		actual = usePluginPool()
+	const getValueProvidedByHook = (svcPool: ServicePool) => {
+		let actual: ServicePool | undefined
+		const runner = () => {
+			actual = useSvcPool()
+		}
+
+		mount(
+			<SvcPoolContext.Provider value={svcPool}>
+				<HookWrapper callback={runner} />
+			</SvcPoolContext.Provider>,
+		)
+
+		return { actual, svcPool }
 	}
 
-	let pool: PluginPool | null = null
-	createDefinitionPool()
-		.resolve()
-		.then(r => {
-			pool = r
-			mount(
-				<Provider value={pool}>
-					<HookWrapper callback={runner} />
-				</Provider>,
-			)
-		})
-		.then(() => {
-			expect(actual).toBe(pool)
-		})
-		.then(done)
+	const assert = pipe<
+		ServicePool,
+		ReturnType<typeof getValueProvidedByHook>,
+		any,
+		any
+	>(
+		getValueProvidedByHook,
+		({ actual, svcPool }) => expect(actual).toBe(svcPool),
+		done,
+	)
+
+	pipe(
+		createDefPool,
+		resolveDefPool,
+		then(assert),
+		otherwise(done.fail),
+	)()
 })
 
-test('useServices', async () => {
-	const definitions = createDefinitionPool()
-	const testPoint = 'test-point'
+test('useServices', done => {
+	const pluginOfManyPoint = [
+		createSvcDef({ point: 'test-point', factory: () => 'service1' }),
+		createSvcDef({ point: 'test-point', factory: () => 'service2' }),
+	]
 
-	const pluginOfManyPoint = createPlugin([
-		{ point: testPoint, factory: () => 'service1' },
-		{ point: testPoint, factory: () => 'service2' },
-	])
+	const getValueProvidedByHook = (svcPool: ServicePool) => {
+		let actual: any[] | undefined
+		const runner = () => {
+			actual = useServices('test-point')
+		}
 
-	definitions.importPlugin(pluginOfManyPoint)
+		mount(
+			<SvcPoolContext.Provider value={svcPool}>
+				<HookWrapper callback={runner} />
+			</SvcPoolContext.Provider>,
+		)
 
-	const pool = await definitions.resolve()
-
-	let actual
-	const runner = () => {
-		actual = useServices('test-point')
+		return { actual }
 	}
 
-	mount(
-		<Provider value={pool}>
-			<HookWrapper callback={runner} />
-		</Provider>,
+	const assert = pipe<
+		ServicePool,
+		ReturnType<typeof getValueProvidedByHook>,
+		any,
+		any
+	>(
+		getValueProvidedByHook,
+		({ actual }) => {
+			expect(actual).toStrictEqual(['service1', 'service2'])
+		},
+		done,
 	)
-	console.log(actual)
 
-	expect(actual).toStrictEqual(['service1', 'service2'])
-
-	expect(true).toBe(true)
+	pipe(
+		createDefPool,
+		defPool => registerSvcDefs(defPool, pluginOfManyPoint),
+		resolveDefPool,
+		then(assert),
+		otherwise(done.fail),
+	)()
 })

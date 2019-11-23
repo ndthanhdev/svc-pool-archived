@@ -55,7 +55,7 @@ function extractPoints(t: Table) {
 }
 
 type GetSvcsFn = {
-	<T extends PointNames>(name: T): ValueTypeOfSvc<T>
+	<T extends PointNames>(name: T): Schema[T]
 }
 
 export type ServicePool = {

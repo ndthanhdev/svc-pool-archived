@@ -1,6 +1,8 @@
 import React from 'react'
-import Context from '../interfaces/Context'
+import { ServicePool } from '@svc-pool/core'
 
-export const PluginPoolContext = React.createContext<Context>(undefined)
+export type SvcPoolContextType = ServicePool | undefined
 
-export default PluginPoolContext
+export const SvcPoolContext = React.createContext<SvcPoolContextType>(undefined)
+
+export default SvcPoolContext
