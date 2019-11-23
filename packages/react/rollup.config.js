@@ -9,6 +9,9 @@ export default {
 			dir: './dist/index.js',
 			name: '@svc-pool/react',
 			format: 'umd',
+			globals: {
+				react: 'React',
+			},
 		},
 		{
 			dir: './dist/index.mjs',

@@ -9,14 +9,14 @@ import {
 	CircularDependency,
 	NotRegistered,
 } from '../src/index'
-import Schema, { PointNames, ValueTypeOfSvc } from '@svc-pool/registry'
+import { Schema, PointNames, ValueTypeOfSvc } from '@svc-pool/registry'
 
 describe('create test', () => {
 	expect(createDefPool()).toBeDefined()
 })
 
 declare module '@svc-pool/registry' {
-	export default interface Schema {
+	export interface Schema {
 		testRoot: any[]
 		testSub1: any[]
 		testSub2: any[]

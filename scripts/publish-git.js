@@ -9,13 +9,14 @@ function publish(base, cb) {
 	const branch = `latest/${package.name}`
 	const tag = `${package.name}/${rootPackage.version}`
 
-	console.log(`publishing ${tag}`)
+	console.log(`publishing ${package.name}`)
 
 	function handlePublishCb(err) {
 		if (err) {
 			console.error(err)
 		} else {
-			console.log('published')
+			console.log(`published ${package.name}`)
+			cb()
 		}
 	}
 
@@ -35,7 +36,10 @@ function publishAll(packageDirs) {
 	}
 }
 
-const dirs = ['packages/core', 'packages/loader', 'packages/react'].map(s =>
-	path.resolve(s),
-)
+const dirs = [
+	'packages/registry',
+	'packages/core',
+	'packages/loader',
+	'packages/react',
+].map(s => path.resolve(s))
 publishAll(dirs)

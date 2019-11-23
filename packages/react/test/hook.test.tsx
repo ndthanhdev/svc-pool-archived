@@ -16,7 +16,7 @@ import {
 import { HookWrapper } from './utils'
 
 declare module '@svc-pool/registry' {
-	export default interface Schema {
+	export interface Schema {
 		'test-point': any[]
 	}
 }

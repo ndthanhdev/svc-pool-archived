@@ -1,4 +1,4 @@
-import createLoader from '../src/create-loader'
+import { createLoader } from '../src/create-loader'
 import { createDefPool, registerSvcDefs, resolveDefPool } from '@svc-pool/core'
 import { flatten } from 'ramda'
 
@@ -10,7 +10,7 @@ jest.mock('../src/env-utils', () => {
 })
 
 declare module '@svc-pool/registry' {
-	export default interface Schema {
+	export interface Schema {
 		'a-point-for-test': string[]
 	}
 }

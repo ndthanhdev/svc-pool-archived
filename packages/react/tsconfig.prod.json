@@ -1,9 +1,7 @@
 {
-	"extends": "../../configs/tsconfig.base.json",
+	"extends": "./tsconfig.json",
 	"include": ["src/**/*"],
 	"compilerOptions": {
-		"module": "es2015",
-		"outDir": "./dist",
-		"jsx": "react"
+		"module": "es2015"
 	}
 }

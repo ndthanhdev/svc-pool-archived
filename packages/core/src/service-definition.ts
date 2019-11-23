@@ -1,4 +1,4 @@
-import { default as Schema } from '@svc-pool/registry'
+import { Schema } from '@svc-pool/registry'
 import { ValuesType, Overwrite } from 'utility-types'
 import { reduce } from 'ramda'
 
@@ -63,5 +63,3 @@ export const createSvcDef: CreateSvcDefFn = ({
 		deps: theDeps,
 	}
 }
-
-export default createSvcDef

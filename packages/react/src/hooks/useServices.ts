@@ -14,5 +14,3 @@ export function createUseServices(context = SvcPoolContext) {
 }
 
 export const useServices = createUseServices()
-
-export default useServices

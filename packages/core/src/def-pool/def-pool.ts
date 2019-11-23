@@ -1,5 +1,5 @@
 import {
-	default as Schema,
+	Schema,
 	PointNames,
 	ValueTypeOfSvc,
 } from '@svc-pool/registry'
