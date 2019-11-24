@@ -1,6 +1,6 @@
 {
 	"name": "@svc-pool/loader",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "> TODO: description",
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
 	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
@@ -11,19 +11,16 @@
 		"lib": "lib",
 		"test": "__tests__"
 	},
-	"files": [
-		"lib"
-	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/ndthanhdev/plugin-pool.git"
 	},
 	"scripts": {
-		"clean": "rimraf ./dist",
-		"_build": "rollup -c",
-		"build": "run-s clean _build",
+		"build:clean": "rimraf ./dist",
+		"build:_": "rollup -c",
+		"build": "run-s build:clean build:_",
 		"test": "jest --coverage",
-		"prepublishOnly": "yarn run build"
+		"prepublishOnly": "npm run build"
 	},
 	"bugs": {
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"

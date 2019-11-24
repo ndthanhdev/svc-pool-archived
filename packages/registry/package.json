@@ -1,6 +1,6 @@
 {
 	"name": "@svc-pool/registry",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
 	"license": "MIT",
@@ -9,7 +9,7 @@
 		"build:_": "rollup -c",
 		"build": "run-s build:clean build:_",
 		"test": " ",
-		"prepublishOnly": "yarn run build"
+		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {
 		"utility-types": "^3.10.0"

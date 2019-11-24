@@ -1,6 +1,6 @@
 {
 	"name": "@svc-pool/core",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "> TODO: description",
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
 	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
@@ -14,7 +14,7 @@
 		"build:clean": "rimraf ./dist",
 		"test": "jest --coverage",
 		"test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest --runInBand",
-		"prepublishOnly": "yarn run build"
+		"prepublishOnly": "npm run build"
 	},
 	"bugs": {
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
