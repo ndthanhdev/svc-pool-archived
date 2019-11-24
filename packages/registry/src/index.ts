@@ -3,15 +3,14 @@ import { ValuesType } from 'utility-types'
 // Leverage typescript declaration merging to enrich typescript type system
 // usage:
 // declare module '@svc-pool/registry' {
-//   export interface {
+//   export interface Schema {
 //     <point-name>: <resolve-type>[]
 //   }
 // }
 
 export interface Schema {
 	// example
-	a: string[]
-	b: number[]
+	'example-point': string[]
 }
 
 export type PointNames = keyof Schema
