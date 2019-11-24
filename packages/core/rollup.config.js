@@ -8,7 +8,7 @@ export default [
 		output: [
 			{
 				file: './dist/index.js',
-				name: '@svc-pool/core',
+				name: 'SvcPoolCore',
 				format: 'umd',
 			},
 			{

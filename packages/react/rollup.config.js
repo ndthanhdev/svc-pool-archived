@@ -7,15 +7,16 @@ export default {
 	output: [
 		{
 			dir: './dist/index.js',
-			name: '@svc-pool/react',
+			name: 'SvcPoolReact',
 			format: 'umd',
 			globals: {
 				react: 'React',
+				'@svc-pool/core': 'SvcPoolCore',
 			},
 		},
 		{
 			dir: './dist/index.mjs',
-			name: '@svc-pool/react',
+			name: 'SvcPoolReact',
 			format: 'esm',
 		},
 	],

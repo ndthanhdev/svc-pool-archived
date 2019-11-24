@@ -7,12 +7,12 @@ export default {
 	output: [
 		{
 			file: './dist/index.js',
-			name: '@svc-pool/loader',
+			name: 'SvcPoolLoader',
 			format: 'umd',
+			globals: { '@svc-pool/core': 'SvcPoolCore' },
 		},
 		{
 			file: './dist/index.mjs',
-			name: '@svc-pool/loader',
 			format: 'esm',
 		},
 	],
