@@ -1,7 +1,7 @@
-import { createSvcDef } from '../src/service-definition'
+import { createSvcDef } from '../dist'
 
-declare module '@svc-pool/registry' {
-	export interface Schema {
+declare module '../registry' {
+	export default interface Registry {
 		'createSvcDef-svc': string[]
 	}
 }

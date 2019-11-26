@@ -36,10 +36,7 @@ function publishAll(packageDirs) {
 	}
 }
 
-const dirs = [
-	'packages/registry',
-	'packages/core',
-	'packages/loader',
-	'packages/react',
-].map(s => path.resolve(s))
+const dirs = ['packages/core', 'packages/loader', 'packages/react'].map(s =>
+	path.resolve(s),
+)
 publishAll(dirs)

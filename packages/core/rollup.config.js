@@ -1,10 +1,10 @@
-import typescript from 'rollup-plugin-typescript2'
 import resolve from 'rollup-plugin-node-resolve'
+import copy from 'rollup-plugin-copy'
 
 export default [
 	//  core
 	{
-		input: './src/index.ts',
+		input: './src/index.js',
 		output: [
 			{
 				file: './dist/index.js',
@@ -19,8 +19,17 @@ export default [
 		],
 		plugins: [
 			resolve(),
-			typescript({
-				tsconfig: './tsconfig.prod.json',
+			copy({
+				targets: [
+					{
+						src: './src/*.d.ts',
+						dest: './dist',
+					},
+					{
+						src: './src/def-pool/*.d.ts',
+						dest: './dist/def-pool',
+					},
+				],
 			}),
 		],
 	},

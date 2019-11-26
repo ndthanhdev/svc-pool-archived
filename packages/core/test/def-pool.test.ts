@@ -8,15 +8,17 @@ import {
 	ServicePool,
 	CircularDependency,
 	NotRegistered,
-} from '../src/index'
-import { Schema, PointNames, ValueTypeOfSvc } from '@svc-pool/registry'
+	ValueTypeOfSvc,
+	PointNames,
+} from '../dist'
+import Registry from '../registry'
 
 describe('create test', () => {
 	expect(createDefPool()).toBeDefined()
 })
 
-declare module '@svc-pool/registry' {
-	export interface Schema {
+declare module '../registry' {
+	export default interface Registry {
 		testRoot: any[]
 		testSub1: any[]
 		testSub2: any[]
@@ -30,7 +32,7 @@ const hasFirstInstanceEqual = <T extends PointNames>(
 	name: T,
 	value: ValueTypeOfSvc<T>,
 ) =>
-	pipe<ServicePool, Schema[T], boolean>(
+	pipe<ServicePool, Registry[T], boolean>(
 		svcPool => svcPool.getServices(name),
 		instances => instances[0] === value,
 	)
