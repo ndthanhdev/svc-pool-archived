@@ -12,7 +12,7 @@
 		"build": "run-s build:clean build:_",
 		"build:_": "rollup -c",
 		"build:clean": "rimraf ./dist",
-		"test": "jest --coverage",
+		"test": "jest",
 		"test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest --runInBand",
 		"prepublishOnly": "npm run build"
 	},

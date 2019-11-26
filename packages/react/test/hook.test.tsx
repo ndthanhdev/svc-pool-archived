@@ -12,11 +12,11 @@ import {
 	useSvcPool,
 	useServices,
 	SvcPoolContext,
-} from '../src'
+} from '../dist'
 import { HookWrapper } from './utils'
 
-declare module '@svc-pool/registry' {
-	export interface Schema {
+declare module '@svc-pool/core/registry' {
+	export default interface Registry {
 		'test-point': any[]
 	}
 }

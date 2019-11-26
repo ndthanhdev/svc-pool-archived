@@ -1,15 +1,12 @@
 {
-	"include": ["src/**/*", "test/**/*"],
+	"include": ["test/**/*"],
 	"compilerOptions": {
 		"target": "es5",
 		"module": "commonjs",
 		"lib": ["esnext", "dom"],
-		"declaration": true,
-		"declarationMap": true,
-		"sourceMap": true,
-		"strict": true,
-		"esModuleInterop": true,
-		"outDir": "./dist",
-		"jsx": "react"
+		"jsx": "react",
+		"allowJs": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true
 	}
 }

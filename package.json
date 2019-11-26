@@ -5,7 +5,6 @@
 	"license": "MIT",
 	"private": true,
 	"workspaces": [
-		"packages/registry",
 		"packages/core",
 		"packages/*"
 	],

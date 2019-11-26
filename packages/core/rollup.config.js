@@ -2,7 +2,6 @@ import resolve from 'rollup-plugin-node-resolve'
 import copy from 'rollup-plugin-copy'
 
 export default [
-	//  core
 	{
 		input: './src/index.js',
 		output: [

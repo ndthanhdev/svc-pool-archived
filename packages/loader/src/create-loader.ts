@@ -1,5 +1,4 @@
-import { FullSvcDef } from '@svc-pool/core'
-import { PointNames } from '@svc-pool/registry'
+import { FullSvcDef, PointNames } from '@svc-pool/core'
 import { isAMD, isES } from './env-utils'
 
 export type Loader = {

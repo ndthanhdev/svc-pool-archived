@@ -9,7 +9,7 @@ jest.mock('../src/env-utils', () => {
 	}
 })
 
-declare module '@svc-pool/registry' {
+declare module '@svc-pool/core/registry' {
 	export interface Schema {
 		'a-point-for-test': string[]
 	}

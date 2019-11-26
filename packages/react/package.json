@@ -15,7 +15,7 @@
 		"build": "run-s clean _build",
 		"_build": "rollup -c",
 		"clean": "rimraf ./dist",
-		"test": "jest --coverage",
+		"test": "jest",
 		"test:debug": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand",
 		"prepublishOnly": "npm run build"
 	},
@@ -26,6 +26,8 @@
 		"@svc-pool/core": "~1.0.0"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.7.4",
+		"@babel/preset-react": "^7.7.4",
 		"@types/enzyme": "^3.9.3",
 		"@types/enzyme-adapter-react-16": "^1.0.5",
 		"@types/jest": "^24.0.15",
@@ -41,9 +43,10 @@
 		"react-dom": "^16.8.6",
 		"rimraf": "^2.6.3",
 		"rollup": "^1.25.2",
+		"rollup-plugin-babel": "^4.3.3",
 		"rollup-plugin-commonjs": "^10.1.0",
+		"rollup-plugin-copy": "^3.1.0",
 		"rollup-plugin-node-resolve": "^5.2.0",
-		"rollup-plugin-typescript2": "^0.24.3",
 		"ts-jest": "^24.0.2",
 		"typescript": "^3.5.2"
 	}

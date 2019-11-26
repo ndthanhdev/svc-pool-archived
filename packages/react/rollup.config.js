@@ -1,12 +1,13 @@
-import typescript from 'rollup-plugin-typescript2'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
+import copy from 'rollup-plugin-copy'
+import babel from 'rollup-plugin-babel'
 
 export default {
-	input: './src/index.ts',
+	input: './src/index.js',
 	output: [
 		{
-			dir: './dist/index.js',
+			file: './dist/index.js',
 			name: 'SvcPoolReact',
 			format: 'umd',
 			globals: {
@@ -15,7 +16,7 @@ export default {
 			},
 		},
 		{
-			dir: './dist/index.mjs',
+			file: './dist/index.mjs',
 			name: 'SvcPoolReact',
 			format: 'esm',
 		},
@@ -23,13 +24,29 @@ export default {
 	external: ['@svc-pool/core', 'react'],
 	plugins: [
 		resolve(),
+		babel({
+			presets: ['@babel/preset-react'],
+		}),
 		commonjs({
 			namedExports: {
 				'@svc-pool/core': ['createDefinitionPool', 'Config'],
 			},
 		}),
-		typescript({
-			tsconfig: './tsconfig.prod.json',
+		copy({
+			targets: [
+				{
+					src: './src/*.d.ts',
+					dest: './dist',
+				},
+				{
+					src: './src/components/*.d.ts',
+					dest: './dist/components',
+				},
+				{
+					src: './src/hooks/*.d.ts',
+					dest: './dist/hooks',
+				},
+			],
 		}),
 	],
 }
