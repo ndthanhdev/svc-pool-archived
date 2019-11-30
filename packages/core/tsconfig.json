@@ -4,7 +4,6 @@
 		"target": "esnext",
 		"module": "commonjs",
 		"lib": ["esnext"],
-		"allowJs": true,
-		"skipLibCheck": true
+		"allowJs": true
 	}
 }

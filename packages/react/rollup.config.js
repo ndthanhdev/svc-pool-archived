@@ -23,9 +23,12 @@ export default {
 	],
 	external: ['@svc-pool/core', 'react'],
 	plugins: [
-		resolve(),
+		resolve({
+			extensions: ['.mjs', '.js', '.jsx', '.json'],
+		}),
 		babel({
-			presets: ['@babel/preset-react'],
+			exclude: 'node_modules/**',
+			presets: ['@babel/preset-env', '@babel/preset-react'],
 		}),
 		commonjs({
 			namedExports: {

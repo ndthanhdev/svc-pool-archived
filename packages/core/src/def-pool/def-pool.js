@@ -52,13 +52,13 @@ function createSvcPool(resolved) {
 	return { getServices }
 }
 
-export async function resolveDefPool(defPool) {
+export function resolveDefPool(defPool) {
 	const table = createTable(defPool)
 	const points = extractPoints(table)
 	const resolved = {}
 	const resolving = new Set()
 
-	async function resolveDep(dep, isRequired) {
+	function resolveDep(dep, isRequired) {
 		const def = table[dep]
 
 		if (!def) {
@@ -69,26 +69,32 @@ export async function resolveDefPool(defPool) {
 			return undefined
 		}
 
-		return await resolvePoint(dep)
+		return resolvePoint(dep) // eslint-disable-line no-use-before-define
 	}
 
-	async function resolveSvc(def) {
+	function resolveSvc(def) {
 		const deps = {}
 
-		for (const key in def.deps) {
-			deps[key] = await resolveDep(key, !!def.deps[key])
-		}
-
-		const instance = await def.factory(deps)
-
-		return instance
+		return Object.keys(def.deps)
+			.reduce(
+				(acc, key) =>
+					acc
+						.then(() => {
+							return resolveDep(key, !!def.deps[key])
+						})
+						.then(dep => {
+							deps[key] = dep
+						}),
+				Promise.resolve(),
+			)
+			.then(() => def.factory(deps))
 	}
 
-	async function resolveSvcs(defs) {
-		return await Promise.all(defs.map(resolveSvc))
+	function resolveSvcs(defs) {
+		return Promise.all(defs.map(resolveSvc))
 	}
 
-	async function resolvePoint(point, isRoot = false) {
+	function resolvePoint(point, isRoot = false) {
 		// if there is already a service for this point maybe this is a many point
 		if (resolved[point] && !isRoot) {
 			return resolved[point]
@@ -103,16 +109,20 @@ export async function resolveDefPool(defPool) {
 
 		const defs = table[point]
 
-		const instances = await resolveSvcs(defs)
+		return resolveSvcs(defs).then(instances => {
+			resolving.delete(point)
 
-		resolving.delete(point)
-
-		return instances
+			return instances
+		})
 	}
 
-	for (const p of points) {
-		resolved[p] = await resolvePoint(p, true)
-	}
-
-	return createSvcPool(resolved)
+	return points
+		.reduce((acc, pointName) => {
+			return acc
+				.then(() => resolvePoint(pointName, true))
+				.then(instances => {
+					resolved[pointName] = instances
+				})
+		}, Promise.resolve())
+		.then(() => createSvcPool(resolved))
 }

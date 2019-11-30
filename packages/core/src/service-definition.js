@@ -8,8 +8,10 @@ export const createSvcDef = ({ desc = '', deps = {}, ...other }) => {
 		reduce(
 			(prev, cur) => {
 				// @ts-ignore
-				prev[cur] = true
-				return prev
+				return {
+					...prev,
+					[cur]: true,
+				}
 			},
 			theDeps,
 			deps,

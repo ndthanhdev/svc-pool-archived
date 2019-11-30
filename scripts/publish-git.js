@@ -1,21 +1,26 @@
+/* eslint-disable import/no-extraneous-dependencies,
+import/no-dynamic-require,
+global-require, */
 const path = require('path')
 const ghPages = require('gh-pages')
+const info = require('debug')('info:publish-git')
+const error = require('debug')('error:publish-git')
 
-const rootPackage = require(`../package.json`)
+// const rootPackage = require(`../package.json`)
 
 function publish(base, cb) {
-	const package = require(`${base}/package.json`)
+	const pkg = require(`${base}/package.json`)
 
-	const branch = `latest/${package.name}`
-	const tag = `${package.name}/${rootPackage.version}`
+	const branch = `latest/${pkg.name}`
+	// const tag = `${pkg.name}/${rootPackage.version}`
 
-	console.log(`publishing ${package.name}`)
+	info(`publishing ${pkg.name}`)
 
 	function handlePublishCb(err) {
 		if (err) {
-			console.error(err)
+			error(err)
 		} else {
-			console.log(`published ${package.name}`)
+			info(`published ${pkg.name}`)
 			cb()
 		}
 	}

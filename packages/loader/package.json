@@ -1,6 +1,6 @@
 {
 	"name": "@svc-pool/loader",
-	"version": "1.0.5",
+	"version": "1.0.7",
 	"description": "> TODO: description",
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
 	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
@@ -27,8 +27,7 @@
 	},
 	"steal": {},
 	"peerDependencies": {
-		"@svc-pool/core": "~1.0.0",
-		"@svc-pool/registry": "~1.0.0"
+		"@svc-pool/core": "~1.0.0"
 	},
 	"devDependencies": {
 		"@types/execa": "^2.0.0",

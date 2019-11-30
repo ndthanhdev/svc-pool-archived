@@ -28,6 +28,10 @@ export default [
 						src: './src/def-pool/*.d.ts',
 						dest: './dist/def-pool',
 					},
+					{
+						src: './src/def-pool/exceptions/*.d.ts',
+						dest: './dist/def-pool/exceptions',
+					},
 				],
 			}),
 		],

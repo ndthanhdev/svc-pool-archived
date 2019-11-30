@@ -1,12 +1,8 @@
-define([], function() {
-	'use strict'
-
-	return [
-		{
-			point: 'a-point-for-test',
-			factory: () => {
-				return 'a-service-for-test'
-			},
-		},
-	]
-})
+/* eslint-disable*/
+define([], () => [
+	{
+		point: 'a-point-for-test',
+		factory: () => 'a-service-for-test',
+		deps: {},
+	},
+])

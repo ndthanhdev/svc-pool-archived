@@ -1,5 +1,5 @@
-import BaseException from '../base-exception'
-import { PointNames } from '../util-types'
+import BaseException from '../../base-exception'
+import { PointNames } from '../../util-types'
 
 export declare class CircularDependency extends BaseException {
 	constructor(name: PointNames)

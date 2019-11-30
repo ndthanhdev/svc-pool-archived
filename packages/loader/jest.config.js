@@ -1,5 +1,5 @@
-const base = require('../../configs/jest.config')
 const requirejs = require('requirejs')
+const base = require('../../configs/jest.config')
 
 requirejs.config({
 	baseUrl: __dirname,

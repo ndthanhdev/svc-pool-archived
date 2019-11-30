@@ -8,11 +8,7 @@ import {
 } from '@svc-pool/core'
 import { pipe, then, otherwise } from 'ramda'
 import { mount } from 'enzyme'
-import {
-	useSvcPool,
-	useServices,
-	SvcPoolContext,
-} from '../dist'
+import { useSvcPool, useServices, SvcPoolContext } from '../dist'
 import { HookWrapper } from './utils'
 
 declare module '@svc-pool/core/registry' {
