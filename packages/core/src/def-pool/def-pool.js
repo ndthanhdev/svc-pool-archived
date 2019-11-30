@@ -75,7 +75,7 @@ export function resolveDefPool(defPool) {
 	function resolveSvc(def) {
 		const deps = {}
 
-		return Object.keys(def.deps)
+		return Object.keys(def.deps || {})
 			.reduce(
 				(acc, key) =>
 					acc
