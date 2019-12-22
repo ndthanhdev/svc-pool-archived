@@ -34,6 +34,7 @@ function isRegistryInterfaceDeclaration(
 function isRegistryDeclaration(node: ts.Node): node is RegistryDeclaration {
 	if (
 		ts.isModuleDeclaration(node) &&
+		node.name.text === RegistryModuleName &&
 		node.body &&
 		ts.isModuleBlock(node.body) &&
 		node.body.statements &&
