@@ -15,6 +15,18 @@ type RegistryDeclaration = Omit<ts.ModuleDeclaration, 'body'> & {
 	}
 }
 
+function isRegistryPropertySignature(node: ts.Node) {
+	if (
+		ts.isPropertySignature(node) &&
+		node.type &&
+		ts.isArrayTypeNode(node.type)
+	) {
+		return true
+	}
+
+	return false
+}
+
 function isRegistryInterfaceDeclaration(
 	node: ts.Statement,
 ): node is RegistryDeclaration {
@@ -23,7 +35,8 @@ function isRegistryInterfaceDeclaration(
 		node.name.escapedText === 'Registry' &&
 		node.modifiers &&
 		node.modifiers[0].kind === ts.SyntaxKind.ExportKeyword &&
-		node.modifiers[1].kind === ts.SyntaxKind.DefaultKeyword
+		node.modifiers[1].kind === ts.SyntaxKind.DefaultKeyword &&
+		all(isRegistryPropertySignature, node.members)
 	) {
 		return true
 	}
