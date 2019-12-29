@@ -8,6 +8,7 @@
 		"debug": "^4.1.1",
 		"load-json-file": "^6.2.0",
 		"ramda": "^0.26.1",
+		"ts-morph": "^6.0.2",
 		"tsconfig": "^7.0.0",
 		"typescript": "^3.7.4"
 	},

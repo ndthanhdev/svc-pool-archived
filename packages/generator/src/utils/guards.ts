@@ -1,5 +1,5 @@
-import * as ts from 'typescript'
-import { all } from 'ramda'
+import { ts, CompilerNodeToWrappedType, Node } from 'ts-morph'
+import { pipe, all } from 'ramda'
 
 const RegistryModuleName = '@svc-pool/core/registry'
 
@@ -9,11 +9,15 @@ type RegistryInterfaceDeclaration = Omit<ts.InterfaceDeclaration, 'members'> & {
 	})[]
 }
 
-type RegistryDeclaration = Omit<ts.ModuleDeclaration, 'body'> & {
+export type RegistryDeclaration = Omit<ts.ModuleDeclaration, 'body'> & {
 	body: Omit<ts.ModuleBlock, 'statements'> & {
 		statements: ts.NodeArray<RegistryInterfaceDeclaration>
 	}
 }
+
+export type WrappedRegistryDeclaration = CompilerNodeToWrappedType<
+	RegistryDeclaration
+>
 
 function isRegistryPropertySignature(node: ts.Node) {
 	if (
@@ -44,7 +48,9 @@ function isRegistryInterfaceDeclaration(
 	return false
 }
 
-function isRegistryDeclaration(node: ts.Node): node is RegistryDeclaration {
+export function isRegistryDeclaration(
+	node: ts.Node,
+): node is RegistryDeclaration {
 	if (
 		ts.isModuleDeclaration(node) &&
 		node.name.text === RegistryModuleName &&
@@ -60,16 +66,10 @@ function isRegistryDeclaration(node: ts.Node): node is RegistryDeclaration {
 	return false
 }
 
-// list all files need for generator process
-export const visitDeclarations = (sourceFile: ts.SourceFile) => {
-	const nodes: ts.ModuleDeclaration[] = []
+export function isWrappedRegistryDeclaration(
+	wrappedNode: Node,
+): wrappedNode is WrappedRegistryDeclaration {
+	const cNode = wrappedNode.compilerNode
 
-	ts.forEachChild(sourceFile, node => {
-		if (isRegistryDeclaration(node)) {
-			nodes.push(node)
-			console.log(node.getFullText(sourceFile))
-		}
-	})
-
-	return nodes
+	return isRegistryDeclaration(cNode)
 }
