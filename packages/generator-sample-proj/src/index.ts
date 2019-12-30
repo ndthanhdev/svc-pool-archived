@@ -5,5 +5,3 @@ declare module '@svc-pool/core/registry' {
 		root: any[]
 	}
 }
-
-export default {}

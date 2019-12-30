@@ -5,5 +5,3 @@ declare module '@svc-pool/core/registry' {
 		nested2: string[]
 	}
 }
-
-export default {}

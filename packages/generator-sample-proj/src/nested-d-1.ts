@@ -9,5 +9,3 @@ declare module '@svc-pool/core/registry' {
 		nested1Type: SampleType[]
 	}
 }
-
-export default {}

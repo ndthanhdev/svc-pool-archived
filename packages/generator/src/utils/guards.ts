@@ -1,7 +1,13 @@
-import { ts, CompilerNodeToWrappedType, Node } from 'ts-morph'
+import {
+	ts,
+	CompilerNodeToWrappedType,
+	Node,
+	SourceFile,
+	ImportDeclaration,
+} from 'ts-morph'
 import { pipe, all } from 'ramda'
 
-const RegistryModuleName = '@svc-pool/core/registry'
+export const RegistryModuleName = '@svc-pool/core/registry'
 
 type RegistryInterfaceDeclaration = Omit<ts.InterfaceDeclaration, 'members'> & {
 	members: (Omit<ts.PropertySignature, 'type'> & {
@@ -72,4 +78,24 @@ export function isWrappedRegistryDeclaration(
 	const cNode = wrappedNode.compilerNode
 
 	return isRegistryDeclaration(cNode)
+}
+
+export type RegistryFile = Omit<ts.SourceFile, 'statements'> & {
+	statements: ts.NodeArray<RegistryDeclaration | ts.ImportDeclaration>
+}
+
+export type WrappedRegistryFile = CompilerNodeToWrappedType<RegistryFile>
+
+export function isRegistryFile(
+	srcFile: ts.SourceFile,
+): srcFile is RegistryFile {
+	return all(st => {
+		return ts.isImportDeclaration(st) || isRegistryDeclaration(st)
+	}, srcFile.statements)
+}
+
+export function isWrappedRegistryFile(
+	srcFile: SourceFile,
+): srcFile is WrappedRegistryFile {
+	return isRegistryFile(srcFile.compilerNode)
 }

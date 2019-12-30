@@ -6,3 +6,6 @@ export interface SampleInterface {
 export type SampleType = {
   attributes: any[]
 }
+
+
+export interface UnusedInterface {}

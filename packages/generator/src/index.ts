@@ -7,7 +7,8 @@ import {
 } from 'ts-morph'
 import { pipe, when } from 'ramda'
 import { isRegistryDeclaration, RegistryDeclaration } from './utils/guards'
-import { extract } from './utils/extract'
+import { emit } from './utils/emitter'
+import { prepareSourceProject } from './utils/loader'
 
 // console.log(require('./tsconfig.json'))
 
@@ -34,11 +35,8 @@ import { extract } from './utils/extract'
 // })
 
 pipe(
-	() =>
-		new Project({
-			tsConfigFilePath: '../generator-sample-proj/tsconfig.json',
-		}),
-	proj => [extract(proj), proj],
+	() => prepareSourceProject('../generator-sample-proj/tsconfig.json'),
+	proj => emit(proj, path.resolve('../generator-sample-proj/dist')),
 
 	// const compilerNode = dcl.compilerNode
 	// if(!ts.isModuleDeclaration(compilerNode)){
