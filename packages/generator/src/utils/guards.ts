@@ -1,11 +1,5 @@
-import {
-	ts,
-	CompilerNodeToWrappedType,
-	Node,
-	SourceFile,
-	ImportDeclaration,
-} from 'ts-morph'
-import { pipe, all } from 'ramda'
+import { ts, CompilerNodeToWrappedType, Node, SourceFile } from 'ts-morph'
+import { all } from 'ramda'
 
 export const RegistryModuleName = '@svc-pool/core/registry'
 
