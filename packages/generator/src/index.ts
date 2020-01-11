@@ -1,12 +1,31 @@
-import { pipe, curry, __ } from 'ramda'
-import { emit } from './utils/emitter'
-import { prepareSourceProject } from './utils/loader'
+import { pipe } from 'ramda'
+import emit from './utils/emit'
+import { prepareSourceProject } from './utils/prepareSourceProject'
+import filterNonRegistryFiles from './utils/filterNonRegistryFiles'
 
-export const generate = (
-	input: Parameters<typeof prepareSourceProject>[number],
-	output: string,
+export const listRegistryFiles = (
+	tsconfigPathOrProject: Parameters<typeof prepareSourceProject>[number],
 ) =>
 	pipe(
-		() => prepareSourceProject(input),
-		curry(emit)(__, output),
-	)()
+		prepareSourceProject,
+		srcProj => srcProj.getSourceFiles(),
+		filterNonRegistryFiles,
+	)(tsconfigPathOrProject)
+
+export const generate = (
+	tsconfigPathOrProject: Parameters<typeof prepareSourceProject>[number],
+	outDir: string,
+) =>
+	pipe(
+		prepareSourceProject,
+		srcProj => ({
+			srcProj,
+			sourceFiles: srcProj.getSourceFiles(),
+		}),
+		({ sourceFiles, ...other }) => ({
+			...other,
+			sourceFiles: filterNonRegistryFiles(sourceFiles),
+		}),
+		({ srcProj, sourceFiles }) =>
+			emit(srcProj.compilerOptions, sourceFiles, outDir),
+	)(tsconfigPathOrProject)

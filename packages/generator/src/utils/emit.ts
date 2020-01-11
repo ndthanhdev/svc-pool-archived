@@ -1,33 +1,23 @@
-import { Project, SourceFile } from 'ts-morph'
-import { isWrappedRegistryFile, WrappedRegistryFile } from './guards'
+import { Project, CompilerOptionsContainer } from 'ts-morph'
+import { WrappedRegistryFile } from './guards'
 import { pipe, filter } from 'ramda'
-import { createFunctionLogger } from './log'
+import { createLogger } from './logger'
 
-export function emit(sourceProj: Project, outDir: string) {
-	const logger = createFunctionLogger(emit)
+const logger = createLogger(emit)
 
-	function filterNonRegistryFiles(srcFiles: SourceFile[]) {
-		const log = logger.child(filterNonRegistryFiles)
-
-		return filter(srcFile => {
-			const path = srcFile.getFilePath()
-			if (!isWrappedRegistryFile(srcFile)) {
-				log.verbose(`filtered out ${path}`)
-				return false
-			}
-			log.verbose(`selected ${path}`)
-			return true
-		}, srcFiles)
-	}
-
-	function createProjWithRegFiles(regFiles: WrappedRegistryFile[]) {
+export default function emit(
+	compilerOptions: CompilerOptionsContainer,
+	regFiles: WrappedRegistryFile[],
+	outDir: string,
+) {
+	function createProjWithRegFiles() {
 		const log = logger.child(createProjWithRegFiles)
 
 		log.verbose('begin')
 
 		const slimProj = new Project({
 			compilerOptions: {
-				...sourceProj.compilerOptions,
+				...compilerOptions,
 				outDir,
 				declaration: true,
 				emitDeclarationOnly: true,
@@ -81,8 +71,6 @@ export function emit(sourceProj: Project, outDir: string) {
 	}
 
 	return pipe(
-		() => sourceProj.getSourceFiles(),
-		filterNonRegistryFiles,
 		createProjWithRegFiles,
 		resolveDepFiles,
 		emitProj,
