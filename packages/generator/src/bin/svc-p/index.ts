@@ -2,6 +2,7 @@ import yargs from 'yargs'
 import { createLogger } from '../../utils/logger'
 import { generate, listRegistryFiles } from '../../index'
 import handleList from './handleList'
+import handleGen from './handleGen'
 
 const rootLog = createLogger('svc-p')
 
@@ -31,27 +32,7 @@ yargs
 			const log = rootLog.child('generate')
 			log.verbose(argv)
 
-			const srcDir = argv['tsConfigPath']
-			if (typeof srcDir !== 'string') {
-				throw new Error('tsConfigPath is not string')
-			}
-
-			const outDir = argv['outDir']
-			if (typeof outDir !== 'string') {
-				throw new Error('outDir is not string')
-			}
-
-			try {
-				await generate(srcDir, outDir)
-				log.info('success')
-				console.log('success')
-			} catch (error) {
-				log.error('failed. See error below.')
-				log.error(error)
-				console.error('Cannot generate registry project.')
-				console.error(error)
-				process.exit(1)
-			}
+			await handleGen(argv.tsConfigPath, argv.outDir)
 		},
 	)
 	.command(

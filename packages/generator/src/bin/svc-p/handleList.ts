@@ -8,7 +8,6 @@ import { pipe, curry, __ } from 'ramda'
 function printRegFileOutput(regFiles: WrappedRegistryFile[], baseDir: string) {
 	const getRelativePathToBaseDir = curry(path.relative)(baseDir, __)
 
-	console.info('list of registry files:')
 	regFiles.forEach(file =>
 		pipe(
 			() => file.compilerNode.fileName,
@@ -28,19 +27,34 @@ export default async function handleList(tsConfigPath?: string) {
 		process.exit(1)
 	}
 
-	console.log(`listing registry files in ${chalk.cyan(tsConfigPath)}`)
+	// absolute config path
+	let abConfPth: string
 
-	const baseDir = path.parse(tsConfigPath).dir
+	try {
+		abConfPth = path.resolve(tsConfigPath)
+	} catch (error) {
+		console.error(
+			chalk.red(
+				`can not get absolute path from ${tsConfigPath}. See error below`,
+			),
+		)
+		console.error(chalk.red(error))
+		process.exit(1)
+	}
+
+	console.log(`listing registry files in ${chalk.cyan(abConfPth)}`)
+
+	const baseDir = path.parse(abConfPth).dir
 
 	log.verbose(`baseDir: ${baseDir}`)
 
 	try {
-		const files = listRegistryFiles(tsConfigPath)
+		const files = listRegistryFiles(abConfPth)
 		log.info(files)
 		printRegFileOutput(files, baseDir)
 	} catch (error) {
 		log.error(error)
-		console.error(chalk.red('Cannot list registry files'))
+		console.error(chalk.red('Cannot list registry files. See error below'))
 		console.error(chalk.red(error))
 		process.exit(1)
 	}
