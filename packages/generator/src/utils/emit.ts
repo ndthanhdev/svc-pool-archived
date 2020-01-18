@@ -1,6 +1,6 @@
 import { Project, CompilerOptionsContainer } from 'ts-morph'
 import { WrappedRegistryFile } from './guards'
-import { pipe, filter } from 'ramda'
+import { pipe } from 'ramda'
 import { createLogger } from './logger'
 
 const logger = createLogger(emit)

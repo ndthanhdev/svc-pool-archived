@@ -1,6 +1,5 @@
 import Registry from '../registry'
-import { ValuesType, Overwrite } from 'utility-types'
-import { reduce } from 'ramda'
+import { Overwrite } from 'utility-types'
 import { PointNames, ValueTypeOfSvc } from './util-types'
 
 // Define service

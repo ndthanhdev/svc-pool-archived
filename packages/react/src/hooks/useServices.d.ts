@@ -1,6 +1,5 @@
 import React from 'react'
-import { PointNames, ValueTypeOfSvc } from '@svc-pool/core'
-import { SvcPoolContext } from '../components/Context'
+import { PointNames } from '@svc-pool/core'
 import Registry from '@svc-pool/core/registry'
 
 type useServicesHook = {

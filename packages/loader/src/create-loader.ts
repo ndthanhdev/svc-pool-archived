@@ -52,7 +52,7 @@ export function createLoader(dynamicImport?: DynamicImport): Loader {
 	const _dynamicImport = dynamicImport || createDynamicImport()
 
 	const loadSvcDef = async (pluginPath: string) => {
-		return <Promise<FullSvcDef<PointNames>[]>>_dynamicImport(pluginPath)
+		return _dynamicImport(pluginPath) as Promise<FullSvcDef<PointNames>[]>
 	}
 
 	const loadSvcDefs = (pluginPaths: string[]) => pluginPaths.map(loadSvcDef)

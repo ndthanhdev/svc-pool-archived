@@ -13,11 +13,13 @@ import {
 } from '../dist'
 import Registry from '../registry'
 
-describe('create test', () => {
-	expect(createDefPool()).toBeDefined()
+test('create test', () => {
+	const a = createDefPool()
+	expect(a).toBeDefined()
 })
 
 declare module '../registry' {
+	// eslint-disable-next-line jest/no-export
 	export default interface Registry {
 		testRoot: any[]
 		testSub1: any[]
@@ -37,28 +39,29 @@ const hasFirstInstanceEqual = <T extends PointNames>(
 		instances => instances[0] === value,
 	)
 
-test('deps free', done => {
+test('deps free', async () => {
 	const rootDef = createSvcDef({
 		point: 'testRoot',
 		factory: () => 'testRoot',
 	})
 
-	const hasRootInstance = pipe<ServicePool, string[], any, any>(
+	const hasRootInstance = pipe<ServicePool, string[], any>(
 		svcPool => svcPool.getServices('testRoot'),
 		instances => expect(instances).toEqual(['testRoot']),
-		done,
 	)
 
-	pipe(
+	await pipe(
 		createDefPool,
 		pool => registerSvcDef(pool, rootDef),
 		resolveDefPool,
 		then(svcPool => hasRootInstance(svcPool)),
-		otherwise(err => done.fail(err)),
+		otherwise(err => {
+			throw err
+		}),
 	)()
 })
 
-test('resolve with deps', done => {
+test('resolve with deps', async () => {
 	const rootDef = createSvcDef({
 		point: 'testRoot',
 		factory: () => 'testRoot',
@@ -92,40 +95,37 @@ test('resolve with deps', done => {
 				deps.testSub2[0]}`,
 	})
 
-	const assert = pipe<ServicePool, void, any>(
-		svcPool => {
-			expect(
-				hasFirstInstanceEqual('testSub1', 'testRoot-testSub1')(svcPool),
-			).toBeTruthy()
+	const assert = pipe<ServicePool, void>(svcPool => {
+		expect(
+			hasFirstInstanceEqual('testSub1', 'testRoot-testSub1')(svcPool),
+		).toBeTruthy()
 
-			expect(
-				hasFirstInstanceEqual('testSub2', 'testRoot-testSub1-testSub2')(
-					svcPool,
-				),
-			).toBeTruthy()
+		expect(
+			hasFirstInstanceEqual('testSub2', 'testRoot-testSub1-testSub2')(svcPool),
+		).toBeTruthy()
 
-			expect(
-				hasFirstInstanceEqual(
-					'testSub3',
-					'testRoot-testSub1-testRoot-testSub1-testSub2',
-				)(svcPool),
-			).toBeTruthy()
+		expect(
+			hasFirstInstanceEqual(
+				'testSub3',
+				'testRoot-testSub1-testRoot-testSub1-testSub2',
+			)(svcPool),
+		).toBeTruthy()
 
-			return false
-		},
-		done,
-	)
+		return false
+	})
 
 	pipe(
 		createDefPool,
 		defPool => registerSvcDefs(defPool, [rootDef, sub1Def, sub2Def, sub3Def]),
 		resolveDefPool,
 		then(assert),
-		otherwise(err => done.fail(err)),
+		otherwise(err => {
+			throw err
+		}),
 	)()
 })
 
-test('resolve with circular deps', done => {
+test('resolve with circular deps', async () => {
 	const cirDef = createSvcDef({
 		point: 'testRoot',
 		deps: {
@@ -134,44 +134,49 @@ test('resolve with circular deps', done => {
 		factory: () => 'never',
 	})
 
-	const assertCircularException = pipe<Error, any, any>(
-		err => expect(err).toBeInstanceOf(CircularDependency),
-		done,
+	const assertCircularException = pipe<Error, any>(err =>
+		expect(err).toBeInstanceOf(CircularDependency),
 	)
 
-	pipe(
+	await pipe(
 		createDefPool,
 		defPool => registerSvcDefs(defPool, [cirDef]),
 		resolveDefPool,
-		then(() => done.fail()),
+		then(() => {
+			throw 'should throw'
+		}),
 		otherwise(assertCircularException),
 	)()
 })
 
-test('resolve with not registered svc def', done => {
-	const notRegisteredDef = createSvcDef({
-		point: 'testRoot',
-		deps: {
-			testSub1: true,
-		},
-		factory: () => 'never',
+test('resolve with not registered svc def', () => {
+	return new Promise(done => {
+		const notRegisteredDef = createSvcDef({
+			point: 'testRoot',
+			deps: {
+				testSub1: true,
+			},
+			factory: () => 'never',
+		})
+
+		const assertNotRegisteredException = pipe<Error, any, any>(
+			err => expect(err).toBeInstanceOf(NotRegistered),
+			done,
+		)
+
+		pipe(
+			createDefPool,
+			defPool => registerSvcDef(defPool, notRegisteredDef),
+			resolveDefPool,
+			then(() => {
+				throw 'should throw'
+			}),
+			otherwise(assertNotRegisteredException),
+		)()
 	})
-
-	const assertNotRegisteredException = pipe<Error, any, any>(
-		err => expect(err).toBeInstanceOf(NotRegistered),
-		done,
-	)
-
-	pipe(
-		createDefPool,
-		defPool => registerSvcDef(defPool, notRegisteredDef),
-		resolveDefPool,
-		then(() => done.fail()),
-		otherwise(assertNotRegisteredException),
-	)()
 })
 
-test('resolve with many points', done => {
+test('resolve with many points', async () => {
 	const def1 = createSvcDef({
 		point: 'testRoot',
 		factory: () => 'testRoot1',
@@ -187,14 +192,13 @@ test('resolve with many points', done => {
 		factory: () => 'testRoot3',
 	})
 
-	const assertResult = pipe<ServicePool, string[], any, any>(
+	const assertResult = pipe<ServicePool, string[], any>(
 		pool => pool.getServices('testRoot'),
 		instances =>
 			expect(instances).toEqual(['testRoot1', 'testRoot2', 'testRoot3']),
-		done,
 	)
 
-	pipe(
+	await pipe(
 		createDefPool,
 		defPool => registerSvcDefs(defPool, [def1, def2, def3]),
 		resolveDefPool,
@@ -202,29 +206,27 @@ test('resolve with many points', done => {
 	)()
 })
 
-test('resolve optional def without provider', done => {
+test('resolve optional def without provider', async () => {
 	const optionalSvcDef = createSvcDef({
 		point: 'testRoot',
 		deps: { testSub1: false },
 		factory: deps => (deps && deps.testSub1) || `optional`,
 	})
 
-	const assertSvcInstance = pipe<ServicePool, string[], any, any>(
+	const assertSvcInstance = pipe<ServicePool, string[], any>(
 		pool => pool.getServices('testRoot'),
 		instances => expect(instances).toEqual(['optional']),
-		done,
 	)
 
-	pipe(
+	await pipe(
 		createDefPool,
 		defPool => registerSvcDef(defPool, optionalSvcDef),
 		resolveDefPool,
 		then(assertSvcInstance),
-		otherwise(done.fail),
 	)()
 })
 
-test('resolve optional def with provider', done => {
+test('resolve optional def with provider', async () => {
 	const optionalSvcDef = createSvcDef({
 		point: 'testSub1',
 		factory: () => 'testSub1',
@@ -238,17 +240,15 @@ test('resolve optional def with provider', done => {
 		factory: deps => deps && deps.testSub1 && `testRoot-${deps.testSub1[0]}`,
 	})
 
-	const assertSvcInstance = pipe<ServicePool, string[], any, any>(
+	const assertSvcInstance = pipe<ServicePool, string[], any>(
 		pool => pool.getServices('testRoot'),
 		instances => expect(instances).toEqual(['testRoot-testSub1']),
-		done,
 	)
 
-	pipe(
+	await pipe(
 		createDefPool,
 		defPool => registerSvcDefs(defPool, [consumerSvcDef, optionalSvcDef]),
 		resolveDefPool,
 		then(assertSvcInstance),
-		otherwise(done.fail),
 	)()
 })

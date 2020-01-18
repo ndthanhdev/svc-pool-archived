@@ -1,6 +1,5 @@
 import yargs from 'yargs'
 import { createLogger } from '../../utils/logger'
-import { generate, listRegistryFiles } from '../../index'
 import handleList from './handleList'
 import handleGen from './handleGen'
 

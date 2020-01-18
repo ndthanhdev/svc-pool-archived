@@ -6,6 +6,10 @@
 	"bin": {
 		"svc-p": "./dist/bin/svc-p/index.js"
 	},
+	"scripts": {
+		"build": "echo \"TBD\"",
+		"test": "echo \"TBD\""
+	},
 	"dependencies": {
 		"@types/debug": "^4.1.5",
 		"chalk": "^3.0.0",

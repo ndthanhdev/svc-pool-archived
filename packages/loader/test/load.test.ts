@@ -10,15 +10,16 @@ jest.mock('../src/env-utils', () => {
 })
 
 declare module '@svc-pool/core/registry' {
+	// eslint-disable-next-line jest/no-export
 	export default interface Registry {
 		'a-point-for-test': string[]
 	}
 }
 
-test('load', done => {
+test('load', async () => {
 	const ps = createLoader().loadSvcDefs(['./test/assets/p1'])
 
-	Promise.all(ps)
+	await Promise.all(ps)
 		.then(svcDefs =>
 			resolveDefPool(registerSvcDefs(createDefPool(), flatten(svcDefs))),
 		)
@@ -27,6 +28,4 @@ test('load', done => {
 				'a-service-for-test',
 			])
 		})
-		.then(done)
-		.catch(done.fail)
 })

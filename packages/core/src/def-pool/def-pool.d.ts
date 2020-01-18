@@ -1,6 +1,5 @@
 import Registry from '../../registry'
 import { FullSvcDef } from '../service-definition'
-import { NotRegistered, CircularDependency } from './exceptions'
 import { PointNames } from '../util-types'
 
 type DefPool = FullSvcDef<PointNames>[]

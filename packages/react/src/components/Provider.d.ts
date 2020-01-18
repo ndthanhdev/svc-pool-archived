@@ -1,5 +1,4 @@
 import React from 'react'
-import { SvcPoolContext } from './Context'
 import { ServicePool } from '@svc-pool/core'
 
 type Props = {

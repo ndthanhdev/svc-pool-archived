@@ -4,7 +4,6 @@ import { createLogger } from './logger'
 import { isWrappedRegistryFile, WrappedRegistryFile } from './guards'
 
 const logger = createLogger(filterNonRegistryFiles.name)
-
 export default function filterNonRegistryFiles(srcFiles: SourceFile[]) {
 	const log = logger.child(filterNonRegistryFiles)
 

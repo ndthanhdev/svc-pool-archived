@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as core from '@svc-pool/core'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as nested2 from './nested-d-2'
 import { SampleInterface, SampleType } from './nested-types'
 

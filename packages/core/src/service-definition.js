@@ -7,6 +7,7 @@ export const createSvcDef = ({ desc = '', deps = {}, ...other }) => {
 	if (Array.isArray(deps)) {
 		reduce(
 			(prev, cur) => {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 				// @ts-ignore
 				return {
 					...prev,
