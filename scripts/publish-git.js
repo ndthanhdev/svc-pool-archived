@@ -1,39 +1,44 @@
-/* eslint-disable import/no-extraneous-dependencies,
+/* eslint-disable 
+import/no-extraneous-dependencies,
 import/no-dynamic-require,
-global-require, */
-import path from 'path'
-import ghPages from 'gh-pages'
-import debug from 'debug'
+global-require, 
+@typescript-eslint/no-var-requires ,
+*/
+const path = require('path')
+const ghPages = require('gh-pages')
+const debug = require('debug')
 
 const info = debug('info:publish-git')
 const error = debug('error:publish-git')
 
 // const rootPackage = require(`../package.json`)
 
-const publish = (base, cb) =>
-	import(`${base}/package.json`).then(pkg => {
-		const branch = `latest/${pkg.name}`
+const publish = (base, cb) => {
+	const pkg = require(`${base}/package.json`)
 
-		info(`publishing ${pkg.name}`)
+	const branch = `latest/${pkg.name}`
 
-		function handlePublishCb(err) {
-			if (err) {
-				error(err)
-			} else {
-				info(`published ${pkg.name}`)
-				cb()
-			}
+	info(`publishing ${pkg.name}`)
+
+	function handlePublishCb(err) {
+		if (err) {
+			error(err)
+		} else {
+			info(`published ${pkg.name}`)
+			cb()
 		}
+	}
 
-		return ghPages.publish(
-			base,
-			{
-				branch,
-				// tag,
-			},
-			handlePublishCb,
-		)
-	})
+	return ghPages.publish(
+		base,
+		{
+			history: false,
+			branch,
+			// tag,
+		},
+		handlePublishCb,
+	)
+}
 
 function publishAll(packageDirs) {
 	if (packageDirs.length) {
@@ -41,7 +46,10 @@ function publishAll(packageDirs) {
 	}
 }
 
-const dirs = ['packages/core', 'packages/loader', 'packages/react'].map(s =>
-	path.resolve(s),
-)
+const dirs = [
+	'packages/core',
+	'packages/loader',
+	'packages/react',
+	'packages/generator',
+].map(s => path.resolve(s))
 publishAll(dirs)
