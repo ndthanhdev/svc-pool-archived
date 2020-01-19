@@ -1,5 +1,5 @@
 import yargs from 'yargs'
-import { createLogger } from '../../utils/logger'
+import { createLogger } from '../utils/logger'
 import handleList from './handleList'
 import handleGen from './handleGen'
 

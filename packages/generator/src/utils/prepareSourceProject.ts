@@ -7,12 +7,12 @@ export function prepareSourceProject(
 ) {
 	if (typeof tsConfigFilePathOrProject === 'string') {
 		return pipe(
-			resolve,
+			() => resolve(tsConfigFilePathOrProject),
 			tsConfigFilePath =>
 				new Project({
 					tsConfigFilePath,
 				}),
-		)(tsConfigFilePathOrProject)
+		)()
 	}
 
 	return tsConfigFilePathOrProject

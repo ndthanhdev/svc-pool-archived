@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import path from 'path'
-import { createLogger } from '../../utils/logger'
-import { generate } from '../..'
+import { createLogger } from '../utils/logger'
+import { generate } from '../'
 
 const logger = createLogger(handleGen)
 

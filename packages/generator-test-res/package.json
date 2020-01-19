@@ -4,8 +4,8 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
-		"build": "echo \"Do nothing\"",
-		"test": "echo \"Do nothing\""
+		"build": "echo \"not for generate\"",
+		"test": "echo \"not for generate\""
 	},
 	"dependencies": {
 		"@svc-pool/core": "*"

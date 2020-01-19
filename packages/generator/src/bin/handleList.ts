@@ -1,8 +1,8 @@
 import chalk from 'chalk'
 import path from 'path'
-import { listRegistryFiles } from '../..'
-import { WrappedRegistryFile } from '../../utils/guards'
-import { createLogger } from '../../utils/logger'
+import { listRegistryFiles } from '..'
+import { WrappedRegistryFile } from '../utils/guards'
+import { createLogger } from '../utils/logger'
 import { pipe, curry, __ } from 'ramda'
 
 function printRegFileOutput(regFiles: WrappedRegistryFile[], baseDir: string) {
