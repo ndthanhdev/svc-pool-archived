@@ -6,7 +6,7 @@ import {
 	createSvcDef,
 	registerSvcDefs,
 } from '@svc-pool/core'
-import { pipe, then, otherwise } from 'ramda'
+import { pipe, then } from 'ramda'
 import { mount } from 'enzyme'
 import { useSvcPool, useServices, SvcPoolContext } from '../dist'
 import { HookWrapper } from './utils'
