@@ -29,6 +29,7 @@ yargs
 		},
 		async argv => {
 			const log = rootLog.child('generate')
+			log.verbose('argv:')
 			log.verbose(argv)
 
 			await handleGen(argv.tsConfigPath, argv.outDir)
@@ -45,6 +46,7 @@ yargs
 		},
 		argv => {
 			const log = rootLog.child('list')
+			log.verbose('argv:')
 			log.verbose(argv)
 			handleList(argv['tsConfigPath'])
 		},

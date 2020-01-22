@@ -1,7 +1,9 @@
 import { Project, CompilerOptionsContainer } from 'ts-morph'
 import { WrappedRegistryFile } from './guards'
-import { pipe } from 'ramda'
+import { pipe, then } from 'ramda'
 import { createLogger } from './logger'
+import path from 'path'
+import jsonfile from 'jsonfile'
 
 const logger = createLogger(emit)
 
@@ -66,13 +68,43 @@ export default function emit(
 				.getDiagnostics()
 				.forEach(diagnostic => log.verbose(diagnostic.getMessageText()))
 			log.verbose('emitted')
-			return emitResult
+			return proj
 		})
+	}
+
+	function emitConfig() {
+		const log = logger.child(emitConfig)
+		log.verbose(`emitting project configs`)
+
+		const confPth = path.resolve(outDir, 'tsconfig.json')
+
+		log.verbose(`emitting to ${confPth}`)
+
+		const content = {
+			compilerOptions: compilerOptions.get(),
+		}
+
+		log.verbose(`emitting to ${content}`)
+
+		return jsonfile
+			.writeFile(confPth, content, {
+				spaces: 4,
+			})
+			.then(r => {
+				log.verbose(`wrote ${confPth}`)
+				return r
+			})
+			.catch(err => {
+				log.error('emitConfig failed. See error below:')
+				log.error(err)
+				throw err
+			})
 	}
 
 	return pipe(
 		createProjWithRegFiles,
 		resolveDepFiles,
 		emitProj,
+		then(emitConfig),
 	)()
 }

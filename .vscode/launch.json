@@ -10,6 +10,13 @@
 			"name": "Attach Core",
 			"port": 9229,
 			"cwd": "${workspaceFolder}"
+		},
+		{
+			"type": "node",
+			"request": "attach",
+			"name": "Attach Generator",
+			"port": 9229,
+			"cwd": "${workspaceFolder}"
 		}
 	]
 }
