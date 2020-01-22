@@ -7,8 +7,12 @@ test(listRegistryFiles.name, async () => {
 	expect(r.length).toBe(3)
 })
 
-test(generate.name, async () => {
-	await generate(TestProjConfFile, TestTempDir)
+test(
+	generate.name,
+	async () => {
+		await generate(TestProjConfFile, TestTempDir)
 
-	expect(true).toBe(true)
-})
+		expect(true).toBe(true)
+	},
+	3000000,
+) // 5 mins
