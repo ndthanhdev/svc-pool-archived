@@ -7,3 +7,5 @@ script:
   - yarn lint
   - yarn build
   - yarn test
+env:
+  - DEBUG=*
