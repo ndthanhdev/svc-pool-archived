@@ -84,7 +84,8 @@ export default function emit(
 			compilerOptions: compilerOptions.get(),
 		}
 
-		log.verbose(`emitting to ${content}`)
+		log.verbose(`emitting content:`)
+		log.verbose(content)
 
 		return jsonfile
 			.writeFile(confPth, content, {

@@ -1,4 +1,4 @@
-import { pipe } from 'ramda'
+import { pipe, then } from 'ramda'
 import emit from './utils/emit'
 import { prepareSourceProject } from './utils/prepareSourceProject'
 import filterNonRegistryFiles from './utils/filterNonRegistryFiles'
@@ -8,8 +8,8 @@ export const listRegistryFiles = (
 ) =>
 	pipe(
 		prepareSourceProject,
-		srcProj => srcProj.getSourceFiles(),
-		filterNonRegistryFiles,
+		then(srcProj => srcProj.getSourceFiles()),
+		then(filterNonRegistryFiles),
 	)(tsconfigPathOrProject)
 
 export const generate = (
@@ -18,14 +18,15 @@ export const generate = (
 ) =>
 	pipe(
 		prepareSourceProject,
-		srcProj => ({
+		then(srcProj => ({
 			srcProj,
 			sourceFiles: srcProj.getSourceFiles(),
-		}),
-		({ sourceFiles, ...other }) => ({
+		})),
+		then(({ sourceFiles, ...other }) => ({
 			...other,
 			sourceFiles: filterNonRegistryFiles(sourceFiles),
-		}),
-		({ srcProj, sourceFiles }) =>
+		})),
+		then(({ srcProj, sourceFiles }) =>
 			emit(srcProj.compilerOptions, sourceFiles, outDir),
+		),
 	)(tsconfigPathOrProject)

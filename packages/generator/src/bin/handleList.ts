@@ -49,7 +49,7 @@ export default async function handleList(tsConfigPath?: string) {
 	log.verbose(`baseDir: ${baseDir}`)
 
 	try {
-		const files = listRegistryFiles(abConfPth)
+		const files = await listRegistryFiles(abConfPth)
 		log.info(files)
 		printRegFileOutput(files, baseDir)
 	} catch (error) {
