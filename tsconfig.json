@@ -1,0 +1,12 @@
+{
+	"include": ["test/**/*"],
+	"compilerOptions": {
+		"target": "es5",
+		"module": "commonjs",
+		"lib": ["esnext", "dom"],
+		"jsx": "react",
+		"allowJs": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true
+	}
+}
