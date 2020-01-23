@@ -1,0 +1,10 @@
+{
+	"include": ["src/**/*", "test/**/*"],
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "commonjs",
+		"lib": ["esnext"],
+		"allowJs": true,
+		"esModuleInterop": true
+	}
+}

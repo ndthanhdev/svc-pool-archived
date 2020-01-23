@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": 99,
+        "module": 1,
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "configFilePath": "/home/pi/source/svc-pool/packages/generator-test-res/tsconfig.json"
+    }
+}
