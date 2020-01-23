@@ -1,0 +1,39 @@
+{
+	"name": "@svc-pool/core",
+	"version": "1.0.9",
+	"description": "> TODO: description",
+	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
+	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
+	"license": "ISC",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"repository": "git+https://github.com/ndthanhdev/plugin-pool.git",
+	"scripts": {
+		"build": "run-s build:clean build:_",
+		"build:_": "rollup -c",
+		"build:clean": "rimraf ./dist",
+		"test": "jest",
+		"test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest --runInBand",
+		"prepublishOnly": "npm run build"
+	},
+	"bugs": {
+		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
+	},
+	"devDependencies": {
+		"@types/jest": "^24.9.0",
+		"jest": "^25.1.0",
+		"npm-run-all": "^4.1.5",
+		"rimraf": "^3.0.0",
+		"rollup": "^1.29.1",
+		"rollup-plugin-copy": "^3.3.0",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"ts-jest": "^24.3.0",
+		"typescript": "^3.7.5"
+	},
+	"peerDependencies": {},
+	"dependencies": {
+		"@types/ramda": "~0.26.40",
+		"ramda": "~0.26.1",
+		"utility-types": "^3.10.0"
+	}
+}
