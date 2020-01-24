@@ -1,10 +1,12 @@
 {
 	"include": ["src/**/*", "test/**/*"],
 	"compilerOptions": {
-		"target": "esnext",
+		"target": "ES2015",
 		"module": "commonjs",
-		"lib": ["esnext"],
-		"allowJs": true,
-		"esModuleInterop": true
-	}
+		"esModuleInterop": true,
+		"outDir": "./dist/",
+		"declaration": true,
+		"declarationDir": "./dist/"
+	},
+	"exclude": ["node_modules/**/*"]
 }

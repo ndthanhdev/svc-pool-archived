@@ -8,6 +8,6 @@
 		"test": "echo \"not for testing\""
 	},
 	"dependencies": {
-		"@svc-pool/core": "*"
+		"@svc-pool/core": "1.1.0-alpha.0"
 	}
 }

@@ -1,9 +1,9 @@
 import { resolve } from 'path'
-import _fs from 'fs'
+import fs from 'fs'
 import { Project, ts } from 'ts-morph'
 import { pipe, then } from 'ramda'
 
-const { stat } = _fs.promises
+const { stat } = fs.promises
 
 export function prepareSourceProject(
 	tsConfigFilePathOrProject: string | Project,
