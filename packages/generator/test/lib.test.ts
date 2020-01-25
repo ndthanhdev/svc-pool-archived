@@ -1,4 +1,4 @@
-import { generate, listRegistryFiles } from '../src/index'
+import { generateSrc, listRegistryFiles } from '../src/index'
 import { TestProjConfFile, TestTempDir } from './constants'
 
 test(listRegistryFiles.name, async () => {
@@ -8,9 +8,9 @@ test(listRegistryFiles.name, async () => {
 })
 
 test(
-	generate.name,
+	generateSrc.name,
 	async () => {
-		await generate(TestProjConfFile, TestTempDir)
+		await generateSrc(TestProjConfFile, TestTempDir)
 
 		expect(true).toBe(true)
 	},

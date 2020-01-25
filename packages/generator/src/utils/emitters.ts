@@ -5,15 +5,14 @@ import { createLogger } from './logger'
 import path from 'path'
 import jsonfile from 'jsonfile'
 
-const logger = createLogger(emit)
-
-export default function emit(
+const projLog = createLogger(emitRegistries)
+export function emitRegistries(
 	compilerOptions: CompilerOptionsContainer,
 	regFiles: WrappedRegistryFile[],
 	outDir: string,
 ) {
 	function createProjWithRegFiles() {
-		const log = logger.child(createProjWithRegFiles)
+		const log = projLog.child(createProjWithRegFiles)
 
 		log.verbose('begin')
 
@@ -43,7 +42,7 @@ export default function emit(
 	}
 
 	function resolveDepFiles(proj: Project) {
-		const log = logger.child(resolveDepFiles)
+		const log = projLog.child(resolveDepFiles)
 
 		log.verbose('begin')
 
@@ -60,7 +59,7 @@ export default function emit(
 	}
 
 	function emitProj(proj: Project) {
-		const log = logger.child(emitProj)
+		const log = projLog.child(emitProj)
 		log.verbose(`emitting ${proj.getSourceFiles().length} files`)
 
 		return proj.emit().then(emitResult => {
@@ -73,7 +72,7 @@ export default function emit(
 	}
 
 	function emitConfig() {
-		const log = logger.child(emitConfig)
+		const log = projLog.child(emitConfig)
 		log.verbose(`emitting project configs`)
 
 		const confPth = path.resolve(outDir, 'tsconfig.json')
@@ -109,3 +108,4 @@ export default function emit(
 		then(emitConfig),
 	)()
 }
+

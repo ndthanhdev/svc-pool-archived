@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import path from 'path'
 import { createLogger } from '../utils/logger'
-import { generate } from '../'
+import { generateSrc } from '../'
 
 const logger = createLogger(handleGen)
 
@@ -51,7 +51,7 @@ export default async function handleGen(
 
 	try {
 		console.info(`generating registry project from ${chalk.cyan(abConfPth)}`)
-		await generate(abConfPth, abOutDir)
+		await generateSrc(abConfPth, abOutDir)
 		console.info(`generated registry project to ${chalk.cyan(abOutDir)}`)
 	} catch (error) {
 		console.error(

@@ -1,17 +1,11 @@
 import { resolve } from 'path'
-import fs from 'fs'
 import { Project, ts } from 'ts-morph'
 import { pipe, then } from 'ramda'
-
-const { stat } = fs.promises
+import isDir from './isDir'
 
 export function prepareSourceProject(
 	tsConfigFilePathOrProject: string | Project,
 ) {
-	function isDir(dir: string) {
-		return stat(dir).then(stat => stat.isDirectory())
-	}
-
 	function handleDir(dir: string) {
 		const configPath = ts.findConfigFile(dir, ts.sys.fileExists)
 
