@@ -1,32 +1,43 @@
 import { pipe, then } from 'ramda'
-import { emitRegistries } from './utils/emitters'
-import { prepareSourceProject } from './utils/prepareSourceProject'
+import { emitRegistries, EmitRegistriesOptions } from './utils/emitters'
+import { createSourceProject } from './utils/createSourceProject'
 import filterNonRegistryFiles from './utils/filterNonRegistryFiles'
 
 export const listRegistryFiles = (
-	tsconfigPathOrProject: Parameters<typeof prepareSourceProject>[number],
+	tsconfigPathOrProject: Parameters<typeof createSourceProject>[number],
 ) =>
 	pipe(
-		prepareSourceProject,
+		createSourceProject,
 		then(srcProj => srcProj.getSourceFiles()),
 		then(filterNonRegistryFiles),
 	)(tsconfigPathOrProject)
 
-export const generateSrc = (
-	tsconfigPathOrProject: Parameters<typeof prepareSourceProject>[number],
-	outDir: string,
-) =>
-	pipe(
-		prepareSourceProject,
+type GenerateSrcOptions = Omit<
+	EmitRegistriesOptions,
+	'compilerOptions' | 'registryFiles'
+> & {
+	tsconfigPathOrProject: Parameters<typeof createSourceProject>[number]
+}
+
+export const generateSrc = (options: GenerateSrcOptions) => {
+	const { tsconfigPathOrProject } = options
+
+	return pipe(
+		createSourceProject,
 		then(srcProj => ({
 			srcProj,
-			sourceFiles: srcProj.getSourceFiles(),
+			registryFiles: srcProj.getSourceFiles(),
 		})),
-		then(({ sourceFiles, ...other }) => ({
+		then(({ registryFiles, ...other }) => ({
 			...other,
-			sourceFiles: filterNonRegistryFiles(sourceFiles),
+			registryFiles: filterNonRegistryFiles(registryFiles),
 		})),
-		then(({ srcProj, sourceFiles }) =>
-			emitRegistries(srcProj.compilerOptions, sourceFiles, outDir),
+		then(({ srcProj, registryFiles }) =>
+			emitRegistries({
+				compilerOptions: srcProj.compilerOptions,
+				registryFiles,
+				...options,
+			}),
 		),
 	)(tsconfigPathOrProject)
+}

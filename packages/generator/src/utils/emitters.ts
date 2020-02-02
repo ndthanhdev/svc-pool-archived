@@ -4,17 +4,30 @@ import { pipe, then } from 'ramda'
 import { createLogger } from './logger'
 import path from 'path'
 import jsonfile from 'jsonfile'
+import { createTsConfigPath } from './createTsConfigPath'
 
 const projLog = createLogger(emitRegistries)
-export function emitRegistries(
-	compilerOptions: CompilerOptionsContainer,
-	regFiles: WrappedRegistryFile[],
-	outDir: string,
-) {
+
+export interface EmitRegistriesOptions {
+	compilerOptions: CompilerOptionsContainer
+	registryFiles: WrappedRegistryFile[]
+	outDir: string
+	emitTsConfig?: boolean
+}
+
+export function emitRegistries({
+	compilerOptions: compilerOptionsContainer,
+	registryFiles,
+	outDir,
+}: EmitRegistriesOptions) {
 	function createProjWithRegFiles() {
 		const log = projLog.child(createProjWithRegFiles)
 
 		log.verbose('begin')
+
+		const compilerOptions = compilerOptionsContainer.get()
+		log.verbose('compilerOptions:')
+		log.verbose(compilerOptions)
 
 		const slimProj = new Project({
 			compilerOptions: {
@@ -34,7 +47,7 @@ export function emitRegistries(
 			log.verbose(`imported file: ${path}`)
 		}
 
-		regFiles.forEach(importFile)
+		registryFiles.forEach(importFile)
 
 		log.verbose('finished')
 
@@ -71,41 +84,5 @@ export function emitRegistries(
 		})
 	}
 
-	function emitConfig() {
-		const log = projLog.child(emitConfig)
-		log.verbose(`emitting project configs`)
-
-		const confPth = path.resolve(outDir, 'tsconfig.json')
-
-		log.verbose(`emitting to ${confPth}`)
-
-		const content = {
-			compilerOptions: compilerOptions.get(),
-		}
-
-		log.verbose(`emitting content:`)
-		log.verbose(content)
-
-		return jsonfile
-			.writeFile(confPth, content, {
-				spaces: 4,
-			})
-			.then(r => {
-				log.verbose(`wrote ${confPth}`)
-				return r
-			})
-			.catch(err => {
-				log.error('emitConfig failed. See error below:')
-				log.error(err)
-				throw err
-			})
-	}
-
-	return pipe(
-		createProjWithRegFiles,
-		resolveDepFiles,
-		emitProj,
-		then(emitConfig),
-	)()
+	return pipe(createProjWithRegFiles, resolveDepFiles, emitProj)()
 }
-

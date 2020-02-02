@@ -1,5 +1,9 @@
+import _fs from 'fs'
+import path from 'path'
 import { generateSrc, listRegistryFiles } from '../src/index'
 import { TestProjConfFile, TestTempDir } from './constants'
+
+const fs = _fs.promises
 
 test(listRegistryFiles.name, async () => {
 	const r = await listRegistryFiles(TestProjConfFile)
@@ -10,9 +14,12 @@ test(listRegistryFiles.name, async () => {
 test(
 	generateSrc.name,
 	async () => {
-		await generateSrc(TestProjConfFile, TestTempDir)
+		await generateSrc({
+			tsconfigPathOrProject: TestProjConfFile,
+			outDir: TestTempDir,
+		})
 
-		expect(true).toBe(true)
+		expect('executed success').toBeTruthy()
 	},
 	3000000,
 ) // 5 mins

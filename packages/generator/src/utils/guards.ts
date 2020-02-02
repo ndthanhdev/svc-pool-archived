@@ -1,5 +1,5 @@
 import { ts, CompilerNodeToWrappedType, Node, SourceFile } from 'ts-morph'
-import { all } from 'ramda'
+import { all, any } from 'ramda'
 
 export const RegistryModuleName = '@svc-pool/core/registry'
 
@@ -83,9 +83,7 @@ export type WrappedRegistryFile = CompilerNodeToWrappedType<RegistryFile>
 export function isRegistryFile(
 	srcFile: ts.SourceFile,
 ): srcFile is RegistryFile {
-	return all(st => {
-		return ts.isImportDeclaration(st) || isRegistryDeclaration(st)
-	}, srcFile.statements)
+	return any(isRegistryDeclaration, srcFile.statements)
 }
 
 export function isWrappedRegistryFile(

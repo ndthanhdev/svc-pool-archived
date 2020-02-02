@@ -51,7 +51,10 @@ export default async function handleGen(
 
 	try {
 		console.info(`generating registry project from ${chalk.cyan(abConfPth)}`)
-		await generateSrc(abConfPth, abOutDir)
+		await generateSrc({
+			tsconfigPathOrProject: abConfPth,
+			outDir: abOutDir,
+		})
 		console.info(`generated registry project to ${chalk.cyan(abOutDir)}`)
 	} catch (error) {
 		console.error(
