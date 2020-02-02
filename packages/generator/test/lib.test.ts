@@ -1,9 +1,5 @@
-import _fs from 'fs'
-import path from 'path'
 import { generateSrc, listRegistryFiles } from '../src/index'
 import { TestProjConfFile, TestTempDir } from './constants'
-
-const fs = _fs.promises
 
 test(listRegistryFiles.name, async () => {
 	const r = await listRegistryFiles(TestProjConfFile)

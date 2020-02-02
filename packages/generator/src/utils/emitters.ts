@@ -1,10 +1,7 @@
 import { Project, CompilerOptionsContainer } from 'ts-morph'
 import { WrappedRegistryFile } from './guards'
-import { pipe, then } from 'ramda'
+import { pipe } from 'ramda'
 import { createLogger } from './logger'
-import path from 'path'
-import jsonfile from 'jsonfile'
-import { createTsConfigPath } from './createTsConfigPath'
 
 const projLog = createLogger(emitRegistries)
 
