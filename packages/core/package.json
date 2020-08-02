@@ -11,9 +11,9 @@
 	"scripts": {
 		"_build:umd": "yarn run tsc -p etc/tsconfig.umd.json",
 		"_build:esm": "yarn run tsc -p etc/tsconfig.esm.json",
-		"_build:clean": "rimraf ./dist",
-		"build": "run-s _build:clean _build:esm _build:umd",
-		"test": "jest -c etc/jest.config.js",
+		"_build:clean": "yarn run rimraf ./dist",
+		"build": "yarn run run-s _build:clean _build:esm _build:umd",
+		"test": "yarn run jest -c etc/jest.config.js",
 		"test:debug": "yarn run --inspect-brk jest -c etc/jest.config.js --runInBand",
 		"prepublishOnly": "yarn run build"
 	},
