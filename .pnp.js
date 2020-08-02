@@ -109,6 +109,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 					'eslint-plugin-react-hooks',
 					'virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:2.5.1',
 				],
+				['execa', 'npm:4.0.3'],
 				['gh-pages', 'npm:2.2.0'],
 				['husky', 'npm:4.2.5'],
 				['jest', 'npm:26.2.2'],
@@ -194,6 +195,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 										'eslint-plugin-react-hooks',
 										'virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:2.5.1',
 									],
+									['execa', 'npm:4.0.3'],
 									['gh-pages', 'npm:2.2.0'],
 									['husky', 'npm:4.2.5'],
 									['jest', 'npm:26.2.2'],
@@ -3651,6 +3653,98 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 					],
 				],
 				[
+					'@rollup/plugin-node-resolve',
+					[
+						[
+							'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:8.4.0',
+							{
+								packageLocation:
+									'./.yarn/$$virtual/@rollup-plugin-node-resolve-virtual-3e08093449/0/cache/@rollup-plugin-node-resolve-npm-8.4.0-4a347c713e-1c3da8d000.zip/node_modules/@rollup/plugin-node-resolve/',
+								packageDependencies: [
+									[
+										'@rollup/plugin-node-resolve',
+										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:8.4.0',
+									],
+									[
+										'@rollup/pluginutils',
+										'virtual:3e08093449ba7fd30176118a4095203372a943a8b302eb337510632ca8de30f34240c509cf83b33f01efcf4d89b235ccaa06f89f83df2498bffa2abbbc10744f#npm:3.1.0',
+									],
+									['@types/resolve', 'npm:1.17.1'],
+									['builtin-modules', 'npm:3.1.0'],
+									['deep-freeze', 'npm:0.0.1'],
+									['deepmerge', 'npm:4.2.2'],
+									['is-module', 'npm:1.0.0'],
+									[
+										'resolve',
+										'patch:resolve@npm%3A1.17.0#builtin<compat/resolve>::version=1.17.0&hash=3388aa',
+									],
+									['rollup', 'npm:2.23.0'],
+								],
+								packagePeers: ['rollup'],
+								linkType: 'HARD',
+							},
+						],
+					],
+				],
+				[
+					'@rollup/plugin-typescript',
+					[
+						[
+							'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:5.0.2',
+							{
+								packageLocation:
+									'./.yarn/$$virtual/@rollup-plugin-typescript-virtual-c7233f920e/0/cache/@rollup-plugin-typescript-npm-5.0.2-1dcb2d4a4d-5bd13be288.zip/node_modules/@rollup/plugin-typescript/',
+								packageDependencies: [
+									[
+										'@rollup/plugin-typescript',
+										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:5.0.2',
+									],
+									[
+										'@rollup/pluginutils',
+										'virtual:3e08093449ba7fd30176118a4095203372a943a8b302eb337510632ca8de30f34240c509cf83b33f01efcf4d89b235ccaa06f89f83df2498bffa2abbbc10744f#npm:3.1.0',
+									],
+									[
+										'resolve',
+										'patch:resolve@npm%3A1.17.0#builtin<compat/resolve>::version=1.17.0&hash=3388aa',
+									],
+									['rollup', 'npm:2.23.0'],
+									['tslib', 'npm:2.0.0'],
+									[
+										'typescript',
+										'patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2',
+									],
+								],
+								packagePeers: ['rollup', 'tslib', 'typescript'],
+								linkType: 'HARD',
+							},
+						],
+					],
+				],
+				[
+					'@rollup/pluginutils',
+					[
+						[
+							'virtual:3e08093449ba7fd30176118a4095203372a943a8b302eb337510632ca8de30f34240c509cf83b33f01efcf4d89b235ccaa06f89f83df2498bffa2abbbc10744f#npm:3.1.0',
+							{
+								packageLocation:
+									'./.yarn/$$virtual/@rollup-pluginutils-virtual-b169826677/0/cache/@rollup-pluginutils-npm-3.1.0-b44b222e7d-45da6411e0.zip/node_modules/@rollup/pluginutils/',
+								packageDependencies: [
+									[
+										'@rollup/pluginutils',
+										'virtual:3e08093449ba7fd30176118a4095203372a943a8b302eb337510632ca8de30f34240c509cf83b33f01efcf4d89b235ccaa06f89f83df2498bffa2abbbc10744f#npm:3.1.0',
+									],
+									['@types/estree', 'npm:0.0.39'],
+									['estree-walker', 'npm:1.0.1'],
+									['picomatch', 'npm:2.2.2'],
+									['rollup', 'npm:2.23.0'],
+								],
+								packagePeers: ['rollup'],
+								linkType: 'HARD',
+							},
+						],
+					],
+				],
+				[
 					'@sindresorhus/is',
 					[
 						[
@@ -3721,28 +3815,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 								packageLocation: './packages/core/',
 								packageDependencies: [
 									['@svc-pool/core', 'workspace:packages/core'],
-									['@svc-pool/registry', 'workspace:packages/registry'],
-									['@types/jest', 'npm:26.0.8'],
-									['@types/ramda', 'npm:0.26.44'],
-									['jest', 'npm:25.5.4'],
-									['npm-run-all', 'npm:4.1.5'],
-									['ramda', 'npm:0.26.1'],
-									['rimraf', 'npm:3.0.2'],
-									['rollup', 'npm:1.32.1'],
-									['rollup-plugin-copy', 'npm:3.3.0'],
 									[
-										'rollup-plugin-node-resolve',
-										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:5.2.0',
+										'@rollup/plugin-node-resolve',
+										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:8.4.0',
 									],
+									[
+										'@rollup/plugin-typescript',
+										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:5.0.2',
+									],
+									['@types/jest', 'npm:26.0.8'],
+									['jest', 'npm:26.2.2'],
+									['npm-run-all', 'npm:4.1.5'],
+									['rimraf', 'npm:3.0.2'],
+									['rollup', 'npm:2.23.0'],
 									[
 										'ts-jest',
-										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:25.5.1',
+										'virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:26.1.4',
 									],
+									['tslib', 'npm:2.0.0'],
 									[
 										'typescript',
 										'patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2',
 									],
-									['utility-types', 'npm:3.10.0'],
 								],
 								linkType: 'SOFT',
 							},
@@ -3777,7 +3871,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 									['rimraf', 'npm:3.0.2'],
 									[
 										'ts-jest',
-										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:25.5.1',
+										'virtual:002724c5236637cd847e49c6667a9221eda78cebb6829fdf572c41b5706af0963bdd1403ab341bd9364216b58b73aab2eeb3705bf1e6f5157d1e2ce24724c0ad#npm:25.5.1',
 									],
 									['ts-morph', 'npm:6.0.3'],
 									[
@@ -3823,7 +3917,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 									],
 									[
 										'rollup-plugin-node-resolve',
-										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:5.2.0',
+										'virtual:d8cb429f9dc3289798f790409367b19257e5e4340d80e7adcb6176b2ce9e37ee3fd37cedfef1f763b8a06169b1a5315c5d4847e739a3705b064507e6d86414cb#npm:5.2.0',
 									],
 									[
 										'rollup-plugin-typescript2',
@@ -3831,7 +3925,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 									],
 									[
 										'ts-jest',
-										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:25.5.1',
+										'virtual:002724c5236637cd847e49c6667a9221eda78cebb6829fdf572c41b5706af0963bdd1403ab341bd9364216b58b73aab2eeb3705bf1e6f5157d1e2ce24724c0ad#npm:25.5.1',
 									],
 									[
 										'ts-loader',
@@ -3900,11 +3994,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 									['rollup-plugin-copy', 'npm:3.3.0'],
 									[
 										'rollup-plugin-node-resolve',
-										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:5.2.0',
+										'virtual:d8cb429f9dc3289798f790409367b19257e5e4340d80e7adcb6176b2ce9e37ee3fd37cedfef1f763b8a06169b1a5315c5d4847e739a3705b064507e6d86414cb#npm:5.2.0',
 									],
 									[
 										'ts-jest',
-										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:25.5.1',
+										'virtual:002724c5236637cd847e49c6667a9221eda78cebb6829fdf572c41b5706af0963bdd1403ab341bd9364216b58b73aab2eeb3705bf1e6f5157d1e2ce24724c0ad#npm:25.5.1',
 									],
 									[
 										'typescript',
@@ -4179,6 +4273,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 				[
 					'@types/estree',
 					[
+						[
+							'npm:0.0.39',
+							{
+								packageLocation:
+									'./.yarn/cache/@types-estree-npm-0.0.39-f898500e96-43e5361de3.zip/node_modules/@types/estree/',
+								packageDependencies: [['@types/estree', 'npm:0.0.39']],
+								linkType: 'HARD',
+							},
+						],
 						[
 							'npm:0.0.45',
 							{
@@ -4594,6 +4697,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 									'./.yarn/cache/@types-resolve-npm-0.0.8-191de904ac-f54f13e4b6.zip/node_modules/@types/resolve/',
 								packageDependencies: [
 									['@types/resolve', 'npm:0.0.8'],
+									['@types/node', 'npm:13.13.15'],
+								],
+								linkType: 'HARD',
+							},
+						],
+						[
+							'npm:1.17.1',
+							{
+								packageLocation:
+									'./.yarn/cache/@types-resolve-npm-1.17.1-9a8396bef2-8e72a73574.zip/node_modules/@types/resolve/',
+								packageDependencies: [
+									['@types/resolve', 'npm:1.17.1'],
 									['@types/node', 'npm:13.13.15'],
 								],
 								linkType: 'HARD',
@@ -7599,6 +7714,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 					],
 				],
 				[
+					'deep-freeze',
+					[
+						[
+							'npm:0.0.1',
+							{
+								packageLocation:
+									'./.yarn/cache/deep-freeze-npm-0.0.1-12d684fc1a-c43ab54de9.zip/node_modules/deep-freeze/',
+								packageDependencies: [['deep-freeze', 'npm:0.0.1']],
+								linkType: 'HARD',
+							},
+						],
+					],
+				],
+				[
 					'deep-is',
 					[
 						[
@@ -8920,6 +9049,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 								packageLocation:
 									'./.yarn/cache/estree-walker-npm-0.6.1-fe92d0e1f6-a63b94b841.zip/node_modules/estree-walker/',
 								packageDependencies: [['estree-walker', 'npm:0.6.1']],
+								linkType: 'HARD',
+							},
+						],
+						[
+							'npm:1.0.1',
+							{
+								packageLocation:
+									'./.yarn/cache/estree-walker-npm-1.0.1-e916593b23-85e7cee763.zip/node_modules/estree-walker/',
+								packageDependencies: [['estree-walker', 'npm:1.0.1']],
 								linkType: 'HARD',
 							},
 						],
@@ -16920,6 +17058,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 								linkType: 'HARD',
 							},
 						],
+						[
+							'npm:2.23.0',
+							{
+								packageLocation:
+									'./.yarn/cache/rollup-npm-2.23.0-7d888f752f-579691c582.zip/node_modules/rollup/',
+								packageDependencies: [
+									['rollup', 'npm:2.23.0'],
+									[
+										'fsevents',
+										'patch:fsevents@npm%3A2.1.3#builtin<compat/fsevents>::version=2.1.3&hash=495457',
+									],
+								],
+								linkType: 'HARD',
+							},
+						],
 					],
 				],
 				[
@@ -17000,14 +17153,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 					'rollup-plugin-node-resolve',
 					[
 						[
-							'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:5.2.0',
+							'virtual:d8cb429f9dc3289798f790409367b19257e5e4340d80e7adcb6176b2ce9e37ee3fd37cedfef1f763b8a06169b1a5315c5d4847e739a3705b064507e6d86414cb#npm:5.2.0',
 							{
 								packageLocation:
-									'./.yarn/$$virtual/rollup-plugin-node-resolve-virtual-1d02c477f0/0/cache/rollup-plugin-node-resolve-npm-5.2.0-6af239ea59-f20dd3e666.zip/node_modules/rollup-plugin-node-resolve/',
+									'./.yarn/$$virtual/rollup-plugin-node-resolve-virtual-d0e40987a1/0/cache/rollup-plugin-node-resolve-npm-5.2.0-6af239ea59-f20dd3e666.zip/node_modules/rollup-plugin-node-resolve/',
 								packageDependencies: [
 									[
 										'rollup-plugin-node-resolve',
-										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:5.2.0',
+										'virtual:d8cb429f9dc3289798f790409367b19257e5e4340d80e7adcb6176b2ce9e37ee3fd37cedfef1f763b8a06169b1a5315c5d4847e739a3705b064507e6d86414cb#npm:5.2.0',
 									],
 									['@types/resolve', 'npm:0.0.8'],
 									['builtin-modules', 'npm:3.1.0'],
@@ -17142,6 +17295,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 										'eslint-plugin-react-hooks',
 										'virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:2.5.1',
 									],
+									['execa', 'npm:4.0.3'],
 									['gh-pages', 'npm:2.2.0'],
 									['husky', 'npm:4.2.5'],
 									['jest', 'npm:26.2.2'],
@@ -18888,6 +19042,36 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 					'ts-jest',
 					[
 						[
+							'virtual:002724c5236637cd847e49c6667a9221eda78cebb6829fdf572c41b5706af0963bdd1403ab341bd9364216b58b73aab2eeb3705bf1e6f5157d1e2ce24724c0ad#npm:25.5.1',
+							{
+								packageLocation:
+									'./.yarn/$$virtual/ts-jest-virtual-6406133268/0/cache/ts-jest-npm-25.5.1-bd5c9383d8-438de5a364.zip/node_modules/ts-jest/',
+								packageDependencies: [
+									[
+										'ts-jest',
+										'virtual:002724c5236637cd847e49c6667a9221eda78cebb6829fdf572c41b5706af0963bdd1403ab341bd9364216b58b73aab2eeb3705bf1e6f5157d1e2ce24724c0ad#npm:25.5.1',
+									],
+									['bs-logger', 'npm:0.2.6'],
+									['buffer-from', 'npm:1.1.1'],
+									['fast-json-stable-stringify', 'npm:2.1.0'],
+									['jest', 'npm:25.5.4'],
+									['json5', 'npm:2.1.3'],
+									['lodash.memoize', 'npm:4.1.2'],
+									['make-error', 'npm:1.3.6'],
+									['micromatch', 'npm:4.0.2'],
+									['mkdirp', 'npm:0.5.5'],
+									['semver', 'npm:6.3.0'],
+									[
+										'typescript',
+										'patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2',
+									],
+									['yargs-parser', 'npm:18.1.3'],
+								],
+								packagePeers: ['jest', 'typescript'],
+								linkType: 'HARD',
+							},
+						],
+						[
 							'virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:26.1.4',
 							{
 								packageLocation:
@@ -18907,36 +19091,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 									['make-error', 'npm:1.3.6'],
 									['mkdirp', 'npm:1.0.4'],
 									['semver', 'npm:7.3.2'],
-									[
-										'typescript',
-										'patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2',
-									],
-									['yargs-parser', 'npm:18.1.3'],
-								],
-								packagePeers: ['jest', 'typescript'],
-								linkType: 'HARD',
-							},
-						],
-						[
-							'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:25.5.1',
-							{
-								packageLocation:
-									'./.yarn/$$virtual/ts-jest-virtual-4ec2272ae3/0/cache/ts-jest-npm-25.5.1-bd5c9383d8-438de5a364.zip/node_modules/ts-jest/',
-								packageDependencies: [
-									[
-										'ts-jest',
-										'virtual:5db621b3ed887e6399abea023f1fc657d348786615e0f9bb836c2e3b26cd0efc677a12d622d54b1007348763589b625de846336c1710b9887f9b475e0e4f2c63#npm:25.5.1',
-									],
-									['bs-logger', 'npm:0.2.6'],
-									['buffer-from', 'npm:1.1.1'],
-									['fast-json-stable-stringify', 'npm:2.1.0'],
-									['jest', 'npm:25.5.4'],
-									['json5', 'npm:2.1.3'],
-									['lodash.memoize', 'npm:4.1.2'],
-									['make-error', 'npm:1.3.6'],
-									['micromatch', 'npm:4.0.2'],
-									['mkdirp', 'npm:0.5.5'],
-									['semver', 'npm:6.3.0'],
 									[
 										'typescript',
 										'patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2',
@@ -19107,6 +19261,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
 								packageLocation:
 									'./.yarn/cache/tslib-npm-1.9.0-82037eb79c-7a06b4da90.zip/node_modules/tslib/',
 								packageDependencies: [['tslib', 'npm:1.9.0']],
+								linkType: 'HARD',
+							},
+						],
+						[
+							'npm:2.0.0',
+							{
+								packageLocation:
+									'./.yarn/cache/tslib-npm-2.0.0-4d841ae35a-a7369a224f.zip/node_modules/tslib/',
+								packageDependencies: [['tslib', 'npm:2.0.0']],
 								linkType: 'HARD',
 							},
 						],

@@ -1,5 +1,3 @@
-import { reduce } from 'ramda'
-
 // Define service
 export type Registry = {
 	[key: string]: any
@@ -62,18 +60,14 @@ export function createSvcDef<R extends Registry>(
 	let theDeps: FullDepDef<R> = {}
 
 	if (Array.isArray(deps)) {
-		theDeps = reduce(
-			(prev, cur) => {
-				// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-				// @ts-ignore
-				return {
-					...prev,
-					[cur]: true,
-				}
-			},
-			theDeps,
-			deps,
-		)
+		theDeps = deps.reduce((prev, cur) => {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+			// @ts-ignore
+			return {
+				...prev,
+				[cur]: true,
+			}
+		}, theDeps)
 	} else {
 		theDeps = { ...deps }
 	}

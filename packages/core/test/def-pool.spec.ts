@@ -1,4 +1,3 @@
-import * as R from 'ramda'
 import {
 	createSvcDef,
 	resolveDefs,
@@ -10,15 +9,6 @@ import {
 	NotRegistered,
 } from '../src'
 
-const hasFirstInstanceEqual = <R extends Registry>(
-	name: Point<R>,
-	value: ValueTypeOfSvc<R, Point<R>>,
-) =>
-	R.pipe<ServicePool<R>, ValueTypeOfSvc<R, Point<R>>[], boolean>(
-		svcPool => svcPool.getServices(name),
-		instances => instances?.[0] === value,
-	)
-
 it('deps free', async () => {
 	type Registry = {
 		a: string
@@ -26,13 +16,8 @@ it('deps free', async () => {
 
 	const aDef0 = createSvcDef<Registry>('a', () => 'a0')
 
-	const hasRootInstance = R.pipe<ServicePool<Registry>, string[], any>(
-		svcPool => svcPool.getServices('a'),
-		instances => expect(instances).toEqual(['a0']),
-	)
-
 	const pool = await resolveDefs(aDef0)
-	hasRootInstance(pool)
+	expect(pool.getServices('a')).toEqual(['a0'])
 })
 
 it('deps', async () => {

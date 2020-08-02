@@ -1,0 +1,11 @@
+{
+	"include": ["../src/**/*"],
+	"compilerOptions": {
+		"outDir": "../dist/umd",
+		"target": "esnext",
+		"module": "umd",
+		"lib": ["esnext"],
+		"declaration": true,
+		"skipLibCheck": true
+	}
+}

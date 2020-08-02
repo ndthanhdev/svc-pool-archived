@@ -1829,6 +1829,50 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-node-resolve@npm:^8.4.0":
+  version: 8.4.0
+  resolution: "@rollup/plugin-node-resolve@npm:8.4.0"
+  dependencies:
+    "@rollup/pluginutils": ^3.1.0
+    "@types/resolve": 1.17.1
+    builtin-modules: ^3.1.0
+    deep-freeze: ^0.0.1
+    deepmerge: ^4.2.2
+    is-module: ^1.0.0
+    resolve: ^1.17.0
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0
+  checksum: 1c3da8d000f9958d9dd4d52035cca43a985266cb8af42ac1e678179ffd755818a4b18fd23e51b8d7daf49cfac7fd04ca361c11e7db7791b95f2a4010c419a401
+  languageName: node
+  linkType: hard
+
+"@rollup/plugin-typescript@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@rollup/plugin-typescript@npm:5.0.2"
+  dependencies:
+    "@rollup/pluginutils": ^3.0.1
+    resolve: ^1.14.1
+  peerDependencies:
+    rollup: ^2.14.0
+    tslib: "*"
+    typescript: ">=3.4.0"
+  checksum: 5bd13be288a504238e93805e49cf4d990201a4e3067e4b7a88853f5d5126523353043d3c4cdef35aeeb3d0d37a05da2e7b3469b6a3cb962ed0d2a848e559c0cb
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^3.0.1, @rollup/pluginutils@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@rollup/pluginutils@npm:3.1.0"
+  dependencies:
+    "@types/estree": 0.0.39
+    estree-walker: ^1.0.1
+    picomatch: ^2.2.2
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0
+  checksum: 45da6411e045d1b034242a8144f4a5e8c02ff1b68a2e0857807f5bb4b091c416f2015e075057f0f0dec200e7b35efe6ed4e301b43e365cedea09192f01a6839b
+  languageName: node
+  linkType: hard
+
 "@sindresorhus/is@npm:^3.0.0":
   version: 3.1.0
   resolution: "@sindresorhus/is@npm:3.1.0"
@@ -1869,21 +1913,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@svc-pool/core@workspace:packages/core"
   dependencies:
-    "@svc-pool/registry": "workspace:*"
+    "@rollup/plugin-node-resolve": ^8.4.0
+    "@rollup/plugin-typescript": ^5.0.2
     "@types/jest": ^26.0.8
-    "@types/ramda": ~0.26.40
-    jest: ^25.1.0
+    jest: ^26.2.2
     npm-run-all: ^4.1.5
-    ramda: ~0.26.1
-    rimraf: ^3.0.0
-    rollup: ^1.29.1
-    rollup-plugin-copy: ^3.3.0
-    rollup-plugin-node-resolve: ^5.2.0
-    ts-jest: ^25.0.0
-    typescript: ^3.7.5
-    utility-types: ^3.10.0
-  peerDependencies:
-    "@svc-pool/registry": "*"
+    rimraf: ^3.0.2
+    rollup: ^2.23.0
+    ts-jest: ^26.1.4
+    tslib: ^2.0.0
+    typescript: ^3.9.7
   languageName: unknown
   linkType: soft
 
@@ -1977,7 +2016,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@svc-pool/registry@workspace:*, @svc-pool/registry@workspace:packages/registry":
+"@svc-pool/registry@workspace:packages/registry":
   version: 0.0.0-use.local
   resolution: "@svc-pool/registry@workspace:packages/registry"
   languageName: unknown
@@ -2119,6 +2158,13 @@ __metadata:
   version: 0.0.45
   resolution: "@types/estree@npm:0.0.45"
   checksum: 9d339cbcf29a96a32e9d40efc21009c2342e93c4f653294dd1ef081ae474bca9e54707e5d4a1cff90b9e3566e8bdd71ac31e0c3d24bc2ff1d3d5aa75058b3937
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:0.0.39":
+  version: 0.0.39
+  resolution: "@types/estree@npm:0.0.39"
+  checksum: 43e5361de39969def145f32f4599391ab13055ec94841f1633a7cfe10f0e8a940ebf0e9a4b2770454a6bddd034b57e7e0d51a4d565cb2714ee2accf10a7718be
   languageName: node
   linkType: hard
 
@@ -2337,6 +2383,15 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: f54f13e4b6ac46a6c7bde9e609cd730f4369b434aa59c5230478b9262bb75e7349c3247fd2cdb917e98d053a57f5609dd552379c612a720b59a8714914d324ed
+  languageName: node
+  linkType: hard
+
+"@types/resolve@npm:1.17.1":
+  version: 1.17.1
+  resolution: "@types/resolve@npm:1.17.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 8e72a73574f9489760662498c1ad512a8d4084a5db15f327e0d785cb277bb0a3146cd049241a8e3268bd0ed204ad3ee7b4a6b4622ef681e70547be9af258ca6a
   languageName: node
   linkType: hard
 
@@ -4014,6 +4069,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deep-freeze@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "deep-freeze@npm:0.0.1"
+  checksum: c43ab54de95c60197f2a303aa60da76aa9f13f8a656d39f924daec63707712be1f75b9f5853bf2d5ec62fc72c840ba73ccefe32bdf3398472751de290b71a15c
+  languageName: node
+  linkType: hard
+
 "deep-is@npm:~0.1.3":
   version: 0.1.3
   resolution: "deep-is@npm:0.1.3"
@@ -4798,6 +4860,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"estree-walker@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "estree-walker@npm:1.0.1"
+  checksum: 85e7cee763e9125a7d8a947b3a06a8b9282873936df220dd0d791d9b3315e45e40ab096b43ba71bdc99140c11a6d23fdcf686642dc119a7b2d6181004fdb24d2
+  languageName: node
+  linkType: hard
+
 "esutils@npm:^1.1.6":
   version: 1.1.6
   resolution: "esutils@npm:1.1.6"
@@ -4819,7 +4888,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:*, execa@npm:^4.0.0, execa@npm:^4.0.1":
+"execa@npm:*, execa@npm:^4.0.0, execa@npm:^4.0.1, execa@npm:^4.0.3":
   version: 4.0.3
   resolution: "execa@npm:4.0.3"
   dependencies:
@@ -5240,7 +5309,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-fsevents@^2.1.2:
+"fsevents@^2.1.2, fsevents@~2.1.2":
   version: 2.1.3
   resolution: "fsevents@npm:2.1.3"
   dependencies:
@@ -5249,7 +5318,7 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@^2.1.2#builtin<compat/fsevents>":
+"fsevents@patch:fsevents@^2.1.2#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.2#builtin<compat/fsevents>":
   version: 2.1.3
   resolution: "fsevents@patch:fsevents@npm%3A2.1.3#builtin<compat/fsevents>::version=2.1.3&hash=495457"
   dependencies:
@@ -8838,7 +8907,7 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^2.0.4, picomatch@npm:^2.0.5, picomatch@npm:^2.2.1":
+"picomatch@npm:^2.0.4, picomatch@npm:^2.0.5, picomatch@npm:^2.2.1, picomatch@npm:^2.2.2":
   version: 2.2.2
   resolution: "picomatch@npm:2.2.2"
   checksum: 20fa75e0a58b39d83425b3db68744d5f6f361fd4fd66ec7745d884036d502abba0d553a637703af79939b844164b13e60eea339ccb043d7fbd74c3da2592b864
@@ -9572,7 +9641,7 @@ resolve@1.12.0:
   languageName: node
   linkType: hard
 
-"resolve@^1.10.0, resolve@^1.11.0, resolve@^1.11.1, resolve@^1.13.1, resolve@^1.17.0, resolve@^1.3.2":
+"resolve@^1.10.0, resolve@^1.11.0, resolve@^1.11.1, resolve@^1.13.1, resolve@^1.14.1, resolve@^1.17.0, resolve@^1.3.2":
   version: 1.17.0
   resolution: "resolve@npm:1.17.0"
   dependencies:
@@ -9597,7 +9666,7 @@ resolve@1.12.0:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.11.0#builtin<compat/resolve>, resolve@patch:resolve@^1.11.1#builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>":
+"resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.11.0#builtin<compat/resolve>, resolve@patch:resolve@^1.11.1#builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#builtin<compat/resolve>, resolve@patch:resolve@^1.14.1#builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>":
   version: 1.17.0
   resolution: "resolve@patch:resolve@npm%3A1.17.0#builtin<compat/resolve>::version=1.17.0&hash=3388aa"
   dependencies:
@@ -9650,7 +9719,7 @@ resolve@1.12.0:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^3.0.0, rimraf@npm:^3.0.1":
+"rimraf@npm:^3.0.0, rimraf@npm:^3.0.1, rimraf@npm:^3.0.2":
   version: 3.0.2
   resolution: "rimraf@npm:3.0.2"
   dependencies:
@@ -9764,6 +9833,20 @@ resolve@1.12.0:
   languageName: node
   linkType: hard
 
+"rollup@npm:^2.23.0":
+  version: 2.23.0
+  resolution: "rollup@npm:2.23.0"
+  dependencies:
+    fsevents: ~2.1.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: 579691c582f1b1675a049f30410e6c04942b207775378afda3b16911582721ec0357a44cdc9d637841231b0846355ac4b3055fd32a2871840b7dab0c3235693d
+  languageName: node
+  linkType: hard
+
 "root@workspace:.":
   version: 0.0.0-use.local
   resolution: "root@workspace:."
@@ -9781,6 +9864,7 @@ resolve@1.12.0:
     eslint-plugin-jsx-a11y: ^6.2.3
     eslint-plugin-react: ^7.18.0
     eslint-plugin-react-hooks: ^2.3.0
+    execa: ^4.0.3
     gh-pages: ^2.2.0
     husky: ^4.2.1
     jest: ^26.2.2
@@ -10955,6 +11039,13 @@ resolve@1.12.0:
   languageName: node
   linkType: hard
 
+"tslib@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "tslib@npm:2.0.0"
+  checksum: a7369a224f12e223fb42f2a720389601a24a1e1c96c55bf0d8d4b60c131e574c175ae23578b8d1bd3f4ec790c7e0a82b43733f022f866d48a23aeadd3910755d
+  languageName: node
+  linkType: hard
+
 "tslint-config-airbnb@npm:^5.11.2":
   version: 5.11.2
   resolution: "tslint-config-airbnb@npm:5.11.2"
@@ -11156,7 +11247,7 @@ resolve@1.12.0:
   languageName: node
   linkType: hard
 
-typescript@^3.7.5:
+"typescript@^3.7.5, typescript@^3.9.7":
   version: 3.9.7
   resolution: "typescript@npm:3.9.7"
   bin:
@@ -11166,7 +11257,7 @@ typescript@^3.7.5:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^3.7.5#builtin<compat/typescript>":
+"typescript@patch:typescript@^3.7.5#builtin<compat/typescript>, typescript@patch:typescript@^3.9.7#builtin<compat/typescript>":
   version: 3.9.7
   resolution: "typescript@patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2"
   bin:
