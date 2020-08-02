@@ -2,7 +2,7 @@
 	"include": ["test/**/*"],
 	"compilerOptions": {
 		"target": "esnext",
-		"module": "commonjs",
+		"module": "CommonJS",
 		"lib": ["esnext"],
 		"allowJs": true
 	}
