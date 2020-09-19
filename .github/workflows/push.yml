@@ -10,12 +10,13 @@ jobs:
         node:
           - 12
           - x
-    name: Node ${{ matrix.node }}
+    name: CI Node ${{ matrix.node }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.node }}
+          check-latest: true
       - run: npm i -g yarn
       - run: yarn install
       - run: yarn ci
@@ -27,6 +28,9 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: x
+          check-latest: true
+          registry-url: 'https://npm.pkg.github.com/'
       - run: npm i -g yarn
       - run: yarn install
       - run: yarn build
+      - run: yarn npm publish
