@@ -18,7 +18,9 @@
 		"// required scripts: build, ci": "",
 		"build": "yarn workspaces foreach run build",
 		"ci": "yarn workspaces foreach run ci",
-		"cd": "yarn run build && yarn workspaces foreach npm publish"
+		"_cd:pack": "yarn workspaces foreach pack",
+		"_cd:pub": "yarn workspaces foreach npm publish pack.tgz",
+		"cd": "yarn run run-s build _cd:pack _cd:pub"
 	},
 	"devDependencies": {
 		"@types/jest": "^26.0.13",
