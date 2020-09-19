@@ -16,7 +16,6 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.node }}
-          check-latest: true
       - run: npm i -g yarn
       - run: yarn install
       - run: yarn ci
@@ -28,10 +27,8 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: x
-          check-latest: true
           registry-url: 'https://npm.pkg.github.com/'
+          token: ${{secrets.GH_REGISTRY_TOKEN}}
       - run: npm i -g yarn
       - run: yarn install
       - run: yarn cd
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GH_REGISTRY_TOKEN}}
