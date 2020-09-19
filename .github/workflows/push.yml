@@ -32,7 +32,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com/'
       - run: npm i -g yarn
       - run: yarn install
-      - run: yarn build
-      - run: yarn npm publish
+      - run: yarn cd
         env:
           NODE_AUTH_TOKEN: ${{secrets.GHRegistryToken}}
