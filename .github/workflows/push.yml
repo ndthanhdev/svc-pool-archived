@@ -27,9 +27,11 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: x
-          registry-url: 'https://npm.pkg.github.com/'
       - run: npm i -g yarn
       - run: yarn install
-      - run: yarn cd
+      - run: yarn config set npmPublishRegistry 'https://npm.pkg.github.com/'
+      - shell: pwsh
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_REGISTRY_TOKEN }}
+          GH_REGISTRY_TOKEN: ${{ secrets.GH_REGISTRY_TOKEN }}
+        run: yarn config set npmAuthToken "$env:GH_REGISTRY_TOKEN"
+      - run: yarn cd
