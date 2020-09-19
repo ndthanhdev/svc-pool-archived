@@ -34,4 +34,4 @@ jobs:
       - run: yarn install
       - run: yarn cd
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GHRegistryToken}}
+          NODE_AUTH_TOKEN: ${{secrets.GH_REGISTRY_TOKEN}}
