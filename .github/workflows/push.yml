@@ -34,3 +34,5 @@ jobs:
       - run: yarn install
       - run: yarn build
       - run: yarn npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GHRegistryToken}}
