@@ -20,9 +20,7 @@ jobs:
       - run: yarn install
       - run: yarn ci
   cd:
-    needs:
-      - ci-latest
-      - ci-lts
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
