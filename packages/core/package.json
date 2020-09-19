@@ -5,35 +5,32 @@
 	"author": "Thanh Nguyen <ndthanhdev@outlook.com>",
 	"homepage": "https://github.com/ndthanhdev/plugin-pool#readme",
 	"license": "ISC",
-	"main": "dist/index.js",
-	"module": "dist/index.mjs",
+	"main": "./dist/umd/index.js",
+	"module": "./dist/esm/index.js",
 	"repository": "git+https://github.com/ndthanhdev/plugin-pool.git",
 	"scripts": {
-		"build": "run-s build:clean build:_",
-		"build:_": "rollup -c",
-		"build:clean": "rimraf ./dist",
-		"test": "jest",
-		"test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest --runInBand",
-		"prepublishOnly": "npm run build"
+		"_build:umd": "yarn run tsc -p etc/tsconfig.umd.json",
+		"_build:esm": "yarn run tsc -p etc/tsconfig.esm.json",
+		"_build:clean": "yarn run rimraf ./dist",
+		"build": "yarn run run-s _build:clean _build:esm _build:umd",
+		"test": "yarn run jest -c etc/jest.config.js",
+		"test:debug": "yarn run --inspect-brk jest -c etc/jest.config.js --runInBand",
+		"prepublishOnly": "yarn run build",
+		"ci": "yarn run run-s build test"
 	},
 	"bugs": {
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
 	},
 	"devDependencies": {
-		"@types/jest": "^24.9.1",
-		"jest": "^25.1.0",
+		"@rollup/plugin-node-resolve": "^9.0.0",
+		"@rollup/plugin-typescript": "^5.0.2",
+		"@types/jest": "^26.0.13",
+		"jest": "^26.4.2",
 		"npm-run-all": "^4.1.5",
-		"rimraf": "^3.0.0",
-		"rollup": "^1.29.1",
-		"rollup-plugin-copy": "^3.3.0",
-		"rollup-plugin-node-resolve": "^5.2.0",
-		"ts-jest": "^25.0.0",
-		"typescript": "^3.7.5"
-	},
-	"peerDependencies": {},
-	"dependencies": {
-		"@types/ramda": "~0.26.40",
-		"ramda": "~0.26.1",
-		"utility-types": "^3.10.0"
+		"rimraf": "^3.0.2",
+		"rollup": "^2.26.10",
+		"ts-jest": "^26.3.0",
+		"tslib": "^2.0.1",
+		"typescript": "^4.0.2"
 	}
 }

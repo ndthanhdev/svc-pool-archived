@@ -18,39 +18,38 @@
 	"scripts": {
 		"build:clean": "rimraf ./dist",
 		"build:_": "rollup -c",
-		"build": "run-s build:clean build:_",
-		"test": "jest --coverage",
+		"build": "",
+		"test": "",
+		"ci": "",
 		"prepublishOnly": "npm run build"
 	},
 	"bugs": {
 		"url": "https://github.com/ndthanhdev/plugin-pool/issues"
 	},
 	"steal": {},
-	"peerDependencies": {
-		"@svc-pool/core": "~1.0.0"
-	},
 	"devDependencies": {
+		"@svc-pool/core": "workspace:*",
 		"@types/execa": "^2.0.0",
-		"@types/jest": "^24.9.1",
-		"@types/jsdom": "^12.2.4",
-		"@types/node": "^13.5.0",
-		"cross-env": "^6.0.3",
-		"gh-pages": "^2.2.0",
-		"jest": "^25.1.0",
+		"@types/jest": "^26.0.13",
+		"@types/jsdom": "^16.2.4",
+		"@types/node": "^14.6.4",
+		"cross-env": "^7.0.2",
+		"gh-pages": "^3.1.0",
+		"jest": "^26.4.2",
 		"npm-run-all": "^4.1.5",
-		"ramda": "^0.26.1",
+		"ramda": "^0.27.1",
 		"requirejs": "^2.3.6",
-		"rimraf": "^3.0.0",
-		"rollup": "^1.29.1",
+		"rimraf": "^3.0.2",
+		"rollup": "^2.26.10",
 		"rollup-plugin-commonjs": "^10.1.0",
 		"rollup-plugin-node-resolve": "^5.2.0",
-		"rollup-plugin-typescript2": "^0.25.3",
-		"ts-jest": "^25.0.0",
-		"ts-loader": "^6.2.1",
-		"ts-node": "^8.6.2",
-		"typescript": "^3.7.5"
+		"rollup-plugin-typescript2": "^0.27.2",
+		"ts-jest": "^26.3.0",
+		"ts-loader": "^8.0.3",
+		"ts-node": "^9.0.0",
+		"typescript": "^4.0.2"
 	},
 	"dependencies": {
-		"ramda": "^0.26.1"
+		"ramda": "^0.27.1"
 	}
 }

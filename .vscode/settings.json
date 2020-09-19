@@ -1,0 +1,10 @@
+{
+	"eslint.nodePath": ".yarn/sdks",
+	"prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+	"typescript.tsdk": "c:\\Users\\ndtha\\sources\\svc-pool\\.yarn\\sdks\\typescript\\lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"search.exclude": {
+		"**/.yarn": true,
+		"**/.pnp.*": true
+	}
+}
