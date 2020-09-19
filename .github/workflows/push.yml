@@ -1,0 +1,39 @@
+name: pull-request
+
+on:
+  - push
+jobs:
+  ci-latest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: latest
+      - run: npm i -g yarn
+      - run: yarn install
+      - run: yarn ci
+  ci-lts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: lts
+      - run: npm i -g yarn
+      - run: yarn install
+      - run: yarn ci
+  cd:
+    needs:
+      - ci-latest
+      - ci-lts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: lts
+      - run: npm i -g yarn
+      - run: yarn install
+      - run: yarn build
+
